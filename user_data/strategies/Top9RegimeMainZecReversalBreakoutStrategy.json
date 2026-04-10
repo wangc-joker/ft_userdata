@@ -1,5 +1,5 @@
 {
-  "strategy_name": "Top9RegimeMainExhaustionProbeBaseOnlyStrategy",
+  "strategy_name": "Top9RegimeMainZecReversalBreakoutStrategy",
   "params": {
     "buy": {
       "breakout_buffer": 0.009,
@@ -35,8 +35,15 @@
     },
     "sell": {
       "swing_window": 3
+    },
+    "roi": {
+      "0": 0.1
+    },
+    "stoploss": {
+      "stoploss": -0.02
+    },
+    "max_open_trades": {
+      "max_open_trades": 3
     }
-  },
-  "ft_stratparam_v": 1,
-  "export_time": "2026-04-10 00:00:00+00:00"
+  }
 }
