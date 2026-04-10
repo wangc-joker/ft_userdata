@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-04-09 10:58:42",
+  "strategy": "CombinedTrendCaptureMilestoneV2Top9LongCenter120Strategy",
+  "state": "running",
+  "timeframe": "1h",
+  "process_throttle_secs": 120,
+  "account": {
+    "trade_count": 0,
+    "closed_trade_count": 0,
+    "winning_trades": 0,
+    "losing_trades": 0,
+    "winrate_pct": 0.0,
+    "realized_profit": 0.0,
+    "total_profit": 0.0,
+    "max_drawdown_pct": 0.0
+  },
+  "open_positions": {
+    "count": 0,
+    "total_profit": 0,
+    "average_profit_pct": 0,
+    "positions": []
+  },
+  "recent_performance": {
+    "recent_10_trades_profit": 0.0,
+    "recent_10_trades_winrate_pct": 0,
+    "recent_20_trades_profit": 0.0,
+    "tag_stats": null,
+    "recent_trades": []
+  },
+  "overlay": {
+    "risk_level": "GREEN",
+    "alerts": [
+      "目前没有明显异常，系统处于可继续观察的状态。"
+    ],
+    "recommendations": [
+      "当前没有持仓，适合先观察下一轮信号质量，而不是主动追单。"
+    ]
+  }
+}

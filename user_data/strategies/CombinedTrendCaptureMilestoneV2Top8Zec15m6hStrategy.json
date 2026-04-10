@@ -1,0 +1,57 @@
+{
+  "strategy_name": "CombinedTrendCaptureMilestoneV2Top8Zec15m6hStrategy",
+  "params": {
+    "roi": {
+      "0": 0.1
+    },
+    "stoploss": {
+      "stoploss": -0.02
+    },
+    "trailing": {
+      "trailing_stop": false,
+      "trailing_stop_positive": null,
+      "trailing_stop_positive_offset": 0.0,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 3
+    },
+    "sell": {
+      "swing_window": 12
+    },
+    "buy": {
+      "breakout_buffer": 0.01,
+      "center_window": 20,
+      "compression_limit": 0.006,
+      "compression_window": 44,
+      "daily_long_rsi": 55,
+      "daily_short_rsi": 46,
+      "enable_long_1d_center": true,
+      "enable_long_1d_triangle": true,
+      "enable_long_1h_triangle": true,
+      "enable_short_1d_center": true,
+      "enable_short_1d_triangle": false,
+      "enable_short_1h_center": true,
+      "enable_short_1h_compression": true,
+      "hourly_long_rsi": 54,
+      "level_proximity": 0.017,
+      "level_tolerance": 0.018,
+      "pullback_depth": 0.009,
+      "pullback_window": 24,
+      "restart_window": 16,
+      "trend_ema_fast": 24,
+      "trend_ema_slow": 184,
+      "triangle_window": 20,
+      "volume_multiplier": 1.18
+    },
+    "protection": {
+      "cooldown_candles": 8,
+      "maxdd_duration": 108,
+      "maxdd_lookback": 260,
+      "stop_guard_duration": 64,
+      "stop_guard_lookback": 268
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2026-04-09 00:00:00+00:00"
+}

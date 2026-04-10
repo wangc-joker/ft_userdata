@@ -1,0 +1,49 @@
+{
+  "strategy_name": "Top9RegimeMainBreakoutProbeStrategy",
+  "params": {
+    "buy": {
+      "breakout_buffer": 0.009,
+      "center_window": 5,
+      "compression_limit": 0.006,
+      "compression_window": 11,
+      "daily_long_rsi": 55,
+      "daily_short_rsi": 46,
+      "enable_long_1d_center": true,
+      "enable_long_1d_triangle": true,
+      "enable_long_1h_triangle": true,
+      "enable_short_1d_center": true,
+      "enable_short_1d_triangle": false,
+      "enable_short_1h_center": true,
+      "enable_short_1h_compression": true,
+      "hourly_long_rsi": 54,
+      "level_proximity": 0.015,
+      "level_tolerance": 0.016,
+      "pullback_depth": 0.009,
+      "pullback_window": 6,
+      "restart_window": 4,
+      "trend_ema_fast": 6,
+      "trend_ema_slow": 46,
+      "triangle_window": 5,
+      "volume_multiplier": 1.13
+    },
+    "protection": {
+      "cooldown_candles": 2,
+      "maxdd_duration": 27,
+      "maxdd_lookback": 65,
+      "stop_guard_duration": 16,
+      "stop_guard_lookback": 67
+    },
+    "sell": {
+      "swing_window": 3
+    },
+    "roi": {
+      "0": 0.1
+    },
+    "stoploss": {
+      "stoploss": -0.02
+    },
+    "max_open_trades": {
+      "max_open_trades": 3
+    }
+  }
+}

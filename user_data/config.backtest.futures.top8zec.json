@@ -44,7 +44,8 @@
             "SOL/USDT:USDT",
             "XRP/USDT:USDT",
             "ADA/USDT:USDT",
-            "TRX/USDT:USDT"
+            "TRX/USDT:USDT",
+            "ZEC/USDT:USDT"
         ],
         "pair_blacklist": []
     },
@@ -70,7 +71,7 @@
         "username": "freqtrader",
         "password": ""
     },
-    "bot_name": "freqtrade-futures-top7-backtest",
+    "bot_name": "freqtrade-futures-top8-zec-backtest",
     "initial_state": "stopped",
     "force_entry_enable": false,
     "internals": {

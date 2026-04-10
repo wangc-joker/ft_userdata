@@ -39,15 +39,14 @@
         "ccxt_async_config": {},
         "pair_whitelist": [
             "BTC/USDT:USDT",
-            "ETH/USDT:USDT",
-            "BNB/USDT:USDT",
             "SOL/USDT:USDT",
-            "XRP/USDT:USDT",
-            "ADA/USDT:USDT",
-            "DOGE/USDT:USDT",
             "TRX/USDT:USDT",
-            "LINK/USDT:USDT",
-            "LTC/USDT:USDT"
+            "ADA/USDT:USDT",
+            "BNB/USDT:USDT",
+            "ZEC/USDT:USDT",
+            "ETH/USDT:USDT",
+            "XRP/USDT:USDT",
+            "DOGE/USDT:USDT"
         ],
         "pair_blacklist": []
     },
@@ -73,7 +72,7 @@
         "username": "freqtrader",
         "password": ""
     },
-    "bot_name": "freqtrade-futures-topcoins-backtest",
+    "bot_name": "freqtrade-futures-top9-backtest",
     "initial_state": "stopped",
     "force_entry_enable": false,
     "internals": {
