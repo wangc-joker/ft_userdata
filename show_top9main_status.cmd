@@ -1,2 +1,6 @@
 @echo off
-"C:\Program Files\PowerShell\7\pwsh.exe" -File "D:\test\ft_userdata\user_data\show_top9main_status.ps1"
+setlocal
+
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0user_data\show_top9main_live_status.ps1" %*
+
+endlocal
