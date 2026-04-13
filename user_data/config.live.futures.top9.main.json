@@ -1,9 +1,9 @@
 {
     "$schema": "https://schema.freqtrade.io/schema.json",
-    "max_open_trades": 1,
+    "max_open_trades": 3,
     "stake_currency": "USDT",
     "stake_amount": 20,
-    "available_capital": 20,
+    "available_capital": 60,
     "fiat_display_currency": "USD",
     "dry_run": false,
     "cancel_open_orders_on_exit": false,
@@ -32,10 +32,26 @@
     },
     "exchange": {
         "name": "binance",
+        "skip_pair_validation": true,
+        "skip_open_order_update": true,
         "key": "",
         "secret": "",
-        "ccxt_config": {},
-        "ccxt_async_config": {},
+        "ccxt_config": {
+            "enableRateLimit": true,
+            "options": {
+                "adjustForTimeDifference": true,
+                "recvWindow": 60000,
+                "fetchCurrencies": false
+            }
+        },
+        "ccxt_async_config": {
+            "enableRateLimit": true,
+            "options": {
+                "adjustForTimeDifference": true,
+                "recvWindow": 60000,
+                "fetchCurrencies": false
+            }
+        },
         "pair_whitelist": [
             "BTC/USDT:USDT",
             "SOL/USDT:USDT",
@@ -51,7 +67,8 @@
     },
     "pairlists": [
         {
-            "method": "StaticPairList"
+            "method": "StaticPairList",
+            "allow_inactive": true
         }
     ],
     "telegram": {
@@ -75,6 +92,6 @@
     "initial_state": "stopped",
     "force_entry_enable": true,
     "internals": {
-        "process_throttle_secs": 300
+        "process_throttle_secs": 60
     }
 }

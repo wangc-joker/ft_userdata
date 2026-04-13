@@ -34,7 +34,7 @@ catch {
     Write-Host "Unable to connect to the Top9 main live API." -ForegroundColor Red
     Write-Host $_.Exception.Message -ForegroundColor Yellow
     Write-Host ""
-    Write-Host "If it is not running yet, start it with: start_top9main_live.ps1 <secrets path>"
+    Write-Host "If it is not running yet, start it with: D:\test\ft_userdata\start_top9main_live.ps1 <secrets path>"
     exit 1
 }
 

@@ -1,7 +1,16 @@
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 $ErrorActionPreference = "Stop"
 
-$stakeAmount = 20
+$liveConfigPath = Join-Path $PSScriptRoot "config.live.futures.top9.main.json"
+if (-not (Test-Path -LiteralPath $liveConfigPath -PathType Leaf)) {
+    throw "Live config not found: $liveConfigPath"
+}
+
+$liveConfig = Get-Content -Raw -LiteralPath $liveConfigPath | ConvertFrom-Json
+$stakeAmount = [double]$liveConfig.stake_amount
+$availableCapital = [double]$liveConfig.available_capital
+$maxOpenTrades = [int]$liveConfig.max_open_trades
+
 $pairs = @(
     "BTC/USDT:USDT",
     "SOL/USDT:USDT",
@@ -47,7 +56,9 @@ foreach ($symbol in $exchangeInfo.symbols) {
 Write-Host ""
 Write-Host "Minimum order check" -ForegroundColor Cyan
 Write-Host "------------------------------"
-Write-Host ("Assumed stake amount: {0} USDT" -f $stakeAmount)
+Write-Host ("Configured capital : {0} USDT" -f $availableCapital)
+Write-Host ("Max open trades    : {0}" -f $maxOpenTrades)
+Write-Host ("Stake per trade    : {0} USDT" -f $stakeAmount)
 Write-Host ""
 
 foreach ($pair in $pairs) {
