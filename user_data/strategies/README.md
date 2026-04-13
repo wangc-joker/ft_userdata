@@ -5,10 +5,6 @@
 - `CombinedTrendCaptureMilestoneV2Strategy.py`
   - 原始 8 币 V2 冻结基线。
   - 适合继续作为总主线参考和最初的 dry-run 基线。
-- `CombinedTrendCaptureMilestoneV2Top8ZecStrategy.py`
-  - 稳健候选版。
-  - 在原 8 币里用 `ZEC` 替换 `LINK`。
-  - 特点是回撤控制更好，适合更看重稳健性的场景。
 - `CombinedTrendCaptureMilestoneV2Top9LongCenter120Strategy.py`
   - 高收益平衡候选版。
   - 在 `Top9` 币池基础上，把 `long_1d_center_compression` 权重调到 `1.20`。
@@ -30,6 +26,9 @@
   - 当前 `Top9` 主版本短名称。
   - 对应现阶段正在运行的模拟盘主策略。
   - 逻辑等同于当前最优主线，只是改成更短、便于回测和 dry-run 使用的名字。
+- `Top9RegimeMainLiveStrategy.py`
+  - 当前 `Top9` 测试实盘短名称。
+  - 与主版本共用同一套信号逻辑，只在执行层增加 BTC / ETH 杠杆。
 
 ## 标准回测口径
 
@@ -52,9 +51,6 @@
 - 原始 8 币 V2
   - 配置：`/freqtrade/user_data/config.backtest.futures.top8.json`
   - 策略：`CombinedTrendCaptureMilestoneV2Strategy`
-- 稳健候选 `Top8 ZEC`
-  - 配置：`/freqtrade/user_data/config.backtest.futures.top8zec.json`
-  - 策略：`CombinedTrendCaptureMilestoneV2Top8ZecStrategy`
 - 高收益平衡候选 `Top9 1.20`
   - 配置：`/freqtrade/user_data/config.backtest.futures.top9.json`
   - 策略：`CombinedTrendCaptureMilestoneV2Top9LongCenter120Strategy`
@@ -87,35 +83,3 @@
   - 带参数化能力的策略层。
 - `DoubleShunStrategy.py`
   - 核心指标、止损和退出逻辑基础。
-
-## 里程碑说明
-
-- `CombinedTrendCaptureMilestoneV1.md`
-  - 早期里程碑说明。
-- `CombinedTrendCaptureMilestoneV2.md`
-  - 当前最优里程碑说明。
-- `CombinedTrendCaptureMilestoneV2Top8Zec.md`
-  - `Top8 ZEC` 稳健候选说明。
-- `CombinedTrendCaptureMilestoneV2Top9LongCenter120.md`
-  - `Top9 1.20` 高收益平衡候选说明。
-- `策略总览.md`
-  - 当前主要策略、币池和回测结果的总览说明。
-- `策略架构说明.md`
-  - 当前主线策略的层次结构、缺口和优化方向说明。
-
-## 参考策略
-
-- `BestLongTrendFollowingStrategy.py`
-  - 主要的多头趋势参考策略。
-- `CombinedTrendCaptureStrategy.py`
-  - 更早期的组合趋势捕捉基线。
-
-## 旧参考 / 可选保留
-
-- `DoubleShunStrategy5m1h.py`
-- `DoubleShunStrategyWithETH.py`
-- `QuantEdgeStrategy.py`
-- `ShortTrendCaptureStrategy.py`
-- `SpotMTFMomentumStrategy.py`
-
-这些文件目前只作为旧版本参考保留，不属于当前主线。

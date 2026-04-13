@@ -1,24 +1,6 @@
 {
-  "strategy_name": "CombinedTrendCaptureMilestoneV2Top9TighterRiskStrategy",
+  "strategy_name": "Top9RegimeMainLiveStrategy",
   "params": {
-    "roi": {
-      "0": 0.1
-    },
-    "stoploss": {
-      "stoploss": -0.02
-    },
-    "trailing": {
-      "trailing_stop": false,
-      "trailing_stop_positive": null,
-      "trailing_stop_positive_offset": 0.0,
-      "trailing_only_offset_is_reached": false
-    },
-    "max_open_trades": {
-      "max_open_trades": 3
-    },
-    "sell": {
-      "swing_window": 3
-    },
     "buy": {
       "breakout_buffer": 0.009,
       "center_window": 5,
@@ -50,8 +32,18 @@
       "maxdd_lookback": 65,
       "stop_guard_duration": 16,
       "stop_guard_lookback": 67
+    },
+    "sell": {
+      "swing_window": 3
+    },
+    "roi": {
+      "0": 0.1
+    },
+    "stoploss": {
+      "stoploss": -0.02
+    },
+    "max_open_trades": {
+      "max_open_trades": 3
     }
-  },
-  "ft_stratparam_v": 1,
-  "export_time": "2026-04-09 00:00:00+00:00"
+  }
 }
