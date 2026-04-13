@@ -20,10 +20,14 @@ user_data/freqaimodels/
 user_data/tradesv3.sqlite
 user_data/tradesv3.sqlite-shm
 user_data/tradesv3.sqlite-wal
+user_data/tradesv3-top9-main-live.sqlite
+user_data/tradesv3-top9-main-live.sqlite-shm
+user_data/tradesv3-top9-main-live.sqlite-wal
 
 # Local/live config and secrets
 user_data/config.json
 user_data/config.dryrun.json
+user_data/config.live.futures.top9.main.runtime.json
 
 # OS files
 .DS_Store

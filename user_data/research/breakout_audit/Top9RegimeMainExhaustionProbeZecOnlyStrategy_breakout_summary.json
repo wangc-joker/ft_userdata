@@ -1,0 +1,154 @@
+{
+  "sample_count": 6,
+  "winner_count": 2,
+  "loser_count": 4,
+  "pairs": {
+    "ZEC/USDT:USDT": 6
+  },
+  "profit_pct": {
+    "mean": 0.183,
+    "median": -1.7106,
+    "sum": 1.0982
+  },
+  "winners_vs_losers": {
+    "numeric": {
+      "open": {
+        "winner_mean": 160.64,
+        "loser_mean": 76.645,
+        "delta": 83.995
+      },
+      "high": {
+        "winner_mean": 182.81,
+        "loser_mean": 79.97,
+        "delta": 102.84
+      },
+      "low": {
+        "winner_mean": 160.565,
+        "loser_mean": 76.4925,
+        "delta": 84.0725
+      },
+      "close": {
+        "winner_mean": 177.46,
+        "loser_mean": 79.505,
+        "delta": 97.955
+      },
+      "volume": {
+        "winner_mean": 368831.761,
+        "loser_mean": 88048.31325,
+        "delta": 280783.44775
+      },
+      "rsi": {
+        "winner_mean": 86.832243,
+        "loser_mean": 81.169782,
+        "delta": 5.66246
+      },
+      "rsi_1d": {
+        "winner_mean": 53.924352,
+        "loser_mean": 60.835434,
+        "delta": -6.911081
+      },
+      "close_1d": {
+        "winner_mean": 146.185,
+        "loser_mean": 74.3,
+        "delta": 71.885
+      },
+      "ema_slow_1d": {
+        "winner_mean": 138.794175,
+        "loser_mean": 66.254117,
+        "delta": 72.540058
+      }
+    },
+    "bool_true_rate": {
+      "trade_center_shift_up": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "near_major_high": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "high_base_compression": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "base_tight": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "major_breakout": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "breakout_volume_expansion": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "bull_body_expansion": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "downtrend_1d": {
+        "winner_rate": 0.0,
+        "loser_rate": 0.0,
+        "delta": 0.0
+      },
+      "bear_exhaustion_1d": {
+        "winner_rate": 0.0,
+        "loser_rate": 0.25,
+        "delta": -0.25
+      },
+      "daily_center_lifting": {
+        "winner_rate": 0.0,
+        "loser_rate": 0.25,
+        "delta": -0.25
+      },
+      "daily_not_making_new_lows": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "daily_not_breaking_down": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "mature_high_base": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "breakout_close_near_high": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "breakout_body_strength": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "breakout_distance_ok": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "breakout_daily_bias_ok": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      },
+      "long_breakout_probe": {
+        "winner_rate": 1.0,
+        "loser_rate": 1.0,
+        "delta": 0.0
+      }
+    }
+  }
+}

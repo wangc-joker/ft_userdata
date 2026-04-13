@@ -8,6 +8,13 @@ $strategyName = "Top9RegimeMainStrategy"
 
 $auth = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${username}:${password}"))
 
+$existingContainer = docker ps -a --filter "name=^$containerName$" --format "{{.ID}}"
+if (-not $existingContainer) {
+    Write-Host "Top9 dry-run container is not running." -ForegroundColor Yellow
+    Write-Host "If you want the current live bot, use: .\show_top9main_live_status.cmd"
+    exit 1
+}
+
 function Invoke-WithRetry {
     param(
         [string]$Uri
