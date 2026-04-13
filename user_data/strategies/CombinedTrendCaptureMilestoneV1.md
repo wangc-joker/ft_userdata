@@ -1,6 +1,6 @@
 # CombinedTrendCapture 里程碑 V1
 
-这是继续做后续实验前冻结下来的早期稳定基线。
+这是继续做后续迭代前冻结下来的早期稳定基线。
 
 策略文件：
 - `CombinedTrendCaptureMilestoneV1Strategy`
