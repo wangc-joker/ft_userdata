@@ -1,6 +1,6 @@
 from pandas import DataFrame
 
-from Top9RegimeMainStrategy import Top9RegimeMainStrategy
+from myStrage.Top9MainTrendStrategy import Top9RegimeMainStrategy
 from shared.pair_groups import LONG_REVERSAL_PAIRS_193, SHORT_REVERSAL_PAIRS_193
 from signals.reversal import apply_reversal_entry_signals, populate_reversal_indicators
 

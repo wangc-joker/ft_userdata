@@ -1,4 +1,4 @@
-from CombinedTrendCaptureMilestoneV1Strategy import CombinedTrendCaptureMilestoneV1Strategy
+from .CombinedTrendCaptureMilestoneV1Strategy import CombinedTrendCaptureMilestoneV1Strategy
 
 
 class CombinedTrendCaptureMilestoneV1Top8Strategy(CombinedTrendCaptureMilestoneV1Strategy):

@@ -1,4 +1,4 @@
-from CombinedTrendCaptureMilestoneV1Top8WeightedAggressiveShortQualityStrategy import (
+from .CombinedTrendCaptureMilestoneV1Top8WeightedAggressiveShortQualityStrategy import (
     CombinedTrendCaptureMilestoneV1Top8WeightedAggressiveShortQualityStrategy,
 )
 

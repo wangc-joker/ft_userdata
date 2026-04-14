@@ -1,6 +1,6 @@
 from pandas import DataFrame
 
-from CombinedTrendCaptureMilestoneV2Top9RegimeStrategy import (
+from .CombinedTrendCaptureMilestoneV2Top9RegimeStrategy import (
     CombinedTrendCaptureMilestoneV2Top9RegimeStrategy,
 )
 from signals.filters import remove_range_reversion_entries

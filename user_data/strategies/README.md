@@ -2,9 +2,15 @@
 
 This directory is organized by responsibility:
 
+- `myStrage/`
+  - Current main strategy set.
+  - Only keep the live main trend, the 193 reversal line, and the 216 return-focused line here.
+- `run/`
+  - Strategies currently used for running live / test-live bots.
+- `test/`
+  - All other experimental, historical, or comparison strategies.
 - `entrypoints/`
   - Freqtrade-facing strategy entry classes.
-  - Root files like `Top9RegimeMainStrategy.py` remain as compatibility shims.
 - `core/`
   - Shared market-state, indicator, and risk logic.
   - Current indicator split:
@@ -27,24 +33,25 @@ This directory is organized by responsibility:
   - Common constants and reusable configuration.
 - `archive/`
   - Historical and experimental versions kept for reference.
+  - Legacy `CombinedTrendCaptureMilestoneV1*` and `CombinedTrendCaptureMilestoneV2*`
+    families live here under `archive/old_versions/`.
 - `research/`
   - Research notes, kline exports, and breakout audits that motivated
     strategy changes.
 
 Current note:
 
-- The active Top9 ancestor chain is still kept in the root directory for now
-  because those classes are imported directly by the entrypoints.
-- Older experimental and historical branches have been moved into
-  `archive/old_versions/`.
+- Active Top9 strategies now live under `myStrage/`.
+- The running test-live entry now lives under `run/`.
+- Historical / comparison strategies now live under `test/` or `archive/old_versions/`.
 
 Primary current entrypoints:
 
-- `Top9RegimeMainStrategy.py`
-- `Top9RegimeMainTestLiveStrategy.py`
-- `Top9RegimeMainReversalStrategy.py`
-- `Top9RegimeMainReversal216Strategy.py`
-- `Top9RegimeMainReversal216NoLongAggressiveStrategy.py`
+- `myStrage/Top9MainTrendStrategy.py`
+- `run/Top9Main60UTestLiveStrategy.py`
+- `myStrage/Top9MainReversal193Strategy.py`
+- `myStrage/Top9MainReversalZec216Strategy.py`
+- `myStrage/Top9MainReversal216ShortAggressiveStrategy.py`
 
 Test-live specific assets:
 

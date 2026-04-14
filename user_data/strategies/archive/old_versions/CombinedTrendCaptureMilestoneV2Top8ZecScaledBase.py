@@ -6,7 +6,7 @@ from pandas import DataFrame
 from freqtrade.persistence import Trade
 from freqtrade.strategy import stoploss_from_absolute
 
-from CombinedTrendCaptureOptStrategy import CombinedTrendCaptureOptStrategy
+from test.CombinedTrendCaptureOptStrategy import CombinedTrendCaptureOptStrategy
 
 
 class CombinedTrendCaptureMilestoneV2Top8ZecScaledBase(CombinedTrendCaptureOptStrategy):

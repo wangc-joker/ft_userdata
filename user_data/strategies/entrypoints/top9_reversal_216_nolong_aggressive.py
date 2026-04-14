@@ -1,8 +1,8 @@
-from entrypoints.top9_reversal_216_opt import Top9RegimeMainReversal216OptStrategy
+from myStrage.Top9MainReversalZec216Strategy import Top9RegimeMainReversal216Strategy
 
 
 class Top9RegimeMainReversal216NoLongAggressiveStrategy(
-    Top9RegimeMainReversal216OptStrategy
+    Top9RegimeMainReversal216Strategy
 ):
     """
     Experimental 216 optimizer.
@@ -11,6 +11,8 @@ class Top9RegimeMainReversal216NoLongAggressiveStrategy(
     more aggressively to test whether the historical sample benefits from a
     larger short-reversal allocation.
     """
+
+    long_reversal_pairs = set()
 
     def custom_stake_amount(
         self,

@@ -1,4 +1,4 @@
-from CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanStrategy import (
+from .CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanStrategy import (
     CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanStrategy,
 )
 
