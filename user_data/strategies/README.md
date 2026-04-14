@@ -2,6 +2,9 @@
 
 This directory is organized by responsibility:
 
+- Before editing any strategy files, read:
+  - `FILE_PLACEMENT_RULES.md`
+
 - `myStrage/`
   - Current main strategy set.
   - Only keep the live main trend, the 193 reversal line, and the 216 return-focused line here.
@@ -53,6 +56,11 @@ Primary current entrypoints:
 - `myStrage/Top9MainReversalZec216Strategy.py`
 - `myStrage/Top9MainReversal216ShortAggressiveStrategy.py`
 
+Test strategy entries:
+- `test/` currently does not contain an active range swing strategy.
+- The retired range swing idea is documented in:
+  - `research/range_swing_retired.md`
+
 Test-live specific assets:
 
 - `config.backtest.futures.top9.testlive.json`
@@ -65,8 +73,13 @@ Test-live specific assets:
 Research assets:
 
 - `research/zec_1h_reversal_breakout_notes.md`
+- `research/range_swing_retired.md`
 - `research/breakout_audit/`
 - `research/zec_klines/`
+
+Strategy placement rules:
+
+- `FILE_PLACEMENT_RULES.md`
 
 Architecture notes are kept in:
 

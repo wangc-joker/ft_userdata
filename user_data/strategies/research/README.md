@@ -5,6 +5,7 @@ This folder keeps the research material that justifies or documents strategy cha
 Current contents:
 
 - `zec_1h_reversal_breakout_notes.md`
+- `range_swing_retired.md`
 - `breakout_audit/`
 - `zec_klines/`
 
