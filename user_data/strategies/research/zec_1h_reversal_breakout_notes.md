@@ -167,9 +167,9 @@
 
 本次补充复盘使用了 Binance futures 的原始 K 线数据，已另存为:
 
-- [zec_1d_20251105_20260410.csv](/D:/test/ft_userdata/user_data/research/zec_klines/zec_1d_20251105_20260410.csv)
-- [zec_1h_20251105_20260410.csv](/D:/test/ft_userdata/user_data/research/zec_klines/zec_1h_20251105_20260410.csv)
-- [zec_1h_focus_20260404_20260410.csv](/D:/test/ft_userdata/user_data/research/zec_klines/zec_1h_focus_20260404_20260410.csv)
+- [zec_1d_20251105_20260410.csv](/D:/test/ft_userdata/user_data/strategies/research/zec_klines/zec_1d_20251105_20260410.csv)
+- [zec_1h_20251105_20260410.csv](/D:/test/ft_userdata/user_data/strategies/research/zec_klines/zec_1h_20251105_20260410.csv)
+- [zec_1h_focus_20260404_20260410.csv](/D:/test/ft_userdata/user_data/strategies/research/zec_klines/zec_1h_focus_20260404_20260410.csv)
 
 ### 1. 从 2025-11-05 到 2026-04-10 的日线大结构
 

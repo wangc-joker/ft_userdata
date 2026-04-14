@@ -3,6 +3,7 @@ from pandas import DataFrame
 from CombinedTrendCaptureMilestoneV2Top9RegimeStrategy import (
     CombinedTrendCaptureMilestoneV2Top9RegimeStrategy,
 )
+from signals.filters import remove_range_reversion_entries
 
 
 class CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeStrategy(
@@ -15,9 +16,4 @@ class CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeStrategy(
 
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe = super().populate_entry_trend(dataframe, metadata)
-
-        range_tags = dataframe["enter_tag"].fillna("").isin(
-            {"long_range_1h_revert", "short_range_1h_revert"}
-        )
-        dataframe.loc[range_tags, ["enter_long", "enter_short", "enter_tag"]] = (0, 0, None)
-        return dataframe
+        return remove_range_reversion_entries(dataframe)

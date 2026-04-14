@@ -1,6 +1,10 @@
 from CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanHourStateStrategy import (
     CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanHourStateStrategy,
 )
+from core.market_state.regime import classify_intraday_regime
+from pairs.ada.trim import short_1h_center_multiplier as ada_short_multiplier
+from pairs.doge.trim import short_1h_center_multiplier as doge_short_multiplier
+from pairs.xrp.trim import short_1h_center_multiplier as xrp_short_multiplier
 
 
 class CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanHourStatePairShortsStrategy(
@@ -49,24 +53,15 @@ class CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanHourStatePairShort
             return stake
 
         candle = dataframe.iloc[-1]
-        bull = (
-            candle.get("close_1d", 0) > candle.get("ema_fast_1d", 0) > candle.get("ema_slow_1d", 0)
-            and candle.get("rsi_1d", 50) >= 57
-            and bool(candle.get("ema_slow_slope_up_1d", False))
-        )
-        bear = (
-            candle.get("close_1d", 0) < candle.get("ema_fast_1d", 0) < candle.get("ema_slow_1d", 0)
-            and candle.get("rsi_1d", 50) <= 45
-            and bool(candle.get("ema_slow_slope_down_1d", False))
-        )
+        bull, bear, _ = classify_intraday_regime(candle)
 
         multiplier = 1.0
         if pair == "DOGE/USDT:USDT":
-            multiplier *= 0.88 if bear else 0.78
+            multiplier *= doge_short_multiplier(candle, bull=bull, bear=bear)
         elif pair == "XRP/USDT:USDT":
-            multiplier *= 0.95 if bear else 0.86
+            multiplier *= xrp_short_multiplier(candle, bull=bull, bear=bear)
         elif pair == "ADA/USDT:USDT":
-            multiplier *= 0.96 if bear else 0.88
+            multiplier *= ada_short_multiplier(candle, bull=bull, bear=bear)
 
         stake *= multiplier
         if min_stake is not None:

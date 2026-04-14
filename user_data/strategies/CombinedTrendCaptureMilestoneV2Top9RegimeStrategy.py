@@ -8,6 +8,7 @@ from freqtrade.persistence import Trade
 from CombinedTrendCaptureMilestoneV2Top9DogeLiteStrategy import (
     CombinedTrendCaptureMilestoneV2Top9DogeLiteStrategy,
 )
+from core.market_state.regime import classify_daily_regime, classify_intraday_regime, recent_trade_multiplier
 
 
 class CombinedTrendCaptureMilestoneV2Top9RegimeStrategy(
@@ -22,67 +23,10 @@ class CombinedTrendCaptureMilestoneV2Top9RegimeStrategy(
 
     core_bull_pairs = {"BTC/USDT:USDT", "SOL/USDT:USDT", "BNB/USDT:USDT", "ZEC/USDT:USDT"}
 
-    @staticmethod
-    def _regime_masks(dataframe: DataFrame):
-        bull = (
-            (dataframe["close_1d"] > dataframe["ema_fast_1d"])
-            & (dataframe["ema_fast_1d"] > dataframe["ema_slow_1d"])
-            & (dataframe["rsi_1d"] >= 57)
-            & dataframe["ema_slow_slope_up_1d"].eq(True)
-        )
-        bear = (
-            (dataframe["close_1d"] < dataframe["ema_fast_1d"])
-            & (dataframe["ema_fast_1d"] < dataframe["ema_slow_1d"])
-            & (dataframe["rsi_1d"] <= 45)
-            & dataframe["ema_slow_slope_down_1d"].eq(True)
-        )
-        ranging = ~(bull | bear)
-        return bull, bear, ranging
-
-    @staticmethod
-    def _recent_trade_multiplier(
-        current_time,
-        entry_tag: str | None,
-        pair: str,
-    ) -> float:
-        if not entry_tag:
-            return 1.0
-
-        closed = [
-            trade
-            for trade in Trade.get_trades_proxy(is_open=False)
-            if trade.close_date_utc
-            and trade.close_date_utc <= current_time
-            and (trade.enter_tag or "") == entry_tag
-        ]
-        closed.sort(key=lambda trade: trade.close_date_utc, reverse=True)
-        recent_tag = closed[:6]
-
-        multiplier = 1.0
-        if len(recent_tag) >= 4:
-            tag_profit = sum((trade.close_profit or 0.0) for trade in recent_tag)
-            tag_losses = sum(1 for trade in recent_tag if (trade.close_profit or 0.0) <= 0)
-            if tag_profit < -0.04:
-                multiplier *= 0.74
-            elif tag_profit < -0.015 or tag_losses >= 5:
-                multiplier *= 0.84
-            elif tag_profit < 0:
-                multiplier *= 0.92
-
-        same_pair = [trade for trade in recent_tag if trade.pair == pair][:4]
-        if len(same_pair) >= 3:
-            pair_profit = sum((trade.close_profit or 0.0) for trade in same_pair)
-            if pair_profit < -0.03:
-                multiplier *= 0.82
-            elif pair_profit < 0:
-                multiplier *= 0.92
-
-        return multiplier
-
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe = super().populate_entry_trend(dataframe, metadata)
 
-        bull, bear, _ = self._regime_masks(dataframe)
+        bull, bear, _ = classify_daily_regime(dataframe)
         tags = dataframe["enter_tag"].fillna("")
 
         weak_bull_short = tags.eq("short_1h_center") & bull & ~dataframe["daily_momentum_short_1d"].eq(True)
@@ -131,16 +75,7 @@ class CombinedTrendCaptureMilestoneV2Top9RegimeStrategy(
             return stake
 
         candle = dataframe.iloc[-1]
-        bull = (
-            candle.get("close_1d", 0) > candle.get("ema_fast_1d", 0) > candle.get("ema_slow_1d", 0)
-            and candle.get("rsi_1d", 50) >= 57
-            and bool(candle.get("ema_slow_slope_up_1d", False))
-        )
-        bear = (
-            candle.get("close_1d", 0) < candle.get("ema_fast_1d", 0) < candle.get("ema_slow_1d", 0)
-            and candle.get("rsi_1d", 50) <= 45
-            and bool(candle.get("ema_slow_slope_down_1d", False))
-        )
+        bull, bear, _ = classify_intraday_regime(candle)
 
         multiplier = 1.0
         if entry_tag == "long_1d_center_compression":
@@ -160,7 +95,7 @@ class CombinedTrendCaptureMilestoneV2Top9RegimeStrategy(
             if pair == "ZEC/USDT:USDT":
                 multiplier *= 0.94
 
-        multiplier *= self._recent_trade_multiplier(current_time, entry_tag, pair)
+        multiplier *= recent_trade_multiplier(current_time, entry_tag, pair)
         stake *= multiplier
 
         if min_stake is not None:

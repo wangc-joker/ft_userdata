@@ -1,15 +1,5 @@
-from CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanHourStatePairShortsStrategy import (
-    CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanHourStatePairShortsStrategy,
-)
+from entrypoints.top9_main import Top9RegimeMainStrategy as _Top9RegimeMainStrategy
 
 
-class Top9RegimeMainStrategy(
-    CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanHourStatePairShortsStrategy
-):
-    """
-    Short alias for the current Top9 main strategy.
-
-    This keeps the full parent chain intact while giving dry-run / backtesting
-    a cleaner strategy name to use.
-    """
-
+class Top9RegimeMainStrategy(_Top9RegimeMainStrategy):
+    pass
