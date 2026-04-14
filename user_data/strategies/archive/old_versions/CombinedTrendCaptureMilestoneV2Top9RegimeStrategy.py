@@ -5,7 +5,7 @@ from pandas import DataFrame
 
 from freqtrade.persistence import Trade
 
-from CombinedTrendCaptureMilestoneV2Top9DogeLiteStrategy import (
+from .CombinedTrendCaptureMilestoneV2Top9DogeLiteStrategy import (
     CombinedTrendCaptureMilestoneV2Top9DogeLiteStrategy,
 )
 from core.market_state.regime import classify_daily_regime, classify_intraday_regime, recent_trade_multiplier

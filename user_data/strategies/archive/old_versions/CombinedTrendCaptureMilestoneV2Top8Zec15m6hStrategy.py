@@ -1,7 +1,7 @@
 from freqtrade.strategy import informative
 from pandas import DataFrame
 
-from CombinedTrendCaptureMilestoneV2Top8ZecScaledBase import (
+from .CombinedTrendCaptureMilestoneV2Top8ZecScaledBase import (
     CombinedTrendCaptureMilestoneV2Top8ZecScaledBase,
 )
 

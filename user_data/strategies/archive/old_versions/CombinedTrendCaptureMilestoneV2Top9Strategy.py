@@ -1,4 +1,4 @@
-from CombinedTrendCaptureMilestoneV2Strategy import CombinedTrendCaptureMilestoneV2Strategy
+from .CombinedTrendCaptureMilestoneV2Strategy import CombinedTrendCaptureMilestoneV2Strategy
 from shared.pair_groups import TOP9_MAIN_PAIRS
 
 

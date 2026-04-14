@@ -1,4 +1,4 @@
-from CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanHourStateStrategy import (
+from .CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanHourStateStrategy import (
     CombinedTrendCaptureMilestoneV2Top9RegimeNoRangeBullLeanHourStateStrategy,
 )
 from core.market_state.regime import classify_intraday_regime

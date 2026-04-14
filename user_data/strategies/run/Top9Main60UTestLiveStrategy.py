@@ -1,7 +1,14 @@
-from run.Top9Main60UTestLiveStrategy import Top9RegimeMainTestLiveStrategy as _Top9RegimeMainTestLiveStrategy
+from pathlib import Path
+import sys
+
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
+from myStrage.Top9MainTrendStrategy import Top9RegimeMainStrategy
 
 
-class Top9RegimeMainTestLiveStrategy(_Top9RegimeMainTestLiveStrategy):
+class Top9RegimeMainTestLiveStrategy(Top9RegimeMainStrategy):
     """
     Test-live wrapper for the Top9 main strategy.
 

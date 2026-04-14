@@ -1,4 +1,4 @@
-from CombinedTrendCaptureMilestoneV2Top9VolAdjustedStrategy import (
+from .CombinedTrendCaptureMilestoneV2Top9VolAdjustedStrategy import (
     CombinedTrendCaptureMilestoneV2Top9VolAdjustedStrategy,
 )
 

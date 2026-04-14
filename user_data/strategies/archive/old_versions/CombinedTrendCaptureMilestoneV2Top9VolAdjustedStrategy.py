@@ -1,6 +1,6 @@
 import pandas as pd
 
-from CombinedTrendCaptureMilestoneV2Top9LongCenter120Strategy import (
+from .CombinedTrendCaptureMilestoneV2Top9LongCenter120Strategy import (
     CombinedTrendCaptureMilestoneV2Top9LongCenter120Strategy,
 )
 

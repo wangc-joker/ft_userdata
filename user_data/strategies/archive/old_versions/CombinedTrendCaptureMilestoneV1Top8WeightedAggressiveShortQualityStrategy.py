@@ -1,6 +1,6 @@
 from pandas import DataFrame
 
-from CombinedTrendCaptureMilestoneV1Top8WeightedAggressiveStrategy import (
+from .CombinedTrendCaptureMilestoneV1Top8WeightedAggressiveStrategy import (
     CombinedTrendCaptureMilestoneV1Top8WeightedAggressiveStrategy,
 )
 

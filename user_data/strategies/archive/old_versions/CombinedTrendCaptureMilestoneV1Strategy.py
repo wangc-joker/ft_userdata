@@ -1,4 +1,4 @@
-from CombinedTrendCaptureNoLongTriangleStrategy import CombinedTrendCaptureNoLongTriangleStrategy
+from test.CombinedTrendCaptureNoLongTriangleStrategy import CombinedTrendCaptureNoLongTriangleStrategy
 
 
 class CombinedTrendCaptureMilestoneV1Strategy(CombinedTrendCaptureNoLongTriangleStrategy):
