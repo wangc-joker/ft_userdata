@@ -27,6 +27,9 @@ This directory is organized by responsibility:
   - Common constants and reusable configuration.
 - `archive/`
   - Historical and experimental versions kept for reference.
+- `research/`
+  - Research notes, kline exports, and breakout audits that motivated
+    strategy changes.
 
 Current note:
 
@@ -41,6 +44,7 @@ Primary current entrypoints:
 - `Top9RegimeMainTestLiveStrategy.py`
 - `Top9RegimeMainReversalStrategy.py`
 - `Top9RegimeMainReversal216Strategy.py`
+- `Top9RegimeMainReversal216NoLongAggressiveStrategy.py`
 
 Test-live specific assets:
 
@@ -50,6 +54,12 @@ Test-live specific assets:
 - `start_top9main_test_live.cmd`
 - `show_top9main_test_live_status.ps1`
 - `show_top9main_test_live_status.cmd`
+
+Research assets:
+
+- `research/zec_1h_reversal_breakout_notes.md`
+- `research/breakout_audit/`
+- `research/zec_klines/`
 
 Architecture notes are kept in:
 
