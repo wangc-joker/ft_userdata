@@ -38,8 +38,18 @@ Current note:
 Primary current entrypoints:
 
 - `Top9RegimeMainStrategy.py`
+- `Top9RegimeMainTestLiveStrategy.py`
 - `Top9RegimeMainReversalStrategy.py`
 - `Top9RegimeMainReversal216Strategy.py`
+
+Test-live specific assets:
+
+- `config.backtest.futures.top9.testlive.json`
+- `config.live.futures.top9.testlive.json`
+- `start_top9main_test_live.ps1`
+- `start_top9main_test_live.cmd`
+- `show_top9main_test_live_status.ps1`
+- `show_top9main_test_live_status.cmd`
 
 Architecture notes are kept in:
 

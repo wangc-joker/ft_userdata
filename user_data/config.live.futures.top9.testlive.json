@@ -2,15 +2,13 @@
     "$schema": "https://schema.freqtrade.io/schema.json",
     "max_open_trades": 3,
     "stake_currency": "USDT",
-    "stake_amount": "unlimited",
-    "tradable_balance_ratio": 0.99,
+    "stake_amount": 20,
+    "available_capital": 60,
     "fiat_display_currency": "USD",
-    "dry_run": true,
-    "dry_run_wallet": 1000,
+    "dry_run": false,
     "cancel_open_orders_on_exit": false,
     "trading_mode": "futures",
     "margin_mode": "isolated",
-    "enable_protections": true,
     "unfilledtimeout": {
         "entry": 10,
         "exit": 10,
@@ -34,10 +32,26 @@
     },
     "exchange": {
         "name": "binance",
+        "skip_pair_validation": true,
+        "skip_open_order_update": true,
         "key": "",
         "secret": "",
-        "ccxt_config": {},
-        "ccxt_async_config": {},
+        "ccxt_config": {
+            "enableRateLimit": true,
+            "options": {
+                "adjustForTimeDifference": true,
+                "recvWindow": 60000,
+                "fetchCurrencies": false
+            }
+        },
+        "ccxt_async_config": {
+            "enableRateLimit": true,
+            "options": {
+                "adjustForTimeDifference": true,
+                "recvWindow": 60000,
+                "fetchCurrencies": false
+            }
+        },
         "pair_whitelist": [
             "BTC/USDT:USDT",
             "SOL/USDT:USDT",
@@ -53,7 +67,8 @@
     },
     "pairlists": [
         {
-            "method": "StaticPairList"
+            "method": "StaticPairList",
+            "allow_inactive": true
         }
     ],
     "telegram": {
@@ -62,21 +77,21 @@
         "chat_id": ""
     },
     "api_server": {
-        "enabled": false,
+        "enabled": true,
         "listen_ip_address": "0.0.0.0",
-        "listen_port": 8080,
+        "listen_port": 8084,
         "verbosity": "error",
         "enable_openapi": false,
-        "jwt_secret_key": "CHANGE_ME",
-        "ws_token": "CHANGE_ME",
+        "jwt_secret_key": "CHANGE_ME_TOP9_TEST_LIVE",
+        "ws_token": "CHANGE_ME_TOP9_TEST_LIVE",
         "CORS_origins": [],
-        "username": "freqtrader",
-        "password": ""
+        "username": "Freqtrader",
+        "password": "Top9TestLive!2026"
     },
-    "bot_name": "freqtrade-futures-top9-backtest",
+    "bot_name": "freqtrade-top9-test-live",
     "initial_state": "stopped",
-    "force_entry_enable": false,
+    "force_entry_enable": true,
     "internals": {
-        "process_throttle_secs": 5
+        "process_throttle_secs": 60
     }
 }
