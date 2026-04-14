@@ -1,0 +1,5 @@
+from entrypoints.top9_reversal_216 import Top9RegimeMainReversal216Strategy as _Top9RegimeMainReversal216Strategy
+
+
+class Top9RegimeMainReversal216Strategy(_Top9RegimeMainReversal216Strategy):
+    pass
