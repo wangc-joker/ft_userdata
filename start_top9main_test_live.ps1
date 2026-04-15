@@ -105,6 +105,7 @@ $composeEnv = @{
     FREQTRADE_CONFIG = (Split-Path -Leaf $runtimeConfigPath)
     FREQTRADE_DB_URL = "sqlite:///$liveDbPath"
     FREQTRADE_STRATEGY = "Top9RegimeMainTestLiveStrategy"
+    FREQTRADE_STRATEGY_PATH = "/freqtrade/user_data/strategies/run"
 }
 
 Push-Location $repoRoot
