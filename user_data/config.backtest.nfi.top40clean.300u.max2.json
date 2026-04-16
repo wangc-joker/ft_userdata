@@ -41,24 +41,14 @@
         "pair_whitelist": [
             "BTC/USDT:USDT",
             "ETH/USDT:USDT",
-            "BNB/USDT:USDT",
             "SOL/USDT:USDT",
-            "ADA/USDT:USDT",
             "XRP/USDT:USDT",
             "DOGE/USDT:USDT",
-            "TRX/USDT:USDT",
             "ZEC/USDT:USDT",
-            "AVAX/USDT:USDT",
-            "LINK/USDT:USDT",
-            "LTC/USDT:USDT",
-            "DOT/USDT:USDT",
-            "BCH/USDT:USDT",
-            "ATOM/USDT:USDT",
-            "NEAR/USDT:USDT",
+            "BNB/USDT:USDT",
+            "ADA/USDT:USDT",
             "AAVE/USDT:USDT",
-            "UNI/USDT:USDT",
-            "ETC/USDT:USDT",
-            "FIL/USDT:USDT"
+            "AVAX/USDT:USDT"
         ],
         "pair_blacklist": []
     },
@@ -84,7 +74,7 @@
         "username": "freqtrader",
         "password": ""
     },
-    "bot_name": "freqtrade-futures-top20-backtest-max2-300",
+    "bot_name": "freqtrade-nfi-top40clean-backtest-300u-max2",
     "initial_state": "stopped",
     "force_entry_enable": false,
     "internals": {
