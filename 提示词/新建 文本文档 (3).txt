@@ -1,0 +1,43 @@
+# AGENTS.md
+
+## Project overview
+This repository contains Freqtrade strategies, Docker configs, and research scripts.
+
+## Working rules
+- Prefer minimal, localized changes.
+- Explain root cause before editing code.
+- Do not modify production secrets or .env files.
+- Do not change dependency versions unless explicitly requested.
+- Avoid lookahead bias and recursive drift in trading strategies.
+- Keep strategy logic and config assumptions aligned.
+
+## Freqtrade rules
+- Strategy must be compatible with current stable Freqtrade interfaces.
+- informative_pairs must be merged safely.
+- Avoid future leaks from rolling, shift, merge, or global min/max usage.
+- custom_stoploss and custom_exit should not conflict.
+- startup_candle_count must be justified.
+
+## Docker rules
+- Keep logs bounded.
+- Prefer small images where practical.
+- Do not introduce unnecessary services.
+- Optimize for low-to-medium hardware usage.
+
+## Commands
+- pytest -q
+- freqtrade list-strategies
+- freqtrade backtesting -c user_data/config/config.backtest.json -s SystemTrendBreakoutV1
+- freqtrade lookahead-analysis -c user_data/config/config.backtest.json -s SystemTrendBreakoutV1
+- freqtrade recursive-analysis -c user_data/config/config.backtest.json -s SystemTrendBreakoutV1
+- docker compose config
+- docker compose ps
+
+## Output format
+Always respond with:
+1. Findings
+2. Root cause
+3. Proposed change
+4. Files touched
+5. Validation steps
+6. Risks

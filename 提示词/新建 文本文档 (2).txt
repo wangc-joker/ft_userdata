@@ -1,0 +1,55 @@
+请审查这个 Freqtrade 策略，不要先改代码。
+
+重点检查：
+1. 是否存在 lookahead bias
+2. 是否存在 recursive drift 风险
+3. startup_candle_count 是否足够
+4. informative pairs 合并是否正确
+5. custom_stoploss / custom_exit 是否有逻辑冲突
+6. custom_stake_amount 是否真的按风险预算计算
+7. protections 是否使用当前可用方式
+8. 是否有过时接口
+
+输出格式：
+- 问题摘要
+- 高风险问题
+- 中风险问题
+- 低风险问题
+- 修复优先级
+- 建议 patch 顺序
+
+请审查这个 Freqtrade 策略，不要先改代码。
+
+重点检查：
+1. 是否存在 lookahead bias
+2. 是否存在 recursive drift 风险
+3. startup_candle_count 是否足够
+4. informative pairs 合并是否正确
+5. custom_stoploss / custom_exit 是否有逻辑冲突
+6. custom_stake_amount 是否真的按风险预算计算
+7. protections 是否使用当前可用方式
+8. 是否有过时接口
+
+输出格式：
+- 问题摘要
+- 高风险问题
+- 中风险问题
+- 低风险问题
+- 修复优先级
+- 建议 patch 顺序
+
+
+
+请修改完成后，必须运行并汇报以下验证步骤：
+
+1. 代码风格 / 静态检查
+2. freqtrade list-strategies
+3. freqtrade backtesting -c user_data/config.backtest.json -s <策略名> --timerange 20250101-20250301
+4. freqtrade lookahead-analysis -c user_data/config.backtest.json -s <策略名>
+5. freqtrade recursive-analysis -c user_data/config.backtest.json -s <策略名>
+
+输出要求：
+- 每一步是否通过
+- 关键结果摘要
+- 若失败，给出失败原因和修复建议
+
