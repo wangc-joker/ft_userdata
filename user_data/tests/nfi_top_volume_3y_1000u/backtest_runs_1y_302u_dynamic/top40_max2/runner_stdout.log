@@ -1,0 +1,109 @@
+ Container ft_userdata-freqtrade-run-25f468d5f593 Creating 
+ Container ft_userdata-freqtrade-run-25f468d5f593 Created 
+2026-04-20 09:23:12,378 - freqtrade - INFO - freqtrade 2026.3
+2026-04-20 09:23:12,809 - numexpr.utils - INFO - NumExpr defaulting to 16 threads.
+2026-04-20 09:23:14,534 - freqtrade.configuration.load_config - INFO - Using config: /freqtrade/user_data/tests/nfi_top_volume_3y_1000u/config.backtest.nfi.1y.302u.top40.dynamic.max2.json ...
+2026-04-20 09:23:14,543 - freqtrade.loggers - INFO - Enabling colorized output.
+2026-04-20 09:23:14,544 - freqtrade.loggers - INFO - Logfile configured
+2026-04-20 09:23:14,544 - freqtrade.loggers - INFO - Verbosity set to 0
+2026-04-20 09:23:14,544 - freqtrade.configuration.configuration - INFO - Using max_open_trades: 2 ...
+2026-04-20 09:23:14,545 - freqtrade.configuration.configuration - INFO - Parameter --timerange detected: 20250416-20260416 ...
+2026-04-20 09:23:16,338 - freqtrade.configuration.configuration - INFO - Using user-data directory: /freqtrade/user_data ...
+2026-04-20 09:23:16,340 - freqtrade.configuration.configuration - INFO - Using data directory: /freqtrade/user_data/data/binance ...
+2026-04-20 09:23:16,340 - freqtrade.configuration.configuration - INFO - Using /freqtrade/user_data/tests/nfi_top_volume_3y_1000u/backtest_runs_1y_302u_dynamic/top40_max2 as backtest directory ...
+2026-04-20 09:23:16,340 - freqtrade.configuration.configuration - INFO - Parameter --export detected: trades ...
+2026-04-20 09:23:16,341 - freqtrade.configuration.configuration - INFO - Parameter --cache=none detected ...
+2026-04-20 09:23:16,341 - freqtrade.configuration.configuration - INFO - Filter trades by timerange: 20250416-20260416
+2026-04-20 09:23:16,342 - freqtrade.exchange.check_exchange - INFO - Checking exchange...
+2026-04-20 09:23:16,348 - freqtrade.exchange.check_exchange - INFO - Exchange "binance" is officially supported by the Freqtrade development team.
+2026-04-20 09:23:16,348 - freqtrade.configuration.configuration - INFO - Using pairlist from configuration.
+2026-04-20 09:23:16,349 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
+2026-04-20 09:23:16,351 - freqtrade.commands.optimize_commands - INFO - Starting freqtrade in Backtesting mode
+2026-04-20 09:23:16,351 - freqtrade.exchange.exchange - INFO - Instance is running with dry_run enabled
+2026-04-20 09:23:16,352 - freqtrade.exchange.exchange - INFO - Using CCXT 4.5.44
+2026-04-20 09:23:16,352 - freqtrade.exchange.exchange - INFO - Applying additional ccxt config: {'options': {'defaultType': 'swap'}}
+2026-04-20 09:23:16,357 - freqtrade.exchange.exchange - INFO - Applying additional ccxt config: {'options': {'defaultType': 'swap'}}
+2026-04-20 09:23:16,362 - freqtrade.exchange.exchange - INFO - Using Exchange "Binance"
+2026-04-20 09:23:17,247 - freqtrade.resolvers.exchange_resolver - INFO - Using resolved exchange 'Binance'...
+2026-04-20 09:23:18,707 - freqtrade.resolvers.iresolver - INFO - Using resolved strategy NostalgiaForInfinityX7 from '/freqtrade/user_data/strategies/NostalgiaForInfinityX7.py'...
+2026-04-20 09:23:18,710 - freqtrade.strategy.hyper - INFO - Found no parameter file.
+2026-04-20 09:23:18,711 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_currency' with value from the configuration: USDT.
+2026-04-20 09:23:18,712 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_amount' with value from the configuration: unlimited.
+2026-04-20 09:23:18,712 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'unfilledtimeout' with value from the configuration: {'entry': 10, 'exit': 10, 'exit_timeout_count': 0, 
+'unit': 'minutes'}.
+2026-04-20 09:23:18,712 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'max_open_trades' with value from the configuration: 2.
+2026-04-20 09:23:18,713 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using minimal_roi: {}
+2026-04-20 09:23:18,713 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using timeframe: 5m
+2026-04-20 09:23:18,713 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stoploss: -0.99
+2026-04-20 09:23:18,713 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop: False
+2026-04-20 09:23:18,713 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop_positive: 0.01
+2026-04-20 09:23:18,713 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop_positive_offset: 0.03
+2026-04-20 09:23:18,714 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_only_offset_is_reached: True
+2026-04-20 09:23:18,714 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_custom_stoploss: False
+2026-04-20 09:23:18,714 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using process_only_new_candles: True
+2026-04-20 09:23:18,714 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_types: {'entry': 'limit', 'exit': 'limit', 'stoploss': 'limit', 'stoploss_on_exchange': False, 
+'stoploss_on_exchange_interval': 60}
+2026-04-20 09:23:18,714 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_time_in_force: {'entry': 'GTC', 'exit': 'GTC'}
+2026-04-20 09:23:18,714 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_currency: USDT
+2026-04-20 09:23:18,715 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_amount: unlimited
+2026-04-20 09:23:18,715 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using startup_candle_count: 800
+2026-04-20 09:23:18,715 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using unfilledtimeout: {'entry': 10, 'exit': 10, 'exit_timeout_count': 0, 'unit': 'minutes'}
+2026-04-20 09:23:18,715 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_exit_signal: True
+2026-04-20 09:23:18,715 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_only: False
+2026-04-20 09:23:18,715 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_roi_if_entry_signal: True
+2026-04-20 09:23:18,716 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_offset: 0.0
+2026-04-20 09:23:18,716 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using disable_dataframe_checks: False
+2026-04-20 09:23:18,716 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_buying_expired_candle_after: 0
+2026-04-20 09:23:18,716 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using position_adjustment_enable: True
+2026-04-20 09:23:18,717 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_entry_position_adjustment: -1
+2026-04-20 09:23:18,717 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_open_trades: 2
+2026-04-20 09:23:18,717 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
+2026-04-20 09:23:18,726 - freqtrade.resolvers.iresolver - INFO - Using resolved pairlist StaticPairList from '/freqtrade/freqtrade/plugins/pairlist/StaticPairList.py'...
+2026-04-20 09:23:18,746 - freqtrade.optimize.backtesting - INFO - Using fee 0.0500% - worst case fee from exchange (lowest tier).
+2026-04-20 09:23:18,746 - freqtrade.exchange.exchange - WARNING - Using 2 calls to get OHLCV. This can result in slower operations for the bot. Please check if you really need 800 candles for your 
+strategy.
+2026-04-20 09:23:19,187 - freqtrade.data.history.datahandlers.idatahandler - WARNING - PIEVERSE/USDT:USDT, futures, 5m, data starts at 2025-11-14 11:30:00
+2026-04-20 09:23:19,228 - freqtrade.data.history.datahandlers.idatahandler - WARNING - RAVE/USDT:USDT, futures, 5m, data starts at 2025-12-14 15:30:00
+2026-04-20 09:23:19,628 - freqtrade.data.history.datahandlers.idatahandler - WARNING - HYPE/USDT:USDT, futures, 5m, data starts at 2025-05-30 10:30:00
+2026-04-20 09:23:20,651 - freqtrade.data.history.datahandlers.idatahandler - WARNING - BASED/USDT:USDT, futures, 5m, data starts at 2026-03-30 10:00:00
+2026-04-20 09:23:20,746 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for SKYAI/USDT:USDT, futures, 5m found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:20,870 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for BULLA/USDT:USDT, futures, 5m found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:20,957 - freqtrade.data.history.datahandlers.idatahandler - WARNING - GWEI/USDT:USDT, futures, 5m, data starts at 2026-01-29 05:30:00
+2026-04-20 09:23:21,433 - freqtrade.data.history.datahandlers.idatahandler - WARNING - M/USDT:USDT, futures, 5m, data starts at 2025-07-07 09:30:00
+2026-04-20 09:23:21,602 - freqtrade.data.history.datahandlers.idatahandler - WARNING - RIVER/USDT:USDT, futures, 5m, data starts at 2025-10-17 14:45:00
+2026-04-20 09:23:22,237 - freqtrade.data.history.datahandlers.idatahandler - WARNING - GENIUS/USDT:USDT, futures, 5m, data starts at 2026-04-16 03:30:00
+2026-04-20 09:23:22,239 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for GENIUS/USDT:USDT, futures, 5m found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:22,262 - freqtrade.data.history.datahandlers.idatahandler - WARNING - GUA/USDT:USDT, futures, 5m, data starts at 2025-12-21 10:15:00
+2026-04-20 09:23:22,281 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for SPK/USDT:USDT, futures, 5m found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:22,286 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for TRUMP/USDT:USDT, futures, 5m found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:22,295 - freqtrade.optimize.backtesting - INFO - Loading data from 2025-04-13 05:20:00 up to 2026-04-16 00:00:00 (367 days).
+2026-04-20 09:23:22,362 - freqtrade.data.history.datahandlers.idatahandler - WARNING - PIEVERSE/USDT:USDT, funding_rate, 1h, data starts at 2025-11-14 12:00:00
+2026-04-20 09:23:22,377 - freqtrade.data.history.datahandlers.idatahandler - WARNING - RAVE/USDT:USDT, funding_rate, 1h, data starts at 2025-12-14 16:00:00
+2026-04-20 09:23:22,461 - freqtrade.data.history.datahandlers.idatahandler - WARNING - HYPE/USDT:USDT, funding_rate, 1h, data starts at 2025-05-30 12:00:00
+2026-04-20 09:23:22,643 - freqtrade.data.history.datahandlers.idatahandler - WARNING - BASED/USDT:USDT, funding_rate, 1h, data starts at 2026-03-30 12:00:00
+2026-04-20 09:23:22,666 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for SKYAI/USDT:USDT, funding_rate, 1h found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:22,688 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for BULLA/USDT:USDT, funding_rate, 1h found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:22,717 - freqtrade.data.history.datahandlers.idatahandler - WARNING - GWEI/USDT:USDT, funding_rate, 1h, data starts at 2026-01-29 08:00:00
+2026-04-20 09:23:22,797 - freqtrade.data.history.datahandlers.idatahandler - WARNING - M/USDT:USDT, funding_rate, 1h, data starts at 2025-07-07 12:00:00
+2026-04-20 09:23:22,829 - freqtrade.data.history.datahandlers.idatahandler - WARNING - RIVER/USDT:USDT, funding_rate, 1h, data starts at 2025-10-17 16:00:00
+2026-04-20 09:23:22,923 - freqtrade.data.history.datahandlers.idatahandler - WARNING - GENIUS/USDT:USDT, funding_rate, 1h, data starts at 2026-04-16 04:00:00
+2026-04-20 09:23:22,924 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for GENIUS/USDT:USDT, funding_rate, 1h found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:22,937 - freqtrade.data.history.datahandlers.idatahandler - WARNING - GUA/USDT:USDT, funding_rate, 1h, data starts at 2025-12-21 12:00:00
+2026-04-20 09:23:22,945 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for SPK/USDT:USDT, funding_rate, 1h found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:22,950 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for TRUMP/USDT:USDT, funding_rate, 1h found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:23,070 - freqtrade.data.history.datahandlers.idatahandler - WARNING - PIEVERSE/USDT:USDT, mark, 1h, data starts at 2025-11-14 11:00:00
+2026-04-20 09:23:23,093 - freqtrade.data.history.datahandlers.idatahandler - WARNING - RAVE/USDT:USDT, mark, 1h, data starts at 2025-12-14 14:00:00
+2026-04-20 09:23:23,235 - freqtrade.data.history.datahandlers.idatahandler - WARNING - HYPE/USDT:USDT, mark, 1h, data starts at 2025-05-30 09:00:00
+2026-04-20 09:23:23,547 - freqtrade.data.history.datahandlers.idatahandler - WARNING - BASED/USDT:USDT, mark, 1h, data starts at 2026-03-30 09:00:00
+2026-04-20 09:23:23,584 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for SKYAI/USDT:USDT, mark, 1h found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:23,619 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for BULLA/USDT:USDT, mark, 1h found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:23,659 - freqtrade.data.history.datahandlers.idatahandler - WARNING - GWEI/USDT:USDT, mark, 1h, data starts at 2026-01-29 05:00:00
+2026-04-20 09:23:23,877 - freqtrade.data.history.datahandlers.idatahandler - WARNING - M/USDT:USDT, mark, 1h, data starts at 2025-07-07 08:00:00
+2026-04-20 09:23:23,968 - freqtrade.data.history.datahandlers.idatahandler - WARNING - RIVER/USDT:USDT, mark, 1h, data starts at 2025-10-17 13:00:00
+2026-04-20 09:23:24,165 - freqtrade.data.history.datahandlers.idatahandler - WARNING - GENIUS/USDT:USDT, mark, 1h, data starts at 2026-04-16 02:00:00
+2026-04-20 09:23:24,166 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for GENIUS/USDT:USDT, mark, 1h found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:24,180 - freqtrade.data.history.datahandlers.idatahandler - WARNING - GUA/USDT:USDT, mark, 1h, data starts at 2025-12-21 09:00:00
+2026-04-20 09:23:24,193 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for SPK/USDT:USDT, mark, 1h found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:24,201 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for TRUMP/USDT:USDT, mark, 1h found. Use `freqtrade download-data` to download the data
+2026-04-20 09:23:24,243 - freqtrade - ERROR - Pairs BASED/USDT:USDT, GENIUS/USDT:USDT got no leverage tiers available. It is therefore impossible to backtest with this pair at the moment.
+

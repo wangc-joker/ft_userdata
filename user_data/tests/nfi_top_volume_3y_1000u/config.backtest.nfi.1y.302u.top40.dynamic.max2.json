@@ -1,0 +1,121 @@
+{
+    "$schema":  "https://schema.freqtrade.io/schema.json",
+    "max_open_trades":  2,
+    "stake_currency":  "USDT",
+    "stake_amount":  "unlimited",
+    "tradable_balance_ratio":  0.99,
+    "fiat_display_currency":  "USD",
+    "dry_run":  true,
+    "dry_run_wallet":  302,
+    "cancel_open_orders_on_exit":  false,
+    "trading_mode":  "futures",
+    "margin_mode":  "isolated",
+    "enable_protections":  true,
+    "unfilledtimeout":  {
+                            "entry":  10,
+                            "exit":  10,
+                            "exit_timeout_count":  0,
+                            "unit":  "minutes"
+                        },
+    "entry_pricing":  {
+                          "price_side":  "same",
+                          "use_order_book":  true,
+                          "order_book_top":  1,
+                          "price_last_balance":  0.0,
+                          "check_depth_of_market":  {
+                                                        "enabled":  false,
+                                                        "bids_to_ask_delta":  1
+                                                    }
+                      },
+    "exit_pricing":  {
+                         "price_side":  "same",
+                         "use_order_book":  true,
+                         "order_book_top":  1
+                     },
+    "exchange":  {
+                     "name":  "binance",
+                     "key":  "",
+                     "secret":  "",
+                     "ccxt_config":  {
+
+                                     },
+                     "ccxt_async_config":  {
+
+                                           },
+                     "pair_whitelist":  [
+                                            "BTC/USDT:USDT",
+                                            "ETH/USDT:USDT",
+                                            "SOL/USDT:USDT",
+                                            "PIEVERSE/USDT:USDT",
+                                            "RAVE/USDT:USDT",
+                                            "XRP/USDT:USDT",
+                                            "DOGE/USDT:USDT",
+                                            "ZEC/USDT:USDT",
+                                            "HYPE/USDT:USDT",
+                                            "HIGH/USDT:USDT",
+                                            "1000PEPE/USDT:USDT",
+                                            "AAVE/USDT:USDT",
+                                            "ORDI/USDT:USDT",
+                                            "BNB/USDT:USDT",
+                                            "BOME/USDT:USDT",
+                                            "BLUR/USDT:USDT",
+                                            "ENJ/USDT:USDT",
+                                            "ADA/USDT:USDT",
+                                            "BASED/USDT:USDT",
+                                            "TAO/USDT:USDT",
+                                            "SKYAI/USDT:USDT",
+                                            "SUI/USDT:USDT",
+                                            "BULLA/USDT:USDT",
+                                            "GUN/USDT:USDT",
+                                            "GWEI/USDT:USDT",
+                                            "AVAX/USDT:USDT",
+                                            "ENA/USDT:USDT",
+                                            "PROM/USDT:USDT",
+                                            "LINK/USDT:USDT",
+                                            "M/USDT:USDT",
+                                            "NEAR/USDT:USDT",
+                                            "RIVER/USDT:USDT",
+                                            "TRX/USDT:USDT",
+                                            "DOT/USDT:USDT",
+                                            "FIL/USDT:USDT",
+                                            "GRIFFAIN/USDT:USDT",
+                                            "GENIUS/USDT:USDT",
+                                            "GUA/USDT:USDT",
+                                            "SPK/USDT:USDT",
+                                            "TRUMP/USDT:USDT"
+                                        ],
+                     "pair_blacklist":  [
+
+                                        ]
+                 },
+    "pairlists":  [
+                      {
+                          "method":  "StaticPairList"
+                      }
+                  ],
+    "telegram":  {
+                     "enabled":  false,
+                     "token":  "",
+                     "chat_id":  ""
+                 },
+    "api_server":  {
+                       "enabled":  false,
+                       "listen_ip_address":  "0.0.0.0",
+                       "listen_port":  8080,
+                       "verbosity":  "error",
+                       "enable_openapi":  false,
+                       "jwt_secret_key":  "CHANGE_ME",
+                       "ws_token":  "CHANGE_ME",
+                       "CORS_origins":  [
+
+                                        ],
+                       "username":  "freqtrader",
+                       "password":  ""
+                   },
+    "bot_name":  "freqtrade-nfi-1y-302u-top40-dynamic-max2",
+    "initial_state":  "stopped",
+    "force_entry_enable":  false,
+    "internals":  {
+                      "process_throttle_secs":  5
+                  }
+}
