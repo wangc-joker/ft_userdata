@@ -3,10 +3,10 @@
     "max_open_trades":  2,
     "stake_currency":  "USDT",
     "stake_amount":  "unlimited",
+    "available_capital":  302.6,
     "tradable_balance_ratio":  0.99,
     "fiat_display_currency":  "USD",
-    "dry_run":  true,
-    "dry_run_wallet":  302,
+    "dry_run":  false,
     "cancel_open_orders_on_exit":  false,
     "trading_mode":  "futures",
     "margin_mode":  "isolated",
@@ -34,13 +34,25 @@
                      },
     "exchange":  {
                      "name":  "binance",
-                     "key":  "",
-                     "secret":  "",
+                     "skip_pair_validation":  true,
+                     "skip_open_order_update":  true,
+                     "key":  "Woa38lFQ0Fm7td9BGmfkUZL4iR6Ztqy07hm3hRAkyrf1JtePiRacJUYA8qXyVq4Y",
+                     "secret":  "RjHX70IimswYS1SL21GV4sIp3vHfdGVFjji0WJzlP28NCJe2yRZMxvjoms3qk2u1",
                      "ccxt_config":  {
-
+                                         "enableRateLimit":  true,
+                                         "options":  {
+                                                         "adjustForTimeDifference":  true,
+                                                         "recvWindow":  60000,
+                                                         "fetchCurrencies":  false
+                                                     }
                                      },
                      "ccxt_async_config":  {
-
+                                               "enableRateLimit":  true,
+                                               "options":  {
+                                                               "adjustForTimeDifference":  true,
+                                                               "recvWindow":  60000,
+                                                               "fetchCurrencies":  false
+                                                           }
                                            },
                      "pair_whitelist":  [
                                             "BTC/USDT:USDT",
@@ -90,7 +102,8 @@
                  },
     "pairlists":  [
                       {
-                          "method":  "StaticPairList"
+                          "method":  "StaticPairList",
+                          "allow_inactive":  true
                       }
                   ],
     "telegram":  {
@@ -99,23 +112,23 @@
                      "chat_id":  ""
                  },
     "api_server":  {
-                       "enabled":  false,
+                       "enabled":  true,
                        "listen_ip_address":  "0.0.0.0",
-                       "listen_port":  8080,
+                       "listen_port":  8084,
                        "verbosity":  "error",
                        "enable_openapi":  false,
-                       "jwt_secret_key":  "CHANGE_ME",
-                       "ws_token":  "CHANGE_ME",
+                       "jwt_secret_key":  "CHANGE_ME_NFI_DYNAMIC_TOP40_302U_LIVE",
+                       "ws_token":  "CHANGE_ME_NFI_DYNAMIC_TOP40_302U_LIVE",
                        "CORS_origins":  [
 
                                         ],
-                       "username":  "freqtrader",
-                       "password":  ""
+                       "username":  "Freqtrader",
+                       "password":  "NfiDynamicTop40Live!2026"
                    },
-    "bot_name":  "freqtrade-nfi-1y-302u-top40-dynamic-max2",
+    "bot_name":  "freqtrade-nfi-dynamic-top40-live-302u-max2",
     "initial_state":  "stopped",
-    "force_entry_enable":  false,
+    "force_entry_enable":  true,
     "internals":  {
-                      "process_throttle_secs":  5
+                      "process_throttle_secs":  60
                   }
 }

@@ -6,7 +6,7 @@ $templateConfigPath = Join-Path $repoRoot "user_data\config.live.nfi.dynamic.top
 $runtimeConfigPath = Join-Path $repoRoot "user_data\config.live.nfi.dynamic.top40.302u.max2.runtime.json"
 $dynamicBacktestConfigPath = Join-Path $repoRoot "user_data\tests\nfi_top_volume_3y_1000u\config.backtest.nfi.1y.302u.top40.dynamic.max2.json"
 $updateScriptPath = Join-Path $repoRoot "update_nfi_dynamic_top40_302u.ps1"
-$sourceRuntimePath = Join-Path $repoRoot "user_data\config.live.futures.top9.testlive.runtime.json"
+$secureConfigPath = "D:\work\secure\secret_bin.json"
 $containerService = "freqtrade"
 $baseUrl = "http://127.0.0.1:8084"
 $liveDbPath = "/freqtrade/user_data/tradesv3_nfi_dynamic_top40_302u_max2_live.sqlite"
@@ -23,8 +23,8 @@ if (-not (Test-Path -LiteralPath $updateScriptPath -PathType Leaf)) {
     throw "Update script not found: $updateScriptPath"
 }
 
-if (-not (Test-Path -LiteralPath $sourceRuntimePath -PathType Leaf)) {
-    throw "Source runtime config not found: $sourceRuntimePath"
+if (-not (Test-Path -LiteralPath $secureConfigPath -PathType Leaf)) {
+    throw "Secure API config not found: $secureConfigPath"
 }
 
 Write-Host "Refreshing dynamic top40 pairlist..." -ForegroundColor Cyan
@@ -32,13 +32,13 @@ Write-Host "Refreshing dynamic top40 pairlist..." -ForegroundColor Cyan
 
 $dynamicConfig = Get-Content -Raw -LiteralPath $dynamicBacktestConfigPath | ConvertFrom-Json
 $templateConfig = Get-Content -Raw -LiteralPath $templateConfigPath | ConvertFrom-Json
-$sourceConfig = Get-Content -Raw -LiteralPath $sourceRuntimePath | ConvertFrom-Json
+$sourceConfig = Get-Content -Raw -LiteralPath $secureConfigPath | ConvertFrom-Json
 
 $apiKey = $sourceConfig.exchange.key
 $apiSecret = $sourceConfig.exchange.secret
 
 if ([string]::IsNullOrWhiteSpace($apiKey) -or [string]::IsNullOrWhiteSpace($apiSecret)) {
-    throw "Source runtime config does not contain exchange key/secret."
+    throw "Secure API config does not contain exchange key/secret."
 }
 
 $templateConfig.exchange.key = $apiKey

@@ -45,36 +45,36 @@ $currencies = @($balance.currencies) | Select-Object currency, free, used, balan
 $pairCount = @($config.exchange.pair_whitelist).Count
 
 Write-Host ""
-Write-Host "NFI Dynamic Top40 302U Max2 实盘状态" -ForegroundColor Cyan
+Write-Host "NFI Dynamic Top40 302.6U Max2 Live Status" -ForegroundColor Cyan
 Write-Host "----------------------------------------"
-Write-Host ("Bot 名称      : {0}" -f $config.bot_name)
-Write-Host ("策略         : {0}" -f $config.strategy)
-Write-Host ("运行模式      : {0}" -f $config.runmode)
-Write-Host ("状态         : {0}" -f $config.state)
-Write-Host ("当前币池数    : {0}" -f $pairCount)
-Write-Host ("当前持仓数    : {0}" -f $openCount)
-Write-Host ("总交易笔数    : {0}" -f $profit.trade_count)
-Write-Host ("已平仓笔数    : {0}" -f $profit.closed_trade_count)
-Write-Host ("已实现盈亏    : {0} USDT" -f ([math]::Round([double]$profit.profit_closed_coin, 4)))
-Write-Host ("总盈亏       : {0} USDT" -f ([math]::Round([double]$profit.profit_all_coin, 4)))
+Write-Host ("Bot Name       : {0}" -f $config.bot_name)
+Write-Host ("Strategy       : {0}" -f $config.strategy)
+Write-Host ("Run Mode       : {0}" -f $config.runmode)
+Write-Host ("State          : {0}" -f $config.state)
+Write-Host ("Pairs Loaded   : {0}" -f $pairCount)
+Write-Host ("Open Trades    : {0}" -f $openCount)
+Write-Host ("Trade Count    : {0}" -f $profit.trade_count)
+Write-Host ("Closed Trades  : {0}" -f $profit.closed_trade_count)
+Write-Host ("Closed Profit  : {0} USDT" -f ([math]::Round([double]$profit.profit_closed_coin, 4)))
+Write-Host ("Total Profit   : {0} USDT" -f ([math]::Round([double]$profit.profit_all_coin, 4)))
 
 Write-Host ""
-Write-Host "账户余额" -ForegroundColor Cyan
+Write-Host "Account Balance" -ForegroundColor Cyan
 Write-Host "----------------------------------------"
-Write-Host ("总权益       : {0} {1}" -f ([math]::Round([double]$balance.total, 6)), $balance.stake)
-Write-Host ("Bot 归属权益  : {0} {1}" -f ([math]::Round([double]$balance.total_bot, 6)), $balance.stake)
+Write-Host ("Total Equity   : {0} {1}" -f ([math]::Round([double]$balance.total, 6)), $balance.stake)
+Write-Host ("Bot Equity     : {0} {1}" -f ([math]::Round([double]$balance.total_bot, 6)), $balance.stake)
 if (@($currencies).Count -gt 0) {
     $currencies | Format-Table -AutoSize
 }
 else {
-    Write-Host "未返回余额明细"
+    Write-Host "No balance rows returned."
 }
 
 Write-Host ""
-Write-Host "当前持仓" -ForegroundColor Cyan
+Write-Host "Open Positions" -ForegroundColor Cyan
 Write-Host "----------------------------------------"
 if ($openCount -eq 0) {
-    Write-Host "当前没有持仓"
+    Write-Host "No open positions."
 }
 else {
     @($status) |
@@ -83,10 +83,10 @@ else {
 }
 
 Write-Host ""
-Write-Host "最近 5 笔交易" -ForegroundColor Cyan
+Write-Host "Recent Closed Trades" -ForegroundColor Cyan
 Write-Host "----------------------------------------"
 if (@($recentTrades).Count -eq 0) {
-    Write-Host "暂时还没有已完成交易"
+    Write-Host "No completed trades yet."
 }
 else {
     @($recentTrades) |
@@ -95,4 +95,4 @@ else {
 }
 
 Write-Host ""
-Read-Host "按回车键关闭"
+Read-Host "Press Enter to close"

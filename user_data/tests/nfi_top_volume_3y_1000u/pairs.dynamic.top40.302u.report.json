@@ -1,5 +1,5 @@
 {
-    "generated_at":  "2026-04-20 17:07:24 +08:00",
+    "generated_at":  "2026-04-20 21:13:58 +08:00",
     "source":  "Binance Futures 24h ticker quoteVolume",
     "target_count":  40,
     "selected_count":  40,
@@ -7,6 +7,7 @@
                    "quote_asset":  "USDT",
                    "contract_type":  "PERPETUAL",
                    "status":  "TRADING",
+                   "minimum_listing_days":  30,
                    "excluded_suffixes":  [
                                              "BULL",
                                              "BEAR",
@@ -27,281 +28,321 @@
                       "symbol":  "BTCUSDT",
                       "baseAsset":  "BTC",
                       "pair":  "BTC/USDT:USDT",
-                      "quoteVolume":  11249488905.92,
-                      "volume":  150304.574
+                      "listed_days":  2399.22,
+                      "quoteVolume":  11391879824.5,
+                      "volume":  152237.39
                   },
                   {
                       "symbol":  "ETHUSDT",
                       "baseAsset":  "ETH",
                       "pair":  "ETH/USDT:USDT",
-                      "quoteVolume":  9469963458.06,
-                      "volume":  4121617.957
+                      "listed_days":  2399.22,
+                      "quoteVolume":  9639628565.23,
+                      "volume":  4197762.145
                   },
                   {
                       "symbol":  "SOLUSDT",
                       "baseAsset":  "SOL",
                       "pair":  "SOL/USDT:USDT",
-                      "quoteVolume":  1855218063.2661,
-                      "volume":  21840715.83
+                      "listed_days":  2399.22,
+                      "quoteVolume":  1816799090.2778,
+                      "volume":  21396868.6
                   },
                   {
                       "symbol":  "PIEVERSEUSDT",
                       "baseAsset":  "PIEVERSE",
                       "pair":  "PIEVERSE/USDT:USDT",
-                      "quoteVolume":  1503399282.4609,
-                      "volume":  1332399723
+                      "listed_days":  157.07,
+                      "quoteVolume":  1677219158.976,
+                      "volume":  1493526417
                   },
                   {
                       "symbol":  "RAVEUSDT",
                       "baseAsset":  "RAVE",
                       "pair":  "RAVE/USDT:USDT",
-                      "quoteVolume":  1354986348.41048,
-                      "volume":  1834147782
+                      "listed_days":  126.91,
+                      "quoteVolume":  1453127401.92496,
+                      "volume":  2074012978
                   },
                   {
                       "symbol":  "XRPUSDT",
                       "baseAsset":  "XRP",
                       "pair":  "XRP/USDT:USDT",
-                      "quoteVolume":  671905095.2752,
-                      "volume":  474515956.9
+                      "listed_days":  2399.22,
+                      "quoteVolume":  668960882.3588,
+                      "volume":  472776959.9
                   },
                   {
                       "symbol":  "DOGEUSDT",
                       "baseAsset":  "DOGE",
                       "pair":  "DOGE/USDT:USDT",
-                      "quoteVolume":  597412872.12014,
-                      "volume":  6324501461
+                      "listed_days":  2399.22,
+                      "quoteVolume":  566537740.14281,
+                      "volume":  5995385877
                   },
                   {
                       "symbol":  "ZECUSDT",
                       "baseAsset":  "ZEC",
                       "pair":  "ZEC/USDT:USDT",
-                      "quoteVolume":  511374336.7,
-                      "volume":  1626682.265
+                      "listed_days":  2399.22,
+                      "quoteVolume":  462951932.65,
+                      "volume":  1488765.948
                   },
                   {
                       "symbol":  "HYPEUSDT",
                       "baseAsset":  "HYPE",
                       "pair":  "HYPE/USDT:USDT",
-                      "quoteVolume":  404207824.72483,
-                      "volume":  9666943.03
-                  },
-                  {
-                      "symbol":  "HIGHUSDT",
-                      "baseAsset":  "HIGH",
-                      "pair":  "HIGH/USDT:USDT",
-                      "quoteVolume":  352986072.8612,
-                      "volume":  1097485866.2
+                      "listed_days":  325.11,
+                      "quoteVolume":  394860838.08594,
+                      "volume":  9506851.59
                   },
                   {
                       "symbol":  "1000PEPEUSDT",
                       "baseAsset":  "1000PEPE",
                       "pair":  "1000PEPE/USDT:USDT",
-                      "quoteVolume":  335236968.84892911,
-                      "volume":  89890033172
-                  },
-                  {
-                      "symbol":  "AAVEUSDT",
-                      "baseAsset":  "AAVE",
-                      "pair":  "AAVE/USDT:USDT",
-                      "quoteVolume":  284083324.392,
-                      "volume":  3100431.3
+                      "listed_days":  1081.55,
+                      "quoteVolume":  314467002.49601883,
+                      "volume":  84296671108
                   },
                   {
                       "symbol":  "ORDIUSDT",
                       "baseAsset":  "ORDI",
                       "pair":  "ORDI/USDT:USDT",
-                      "quoteVolume":  281042121.1203,
-                      "volume":  61844971.1
+                      "listed_days":  895.03,
+                      "quoteVolume":  284983476.4749,
+                      "volume":  62278363.8
+                  },
+                  {
+                      "symbol":  "HIGHUSDT",
+                      "baseAsset":  "HIGH",
+                      "pair":  "HIGH/USDT:USDT",
+                      "listed_days":  1172.26,
+                      "quoteVolume":  259439071.26005,
+                      "volume":  802909205.1
                   },
                   {
                       "symbol":  "BNBUSDT",
                       "baseAsset":  "BNB",
                       "pair":  "BNB/USDT:USDT",
-                      "quoteVolume":  263530870.754,
-                      "volume":  423516.3
+                      "listed_days":  2399.22,
+                      "quoteVolume":  258981613.213,
+                      "volume":  415783.39
                   },
                   {
                       "symbol":  "BOMEUSDT",
                       "baseAsset":  "BOME",
                       "pair":  "BOME/USDT:USDT",
-                      "quoteVolume":  251649398.43280849,
-                      "volume":  397219469442
-                  },
-                  {
-                      "symbol":  "BLURUSDT",
-                      "baseAsset":  "BLUR",
-                      "pair":  "BLUR/USDT:USDT",
-                      "quoteVolume":  234686507.52455,
-                      "volume":  7130510775
-                  },
-                  {
-                      "symbol":  "ENJUSDT",
-                      "baseAsset":  "ENJ",
-                      "pair":  "ENJ/USDT:USDT",
-                      "quoteVolume":  169221038.74411,
-                      "volume":  2638967580
-                  },
-                  {
-                      "symbol":  "ADAUSDT",
-                      "baseAsset":  "ADA",
-                      "pair":  "ADA/USDT:USDT",
-                      "quoteVolume":  165925820.8805,
-                      "volume":  674991212
-                  },
-                  {
-                      "symbol":  "BASEDUSDT",
-                      "baseAsset":  "BASED",
-                      "pair":  "BASED/USDT:USDT",
-                      "quoteVolume":  151013105.6362,
-                      "volume":  1656640525
-                  },
-                  {
-                      "symbol":  "TAOUSDT",
-                      "baseAsset":  "TAO",
-                      "pair":  "TAO/USDT:USDT",
-                      "quoteVolume":  149801312.39,
-                      "volume":  615085.306
+                      "listed_days":  765.03,
+                      "quoteVolume":  244184547.5961,
+                      "volume":  384419844350
                   },
                   {
                       "symbol":  "SKYAIUSDT",
                       "baseAsset":  "SKYAI",
                       "pair":  "SKYAI/USDT:USDT",
-                      "quoteVolume":  144163363.68365,
-                      "volume":  1017930462
+                      "listed_days":  342.15,
+                      "quoteVolume":  233472011.64274,
+                      "volume":  1552457999
                   },
                   {
-                      "symbol":  "SUIUSDT",
-                      "baseAsset":  "SUI",
-                      "pair":  "SUI/USDT:USDT",
-                      "quoteVolume":  139606511.72626,
-                      "volume":  148143155.4
+                      "symbol":  "AAVEUSDT",
+                      "baseAsset":  "AAVE",
+                      "pair":  "AAVE/USDT:USDT",
+                      "listed_days":  2399.22,
+                      "quoteVolume":  230270011.24,
+                      "volume":  2519425.4
                   },
                   {
-                      "symbol":  "BULLAUSDT",
-                      "baseAsset":  "BULLA",
-                      "pair":  "BULLA/USDT:USDT",
-                      "quoteVolume":  134245660.827975,
-                      "volume":  12584180942
+                      "symbol":  "BLURUSDT",
+                      "baseAsset":  "BLUR",
+                      "pair":  "BLUR/USDT:USDT",
+                      "listed_days":  1089.55,
+                      "quoteVolume":  205076963.90499,
+                      "volume":  6187576109
+                  },
+                  {
+                      "symbol":  "ADAUSDT",
+                      "baseAsset":  "ADA",
+                      "pair":  "ADA/USDT:USDT",
+                      "listed_days":  2399.22,
+                      "quoteVolume":  164939776.2836,
+                      "volume":  670994102
                   },
                   {
                       "symbol":  "GUNUSDT",
                       "baseAsset":  "GUN",
                       "pair":  "GUN/USDT:USDT",
-                      "quoteVolume":  133920948.5912,
-                      "volume":  6500453467
+                      "listed_days":  385.01,
+                      "quoteVolume":  153864018.93114,
+                      "volume":  7469843673
                   },
                   {
-                      "symbol":  "GWEIUSDT",
-                      "baseAsset":  "GWEI",
-                      "pair":  "GWEI/USDT:USDT",
-                      "quoteVolume":  124210736.142247,
-                      "volume":  1132361292
+                      "symbol":  "SUIUSDT",
+                      "baseAsset":  "SUI",
+                      "pair":  "SUI/USDT:USDT",
+                      "listed_days":  1083.55,
+                      "quoteVolume":  147650441.90608,
+                      "volume":  156879651.2
+                  },
+                  {
+                      "symbol":  "TAOUSDT",
+                      "baseAsset":  "TAO",
+                      "pair":  "TAO/USDT:USDT",
+                      "listed_days":  738.95,
+                      "quoteVolume":  141967031.53,
+                      "volume":  584188.747
                   },
                   {
                       "symbol":  "AVAXUSDT",
                       "baseAsset":  "AVAX",
                       "pair":  "AVAX/USDT:USDT",
-                      "quoteVolume":  123247079.381,
-                      "volume":  13464160
+                      "listed_days":  2399.22,
+                      "quoteVolume":  126756739.823,
+                      "volume":  13841168
                   },
                   {
-                      "symbol":  "ENAUSDT",
-                      "baseAsset":  "ENA",
-                      "pair":  "ENA/USDT:USDT",
-                      "quoteVolume":  120245507.18125,
-                      "volume":  1029177933
-                  },
-                  {
-                      "symbol":  "PROMUSDT",
-                      "baseAsset":  "PROM",
-                      "pair":  "PROM/USDT:USDT",
-                      "quoteVolume":  107674449.8901,
-                      "volume":  46794136.1
+                      "symbol":  "BULLAUSDT",
+                      "baseAsset":  "BULLA",
+                      "pair":  "BULLA/USDT:USDT",
+                      "listed_days":  290.18,
+                      "quoteVolume":  119610086.999682,
+                      "volume":  11212754588
                   },
                   {
                       "symbol":  "LINKUSDT",
                       "baseAsset":  "LINK",
                       "pair":  "LINK/USDT:USDT",
-                      "quoteVolume":  104250404.248,
-                      "volume":  11360009.63
+                      "listed_days":  2399.22,
+                      "quoteVolume":  117379645.484,
+                      "volume":  12773634.38
                   },
                   {
-                      "symbol":  "MUSDT",
-                      "baseAsset":  "M",
-                      "pair":  "M/USDT:USDT",
-                      "quoteVolume":  103742629.5415,
-                      "volume":  30500383
-                  },
-                  {
-                      "symbol":  "NEARUSDT",
-                      "baseAsset":  "NEAR",
-                      "pair":  "NEAR/USDT:USDT",
-                      "quoteVolume":  91333227.613,
-                      "volume":  67561582
-                  },
-                  {
-                      "symbol":  "RIVERUSDT",
-                      "baseAsset":  "RIVER",
-                      "pair":  "RIVER/USDT:USDT",
-                      "quoteVolume":  89513872.9272,
-                      "volume":  17025046.2
-                  },
-                  {
-                      "symbol":  "TRXUSDT",
-                      "baseAsset":  "TRX",
-                      "pair":  "TRX/USDT:USDT",
-                      "quoteVolume":  88112565.94653,
-                      "volume":  265833851
-                  },
-                  {
-                      "symbol":  "DOTUSDT",
-                      "baseAsset":  "DOT",
-                      "pair":  "DOT/USDT:USDT",
-                      "quoteVolume":  82677273.312,
-                      "volume":  65595300.1
-                  },
-                  {
-                      "symbol":  "FILUSDT",
-                      "baseAsset":  "FIL",
-                      "pair":  "FIL/USDT:USDT",
-                      "quoteVolume":  77546138.483,
-                      "volume":  84368556.2
+                      "symbol":  "ENAUSDT",
+                      "baseAsset":  "ENA",
+                      "pair":  "ENA/USDT:USDT",
+                      "listed_days":  748.03,
+                      "quoteVolume":  114032293.07918,
+                      "volume":  982156740
                   },
                   {
                       "symbol":  "GRIFFAINUSDT",
                       "baseAsset":  "GRIFFAIN",
                       "pair":  "GRIFFAIN/USDT:USDT",
-                      "quoteVolume":  74080404.718305,
-                      "volume":  4094632139
+                      "listed_days":  472.99,
+                      "quoteVolume":  110358567.532306,
+                      "volume":  6495685164
                   },
                   {
-                      "symbol":  "GENIUSUSDT",
-                      "baseAsset":  "GENIUS",
-                      "pair":  "GENIUS/USDT:USDT",
-                      "quoteVolume":  72773542.4509,
-                      "volume":  119521304
+                      "symbol":  "RIVERUSDT",
+                      "baseAsset":  "RIVER",
+                      "pair":  "RIVER/USDT:USDT",
+                      "listed_days":  184.94,
+                      "quoteVolume":  107342944.685,
+                      "volume":  20817584.7
                   },
                   {
-                      "symbol":  "GUAUSDT",
-                      "baseAsset":  "GUA",
-                      "pair":  "GUA/USDT:USDT",
-                      "quoteVolume":  70985416.63844,
-                      "volume":  92224352
+                      "symbol":  "ENJUSDT",
+                      "baseAsset":  "ENJ",
+                      "pair":  "ENJ/USDT:USDT",
+                      "listed_days":  2399.22,
+                      "quoteVolume":  107314065.31736,
+                      "volume":  1743719406
+                  },
+                  {
+                      "symbol":  "MUSDT",
+                      "baseAsset":  "M",
+                      "pair":  "M/USDT:USDT",
+                      "listed_days":  287.16,
+                      "quoteVolume":  103592647.177,
+                      "volume":  29710835
+                  },
+                  {
+                      "symbol":  "SUPERUSDT",
+                      "baseAsset":  "SUPER",
+                      "pair":  "SUPER/USDT:USDT",
+                      "listed_days":  876.01,
+                      "quoteVolume":  101552514.4219,
+                      "volume":  718204339
+                  },
+                  {
+                      "symbol":  "NEARUSDT",
+                      "baseAsset":  "NEAR",
+                      "pair":  "NEAR/USDT:USDT",
+                      "listed_days":  2399.22,
+                      "quoteVolume":  90958078.397,
+                      "volume":  67259546
+                  },
+                  {
+                      "symbol":  "TRXUSDT",
+                      "baseAsset":  "TRX",
+                      "pair":  "TRX/USDT:USDT",
+                      "listed_days":  2399.22,
+                      "quoteVolume":  84163508.38397,
+                      "volume":  254149438
+                  },
+                  {
+                      "symbol":  "DOTUSDT",
+                      "baseAsset":  "DOT",
+                      "pair":  "DOT/USDT:USDT",
+                      "listed_days":  2399.22,
+                      "quoteVolume":  83159651.895,
+                      "volume":  66041768
+                  },
+                  {
+                      "symbol":  "PROMUSDT",
+                      "baseAsset":  "PROM",
+                      "pair":  "PROM/USDT:USDT",
+                      "listed_days":  460.03,
+                      "quoteVolume":  77964563.3442,
+                      "volume":  33066725.6
+                  },
+                  {
+                      "symbol":  "FILUSDT",
+                      "baseAsset":  "FIL",
+                      "pair":  "FIL/USDT:USDT",
+                      "listed_days":  2399.22,
+                      "quoteVolume":  77481163.672,
+                      "volume":  84293727.2
                   },
                   {
                       "symbol":  "SPKUSDT",
                       "baseAsset":  "SPK",
                       "pair":  "SPK/USDT:USDT",
-                      "quoteVolume":  70425490.77562,
-                      "volume":  2518996836
+                      "listed_days":  307.18,
+                      "quoteVolume":  71091843.63651,
+                      "volume":  2523779299
+                  },
+                  {
+                      "symbol":  "GUAUSDT",
+                      "baseAsset":  "GUA",
+                      "pair":  "GUA/USDT:USDT",
+                      "listed_days":  120.12,
+                      "quoteVolume":  68680964.10574,
+                      "volume":  86879372
+                  },
+                  {
+                      "symbol":  "SIRENUSDT",
+                      "baseAsset":  "SIREN",
+                      "pair":  "SIREN/USDT:USDT",
+                      "listed_days":  394.18,
+                      "quoteVolume":  66127362.85853,
+                      "volume":  97484237
+                  },
+                  {
+                      "symbol":  "MERLUSDT",
+                      "baseAsset":  "MERL",
+                      "pair":  "MERL/USDT:USDT",
+                      "listed_days":  326.2,
+                      "quoteVolume":  65301757.77147,
+                      "volume":  1530994077
                   },
                   {
                       "symbol":  "TRUMPUSDT",
                       "baseAsset":  "TRUMP",
                       "pair":  "TRUMP/USDT:USDT",
-                      "quoteVolume":  67669468.44323,
-                      "volume":  23970586.02
+                      "listed_days":  457.01,
+                      "quoteVolume":  62039211.93444,
+                      "volume":  21983473.96
                   }
               ]
 }

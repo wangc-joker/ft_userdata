@@ -4,11 +4,11 @@ $ErrorActionPreference = "Stop"
 $repoRoot = $PSScriptRoot
 $clashExePath = "D:\software\Clash.for.Windows-0.20.15-win\Clash for Windows.exe"
 $dockerDesktopExePath = "C:\Program Files\Docker\Docker\Docker Desktop.exe"
-$startScriptPath = Join-Path $repoRoot "start_nfi_top40clean_300u_max2_live.ps1"
-$logPath = Join-Path $repoRoot "user_data\logs\auto_recover_nfi_top40clean_300u_max2_live.log"
+$startScriptPath = Join-Path $repoRoot "start_nfi_dynamic_top40_302u_max2_live.ps1"
+$logPath = Join-Path $repoRoot "user_data\logs\auto_recover_nfi_dynamic_top40_302u_max2_live.log"
 $baseUrl = "http://127.0.0.1:8084"
 $apiUser = "Freqtrader"
-$apiPassword = "NfiTop40Live!2026"
+$apiPassword = "NfiDynamicTop40Live!2026"
 
 function Write-Log {
     param(
@@ -105,8 +105,40 @@ if (-not (Test-Path -LiteralPath $startScriptPath -PathType Leaf)) {
 }
 
 Write-Log "Starting freqtrade live bot."
-& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $startScriptPath 2>&1 |
-    Tee-Object -FilePath $logPath -Append | Out-Host
+$tempOutputPath = Join-Path ([System.IO.Path]::GetTempPath()) "auto_recover_nfi_dynamic_top40_302u_max2_live.out"
+ $tempErrorPath = Join-Path ([System.IO.Path]::GetTempPath()) "auto_recover_nfi_dynamic_top40_302u_max2_live.err"
+if (Test-Path -LiteralPath $tempOutputPath) {
+    Remove-Item -LiteralPath $tempOutputPath -Force
+}
+if (Test-Path -LiteralPath $tempErrorPath) {
+    Remove-Item -LiteralPath $tempErrorPath -Force
+}
+
+try {
+    $process = Start-Process -FilePath "powershell.exe" `
+        -ArgumentList @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $startScriptPath) `
+        -RedirectStandardOutput $tempOutputPath `
+        -RedirectStandardError $tempErrorPath `
+        -Wait `
+        -PassThru `
+        -WindowStyle Hidden
+}
+finally {
+    if (Test-Path -LiteralPath $tempOutputPath) {
+        Get-Content -LiteralPath $tempOutputPath |
+            Tee-Object -FilePath $logPath -Append | Out-Host
+        Remove-Item -LiteralPath $tempOutputPath -Force
+    }
+    if (Test-Path -LiteralPath $tempErrorPath) {
+        Get-Content -LiteralPath $tempErrorPath |
+            Tee-Object -FilePath $logPath -Append | Out-Host
+        Remove-Item -LiteralPath $tempErrorPath -Force
+    }
+}
+
+if ($process.ExitCode -ne 0) {
+    throw "Start script exited with code $($process.ExitCode)."
+}
 
 Start-Sleep -Seconds 5
 

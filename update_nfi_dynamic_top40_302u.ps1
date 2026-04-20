@@ -10,6 +10,7 @@ $reportPath = Join-Path $testRoot "pairs.dynamic.top40.302u.report.json"
 
 $targetCount = 40
 $quoteAsset = "USDT"
+$minimumListingDays = 30
 $excludedSuffixes = @("BULL", "BEAR", "UP", "DOWN")
 $excludedBaseAssets = @("XAU", "XAG", "XAUT", "PAXG", "TSLA")
 
@@ -24,7 +25,8 @@ function Test-EligibleSymbol {
         [string]$BaseAsset,
         [string]$Status,
         [string]$ContractType,
-        [string]$QuoteAsset
+        [string]$QuoteAsset,
+        [object]$OnboardDate
     )
 
     if ($QuoteAsset -ne "USDT") { return $false }
@@ -39,6 +41,12 @@ function Test-EligibleSymbol {
             return $false
         }
     }
+
+    if (-not $OnboardDate) { return $false }
+
+    $listedAt = [DateTimeOffset]::FromUnixTimeMilliseconds([int64]$OnboardDate)
+    $listedDays = ((Get-Date).ToUniversalTime() - $listedAt.UtcDateTime).TotalDays
+    if ($listedDays -lt $minimumListingDays) { return $false }
 
     return $true
 }
@@ -64,7 +72,8 @@ $rankedItems = foreach ($ticker in $tickers) {
         -BaseAsset $meta.baseAsset `
         -Status $meta.status `
         -ContractType $meta.contractType `
-        -QuoteAsset $meta.quoteAsset)) {
+        -QuoteAsset $meta.quoteAsset `
+        -OnboardDate $meta.onboardDate)) {
         continue
     }
 
@@ -72,6 +81,7 @@ $rankedItems = foreach ($ticker in $tickers) {
         symbol = $ticker.symbol
         baseAsset = $meta.baseAsset
         pair = "{0}/{1}:{1}" -f $meta.baseAsset, $quoteAsset
+        listed_days = [math]::Round((((Get-Date).ToUniversalTime() - [DateTimeOffset]::FromUnixTimeMilliseconds([int64]$meta.onboardDate).UtcDateTime).TotalDays), 2)
         quoteVolume = [double]$ticker.quoteVolume
         volume = [double]$ticker.volume
     }
@@ -109,6 +119,7 @@ $report = [pscustomobject]@{
         quote_asset = $quoteAsset
         contract_type = "PERPETUAL"
         status = "TRADING"
+        minimum_listing_days = $minimumListingDays
         excluded_suffixes = $excludedSuffixes
         excluded_base_assets = $excludedBaseAssets
         fill_strategy = "Sort by quoteVolume descending and take first eligible 40."
