@@ -2,7 +2,7 @@
 
 源码文件：`D:\test\NostalgiaForInfinity\NostalgiaForInfinityX7.py`
 
-配套索引：`D:\test\NostalgiaForInfinity\NFI_X7_FUNCTION_MAP.md`
+配套索引：[NFI_X7_函数目录_核心方法位置索引.md](./NFI_X7_函数目录_核心方法位置索引.md)
 
 ## 0. 先说结论
 
@@ -894,3 +894,4 @@ enterTags.stream().allMatch(longGrindModeTags::contains)
 组合成一个复杂的交易状态机。
 
 理解它的关键，不是背每个 RSI 阈值，而是理解它的“状态如何流转”。
+

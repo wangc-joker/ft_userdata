@@ -4,28 +4,28 @@
 
 ## 建议阅读顺序
 
-1. `NFI_X7_CODE_GUIDE_FOR_JAVA_BEGINNER.md`
+1. [NFI_X7_源码总览_Java开发者入门说明.md](./NFI_X7_源码总览_Java开发者入门说明.md)
    - 先建立整体认知：这个 Python 文件相当于一个 Java 策略类，Freqtrade 框架会在不同阶段调用它的方法。
 
-2. `NFI_X7_FUNCTION_MAP.md`
+2. [NFI_X7_函数目录_核心方法位置索引.md](./NFI_X7_函数目录_核心方法位置索引.md)
    - 当作目录。你想找某个函数时，先从这里定位。
 
-3. `NFI_X7_INDICATORS_AND_DATAFLOW_EXPLAINED.md`
+3. [NFI_X7_指标计算与多周期数据流详解.md](./NFI_X7_指标计算与多周期数据流详解.md)
    - 重点理解数据是怎么来的、指标列是怎么加到 DataFrame 上的、多周期数据是怎么合并的。
 
-4. `NFI_X7_TOP_COINS_141_145_EXPLAINED.md`
+4. [NFI_X7_TopCoins模式_141到145入场条件详解.md](./NFI_X7_TopCoins模式_141到145入场条件详解.md)
    - 重点理解你之前测试收益最高的 top coins 入场逻辑。
 
-5. `NFI_X7_EXIT_LOGIC_EXPLAINED.md`
+5. [NFI_X7_出场逻辑_止盈止损与利润缓存详解.md](./NFI_X7_出场逻辑_止盈止损与利润缓存详解.md)
    - 理解它为什么胜率很高：出场不是简单卖出，而是有利润目标缓存、延迟卖出、止损拦截等机制。
 
-6. `NFI_X7_POSITION_ADJUSTMENT_GRIND_REBUY_DERISK_EXPLAINED.md`
+6. [NFI_X7_仓位调整_补仓减仓GrindRebuyDerisk详解.md](./NFI_X7_仓位调整_补仓减仓GrindRebuyDerisk详解.md)
    - 理解补仓、减仓、grind、rebuy、derisk。这个部分直接影响小资金能不能跑起来。
 
-7. `NFI_X7_CONFIG_AND_RISK_NOTES.md`
+7. [NFI_X7_配置参数与实盘风险说明.md](./NFI_X7_配置参数与实盘风险说明.md)
    - 从实盘风险角度看这个策略，包括资金量、max_open_trades、stoploss=-99%、回测胜率 100% 的含义。
 
-8. `NFI_X7_JAVA_STYLE_PSEUDOCODE.md`
+8. [NFI_X7_Java思维伪代码_核心流程重写.md](./NFI_X7_Java思维伪代码_核心流程重写.md)
    - 用 Java 思维重写核心结构，帮助你把 Python/Freqtrade 逻辑映射成熟悉的类、方法、对象。
 
 ## 一句话理解这个策略
@@ -56,3 +56,4 @@ informative_pairs -> populate_indicators -> populate_entry_trend -> confirm_trad
 ```
 
 掌握这个流程后，再去看某个具体 tag 的入场/出场条件，会容易很多。
+
