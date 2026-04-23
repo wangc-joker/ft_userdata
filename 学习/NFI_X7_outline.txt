@@ -1,0 +1,630 @@
+1: import copy
+2: import logging
+3: import pathlib
+4: import rapidjson
+5: import numpy as np
+6: import talib.abstract as ta
+7: import pandas as pd
+8: import pandas_ta as pta
+9: from freqtrade.strategy.interface import IStrategy
+10: from freqtrade.strategy import merge_informative_pair
+11: from pandas import DataFrame, Series
+12: from functools import reduce
+13: from freqtrade.persistence import Trade, Order
+14: from datetime import datetime, timedelta
+15: import time
+16: from typing import Optional
+17: import warnings
+68: class NostalgiaForInfinityX7(IStrategy):
+69: INTERFACE_VERSION = 3
+71: def version(self) -> str:
+74: stoploss = -0.99
+77: trailing_stop = False
+78: trailing_only_offset_is_reached = True
+79: trailing_stop_positive = 0.01
+80: trailing_stop_positive_offset = 0.03
+82: use_custom_stoploss = False
+83: stoploss_on_exchange = False
+86: timeframe = "5m"
+87: info_timeframes = ["15m", "1h", "4h", "1d"]
+90: btc_info_timeframes = ["5m", "15m", "1h", "4h", "1d"]
+93: has_bt_agefilter = False
+94: bt_min_age_days = 3
+97: has_downtime_protection = False
+100: hold_support_enabled = True
+103: process_only_new_candles = True
+106: use_exit_signal = True
+107: exit_profit_only = False
+108: ignore_roi_if_entry_signal = True
+114: num_cores_indicators_calc = 0
+117: long_normal_mode_tags = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"]
+119: long_pump_mode_tags = ["21", "22", "23", "24", "25", "26"]
+121: long_quick_mode_tags = ["41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53"]
+123: long_rebuy_mode_tags = ["61", "62", "63"]
+125: long_high_profit_mode_tags = ["81", "82"]
+127: long_rapid_mode_tags = ["101", "102", "103", "104", "105", "106", "107", "108", "109", "110"]
+129: long_grind_mode_tags = ["120"]
+131: long_btc_mode_tags = ["121"]
+133: long_top_coins_mode_tags = ["141", "142", "143", "144", "145"]
+135: long_scalp_mode_tags = ["161", "162", "163"]
+137: long_normal_mode_name = "long_normal"
+138: long_pump_mode_name = "long_pump"
+139: long_quick_mode_name = "long_quick"
+140: long_rebuy_mode_name = "long_rebuy"
+141: long_high_profit_mode_name = "long_hp"
+142: long_rapid_mode_name = "long_rapid"
+143: long_grind_mode_name = "long_grind"
+144: long_btc_mode_name = "long_btc"
+145: long_top_coins_mode_name = "long_tc"
+146: long_scalp_mode_name = "long_scalp"
+151: short_normal_mode_tags = ["501", "502"]
+153: short_pump_mode_tags = ["521", "522", "523", "524", "525", "526"]
+155: short_quick_mode_tags = ["541", "542", "543", "544", "545", "546", "547", "548", "549", "550"]
+157: short_rebuy_mode_tags = ["561"]
+159: short_high_profit_mode_tags = ["581", "582"]
+161: short_rapid_mode_tags = ["601", "602", "603", "604", "605", "606", "607", "608", "609", "610"]
+163: short_grind_mode_tags = ["620"]
+165: short_top_coins_mode_tags = ["641", "642"]
+167: short_scalp_mode_tags = ["661"]
+169: short_normal_mode_name = "short_normal"
+170: short_pump_mode_name = "short_pump"
+171: short_quick_mode_name = "short_quick"
+172: short_rebuy_mode_name = "short_rebuy"
+173: short_high_profit_mode_name = "short_hp"
+174: short_rapid_mode_name = "short_rapid"
+175: short_top_coins_mode_name = "short_tc"
+176: short_scalp_mode_name = "short_scalp"
+178: is_futures_mode = False
+179: futures_mode_leverage = 3.0
+180: futures_mode_leverage_rebuy_mode = 3.0
+181: futures_mode_leverage_grind_mode = 3.0
+184: futures_max_open_trades_long = 0
+185: futures_max_open_trades_short = 0
+188: stop_threshold_spot = 0.10
+189: stop_threshold_futures = 0.10
+190: stop_threshold_doom_spot = 0.20
+191: stop_threshold_doom_futures = 0.20
+192: stop_threshold_spot_rebuy = 1.0
+193: stop_threshold_futures_rebuy = 1.0
+194: stop_threshold_rapid_spot = 0.20
+195: stop_threshold_rapid_futures = 0.20
+196: stop_threshold_scalp_spot = 0.20
+197: stop_threshold_scalp_futures = 0.20
+200: custom_fee_open_rate = None
+201: custom_fee_close_rate = None
+204: rebuy_mode_min_free_slots = 2
+207: position_adjustment_enable = True
+210: grinding_enable = True
+211: derisk_enable = True
+212: stops_enable = True
+213: doom_stops_enable = True
+214: u_e_stops_enable = False
+217: grinding_v1_max_stake = 1.0  # ratio of first entry
+218: derisk_use_grind_stops = False
+220: grind_1_stop_grinds_spot = -0.50
+221: grind_1_profit_threshold_spot = 0.018
+222: grind_1_stakes_spot = [0.24, 0.26, 0.28]
+223: grind_1_sub_thresholds_spot = [-0.12, -0.16, -0.20]
+225: grind_1_stop_grinds_futures = -0.50
+226: grind_1_profit_threshold_futures = 0.018
+227: grind_1_stakes_futures = [0.24, 0.26, 0.28]
+228: grind_1_sub_thresholds_futures = [-0.12, -0.16, -0.20]
+230: grind_2_stop_grinds_spot = -0.50
+231: grind_2_profit_threshold_spot = 0.018
+232: grind_2_stakes_spot = [0.20, 0.24, 0.28]
+233: grind_2_sub_thresholds_spot = [-0.12, -0.16, -0.20]
+235: grind_2_stop_grinds_futures = -0.50
+236: grind_2_profit_threshold_futures = 0.018
+237: grind_2_stakes_futures = [0.20, 0.24, 0.28]
+238: grind_2_sub_thresholds_futures = [-0.12, -0.16, -0.20]
+240: grind_3_stop_grinds_spot = -0.50
+241: grind_3_profit_threshold_spot = 0.018
+242: grind_3_stakes_spot = [0.20, 0.22, 0.24]
+243: grind_3_sub_thresholds_spot = [-0.12, -0.16, -0.20]
+245: grind_3_stop_grinds_futures = -0.50
+246: grind_3_profit_threshold_futures = 0.018
+247: grind_3_stakes_futures = [0.20, 0.22, 0.24]
+248: grind_3_sub_thresholds_futures = [-0.12, -0.16, -0.20]
+250: grind_4_stop_grinds_spot = -0.50
+251: grind_4_profit_threshold_spot = 0.018
+252: grind_4_stakes_spot = [0.20, 0.22, 0.24]
+253: grind_4_sub_thresholds_spot = [-0.12, -0.16, -0.20]
+255: grind_4_stop_grinds_futures = -0.50
+256: grind_4_profit_threshold_futures = 0.018
+257: grind_4_stakes_futures = [0.20, 0.22, 0.24]
+258: grind_4_sub_thresholds_futures = [-0.12, -0.16, -0.20]
+260: grind_5_stop_grinds_spot = -0.50
+261: grind_5_profit_threshold_spot = 0.048
+262: grind_5_stakes_spot = [0.20, 0.22, 0.24]
+263: grind_5_sub_thresholds_spot = [-0.12, -0.16, -0.20]
+265: grind_5_stop_grinds_futures = -0.50
+266: grind_5_profit_threshold_futures = 0.048
+267: grind_5_stakes_futures = [0.20, 0.22, 0.24]
+268: grind_5_sub_thresholds_futures = [-0.12, -0.16, -0.20]
+270: grind_6_stop_grinds_spot = -0.50
+271: grind_6_profit_threshold_spot = 0.018
+272: grind_6_stakes_spot = [0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18]
+273: grind_6_sub_thresholds_spot = [-0.03, -0.08, -0.10, -0.12, -0.14, -0.16, -0.18, -0.20, -0.22]
+275: grind_6_stop_grinds_futures = -0.50
+276: grind_6_profit_threshold_futures = 0.018
+277: grind_6_stakes_futures = [0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18]
+278: grind_6_sub_thresholds_futures = [-0.03, -0.08, -0.10, -0.12, -0.14, -0.16, -0.18, -0.20, -0.22]
+280: grind_1_derisk_1_stop_grinds_spot = -0.50
+281: grind_1_derisk_1_profit_threshold_spot = 0.018
+282: grind_1_derisk_1_stakes_spot = [0.20, 0.24, 0.28]
+283: grind_1_derisk_1_sub_thresholds_spot = [-0.12, -0.16, -0.20]
+285: grind_1_derisk_1_stop_grinds_futures = -0.50
+286: grind_1_derisk_1_profit_threshold_futures = 0.018
+287: grind_1_derisk_1_stakes_futures = [0.20, 0.24, 0.28]
+288: grind_1_derisk_1_sub_thresholds_futures = [-0.12, -0.16, -0.20]
+290: grind_2_derisk_1_stop_grinds_spot = -0.50
+291: grind_2_derisk_1_profit_threshold_spot = 0.018
+292: grind_2_derisk_1_stakes_spot = [0.20, 0.24, 0.28]
+293: grind_2_derisk_1_sub_thresholds_spot = [-0.12, -0.16, -0.20]
+295: grind_2_derisk_1_stop_grinds_futures = -0.50
+296: grind_2_derisk_1_profit_threshold_futures = 0.018
+297: grind_2_derisk_1_stakes_futures = [0.20, 0.24, 0.28]
+298: grind_2_derisk_1_sub_thresholds_futures = [-0.12, -0.16, -0.20]
+300: grinds_stop_spot = -0.12
+301: grinds_stop_futures = -0.12
+304: regular_mode_stake_multiplier_spot = [1.0]
+305: regular_mode_stake_multiplier_futures = [1.0]
+306: regular_mode_use_grind_stops = False
+308: regular_mode_rebuy_stakes_spot = [0.10, 0.10, 0.10]
+309: regular_mode_rebuy_thresholds_spot = [-0.12, -0.14, -0.16]
+310: regular_mode_grind_1_stakes_spot = [0.22, 0.24, 0.26]
+311: regular_mode_grind_1_thresholds_spot = [-0.06, -0.10, -0.12]
+312: regular_mode_grind_1_stop_grinds_spot = -0.20
+313: regular_mode_grind_1_profit_threshold_spot = 0.018
+314: regular_mode_grind_2_stakes_spot = [0.14, 0.20, 0.26]
+315: regular_mode_grind_2_thresholds_spot = [-0.04, -0.10, -0.12]
+316: regular_mode_grind_2_stop_grinds_spot = -0.20
+317: regular_mode_grind_2_profit_threshold_spot = 0.018
+318: regular_mode_grind_3_stakes_spot = [0.18, 0.20, 0.22]
+319: regular_mode_grind_3_thresholds_spot = [-0.03, -0.10, -0.12]
+320: regular_mode_grind_3_stop_grinds_spot = -0.20
+321: regular_mode_grind_3_profit_threshold_spot = 0.018
+322: regular_mode_grind_4_stakes_spot = [0.18, 0.20, 0.22]
+323: regular_mode_grind_4_thresholds_spot = [-0.03, -0.10, -0.12]
+324: regular_mode_grind_4_stop_grinds_spot = -0.20
+325: regular_mode_grind_4_profit_threshold_spot = 0.018
+326: regular_mode_grind_5_stakes_spot = [0.18, 0.20, 0.22]
+327: regular_mode_grind_5_thresholds_spot = [-0.03, -0.10, -0.12]
+328: regular_mode_grind_5_stop_grinds_spot = -0.20
+329: regular_mode_grind_5_profit_threshold_spot = 0.048
+330: regular_mode_grind_6_stakes_spot = [0.05, 0.057, 0.065, 0.074, 0.084, 0.095, 0.107, 0.121, 0.137]
+331: regular_mode_grind_6_thresholds_spot = [-0.025, -0.05, -0.06, -0.07, -0.08, -0.09, -0.10, -0.11, -0.12]
+332: regular_mode_grind_6_stop_grinds_spot = -0.20
+333: regular_mode_grind_6_profit_threshold_spot = 0.018
+334: regular_mode_derisk_1_spot = -0.24
+335: regular_mode_derisk_1_spot_old = -0.80
+336: regular_mode_derisk_1_reentry_spot = -0.08
+337: regular_mode_derisk_spot = -0.24
+338: regular_mode_derisk_spot_old = -1.60
+339: regular_mode_derisk_1_scalp_mode_spot = -0.05
+341: regular_mode_rebuy_stakes_futures = [0.10, 0.10, 0.10]
+342: regular_mode_rebuy_thresholds_futures = [-0.12, -0.14, -0.16]
+343: regular_mode_grind_1_stakes_futures = [0.22, 0.24, 0.26]
+344: regular_mode_grind_1_thresholds_futures = [-0.06, -0.10, -0.12]
+345: regular_mode_grind_1_stop_grinds_futures = -0.20
+346: regular_mode_grind_1_profit_threshold_futures = 0.018
+347: regular_mode_grind_2_stakes_futures = [0.14, 0.20, 0.26]
+348: regular_mode_grind_2_thresholds_futures = [-0.04, -0.10, -0.12]
+349: regular_mode_grind_2_stop_grinds_futures = -0.20
+350: regular_mode_grind_2_profit_threshold_futures = 0.018
+351: regular_mode_grind_3_stakes_futures = [0.18, 0.20, 0.22]
+352: regular_mode_grind_3_thresholds_futures = [-0.03, -0.10, -0.12]
+353: regular_mode_grind_3_stop_grinds_futures = -0.20
+354: regular_mode_grind_3_profit_threshold_futures = 0.018
+355: regular_mode_grind_4_stakes_futures = [0.18, 0.20, 0.22]
+356: regular_mode_grind_4_thresholds_futures = [-0.03, -0.10, -0.12]
+357: regular_mode_grind_4_stop_grinds_futures = -0.20
+358: regular_mode_grind_4_profit_threshold_futures = 0.018
+359: regular_mode_grind_5_stakes_futures = [0.18, 0.20, 0.22]
+360: regular_mode_grind_5_thresholds_futures = [-0.03, -0.10, -0.12]
+361: regular_mode_grind_5_stop_grinds_futures = -0.20
+362: regular_mode_grind_5_profit_threshold_futures = 0.048
+363: regular_mode_grind_6_stakes_futures = [0.05, 0.057, 0.065, 0.074, 0.084, 0.095, 0.107, 0.121, 0.137]
+364: regular_mode_grind_6_thresholds_futures = [-0.025, -0.05, -0.06, -0.07, -0.08, -0.09, -0.10, -0.11, -0.12]
+365: regular_mode_grind_6_stop_grinds_futures = -0.20
+366: regular_mode_grind_6_profit_threshold_futures = 0.018
+367: regular_mode_derisk_1_futures = -0.60
+368: regular_mode_derisk_1_futures_old = -0.80
+369: regular_mode_derisk_1_reentry_futures = -0.08  # without leverage
+370: regular_mode_derisk_futures = -0.60
+371: regular_mode_derisk_futures_old = -1.20
+372: regular_mode_derisk_1_scalp_mode_futures = -0.05
+375: grinding_v2_max_stake = 1.0  # ratio of first entry
+376: grinding_v2_max_grinds_and_buybacks = 20  # current open
+378: grinding_v2_derisk_level_1_enable = True
+379: grinding_v2_derisk_level_1_spot = [-0.06, -0.15]
+380: grinding_v2_derisk_level_1_futures = [-0.18, -0.35]
+381: grinding_v2_derisk_level_2_enable = True
+382: grinding_v2_derisk_level_2_spot = [-0.08, -0.18]
+383: grinding_v2_derisk_level_2_futures = [-0.16, -0.54]
+384: grinding_v2_derisk_level_3_enable = True
+385: grinding_v2_derisk_level_3_spot = [-0.10, -0.20]
+386: grinding_v2_derisk_level_3_futures = [-0.30, -0.60]
+387: grinding_v2_derisk_level_1_stake_spot = 0.20
+388: grinding_v2_derisk_level_1_stake_futures = 0.20
+389: grinding_v2_derisk_level_2_stake_spot = 0.30
+390: grinding_v2_derisk_level_2_stake_futures = 0.30
+391: grinding_v2_derisk_level_3_stake_spot = 0.50
+392: grinding_v2_derisk_level_3_stake_futures = 0.50
+393: grinding_v2_derisk_global_enable = False
+394: grinding_v2_derisk_global_spot = -0.10
+395: grinding_v2_derisk_global_futures = -0.30
+397: grinding_v2_grind_1_enable = True
+398: grinding_v2_grind_1_stakes_spot = [0.20, 0.22, 0.24, 0.26, 0.28]
+399: grinding_v2_grind_1_thresholds_spot = [-0.06, -0.07, -0.08, -0.09, -0.10]
+400: grinding_v2_grind_1_stakes_futures = [0.20, 0.22, 0.24, 0.26, 0.28]
+401: grinding_v2_grind_1_thresholds_futures = [-0.06, -0.07, -0.08, -0.09, -0.10]
+402: grinding_v2_grind_1_profit_threshold_spot = 0.02
+403: grinding_v2_grind_1_profit_threshold_futures = 0.02
+404: grinding_v2_grind_1_use_derisk = True
+405: grinding_v2_grind_1_derisk_spot = -0.26
+406: grinding_v2_grind_1_derisk_futures = -0.26
+408: grinding_v2_grind_2_enable = True
+409: grinding_v2_grind_2_stakes_spot = [0.10, 0.12, 0.14, 0.16, 0.18]
+410: grinding_v2_grind_2_thresholds_spot = [-0.06, -0.07, -0.08, -0.09, -0.10]
+411: grinding_v2_grind_2_stakes_futures = [0.10, 0.12, 0.14, 0.16, 0.18]
+412: grinding_v2_grind_2_thresholds_futures = [-0.06, -0.07, -0.08, -0.09, -0.10]
+413: grinding_v2_grind_2_profit_threshold_spot = 0.02
+414: grinding_v2_grind_2_profit_threshold_futures = 0.02
+415: grinding_v2_grind_2_use_derisk = True
+416: grinding_v2_grind_2_derisk_spot = -0.26
+417: grinding_v2_grind_2_derisk_futures = -0.26
+419: grinding_v2_grind_3_enable = True
+420: grinding_v2_grind_3_stakes_spot = [0.10, 0.12, 0.14, 0.16, 0.18]
+421: grinding_v2_grind_3_thresholds_spot = [-0.06, -0.07, -0.08, -0.09, -0.10]
+422: grinding_v2_grind_3_stakes_futures = [0.10, 0.12, 0.14, 0.16, 0.18]
+423: grinding_v2_grind_3_thresholds_futures = [-0.06, -0.07, -0.08, -0.09, -0.10]
+424: grinding_v2_grind_3_profit_threshold_spot = 0.02
+425: grinding_v2_grind_3_profit_threshold_futures = 0.02
+426: grinding_v2_grind_3_use_derisk = True
+427: grinding_v2_grind_3_derisk_spot = -0.26
+428: grinding_v2_grind_3_derisk_futures = -0.26
+430: grinding_v2_grind_4_enable = True
+431: grinding_v2_grind_4_stakes_spot = [0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.11]
+432: grinding_v2_grind_4_thresholds_spot = [-0.06, -0.07, -0.09, -0.12, -0.16, -0.21, -0.27]
+433: grinding_v2_grind_4_stakes_futures = [0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.11]
+434: grinding_v2_grind_4_thresholds_futures = [-0.06, -0.07, -0.09, -0.12, -0.16, -0.21, -0.27]
+435: grinding_v2_grind_4_profit_threshold_spot = 0.10
+436: grinding_v2_grind_4_profit_threshold_futures = 0.10
+437: grinding_v2_grind_4_use_derisk = True
+438: grinding_v2_grind_4_derisk_spot = -0.26
+439: grinding_v2_grind_4_derisk_futures = -0.26
+441: grinding_v2_grind_5_enable = True
+442: grinding_v2_grind_5_stakes_spot = [0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.11]
+443: grinding_v2_grind_5_thresholds_spot = [-0.06, -0.07, -0.09, -0.12, -0.16, -0.21, -0.27]
+444: grinding_v2_grind_5_stakes_futures = [0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.11]
+445: grinding_v2_grind_5_thresholds_futures = [-0.06, -0.07, -0.09, -0.12, -0.16, -0.21, -0.27]
+446: grinding_v2_grind_5_profit_threshold_spot = 0.10
+447: grinding_v2_grind_5_profit_threshold_futures = 0.10
+448: grinding_v2_grind_5_use_derisk = True
+449: grinding_v2_grind_5_derisk_spot = -0.26
+450: grinding_v2_grind_5_derisk_futures = -0.26
+452: grinding_v2_buyback_1_enable = True
+453: grinding_v2_buyback_1_stake_spot = 0.10
+454: grinding_v2_buyback_1_stake_futures = 0.10
+455: grinding_v2_buyback_1_distance_ratio_spot = -0.06
+456: grinding_v2_buyback_1_distance_ratio_futures = -0.06
+457: grinding_v2_buyback_1_profit_threshold_spot = 0.05
+458: grinding_v2_buyback_1_profit_threshold_futures = 0.05
+459: grinding_v2_buyback_1_use_derisk = True
+460: grinding_v2_buyback_1_derisk_spot = -0.26
+461: grinding_v2_buyback_1_derisk_futures = -0.26
+463: grinding_v2_buyback_2_enable = True
+464: grinding_v2_buyback_2_stake_spot = 0.10
+465: grinding_v2_buyback_2_stake_futures = 0.10
+466: grinding_v2_buyback_2_distance_ratio_spot = -0.12
+467: grinding_v2_buyback_2_distance_ratio_futures = -0.12
+468: grinding_v2_buyback_2_profit_threshold_spot = 0.05
+469: grinding_v2_buyback_2_profit_threshold_futures = 0.05
+470: grinding_v2_buyback_2_use_derisk = True
+471: grinding_v2_buyback_2_derisk_spot = -0.26
+472: grinding_v2_buyback_2_derisk_futures = -0.26
+474: grinding_v2_buyback_3_enable = True
+475: grinding_v2_buyback_3_stake_spot = 0.10
+476: grinding_v2_buyback_3_stake_futures = 0.10
+477: grinding_v2_buyback_3_distance_ratio_spot = -0.16
+478: grinding_v2_buyback_3_distance_ratio_futures = -0.16
+479: grinding_v2_buyback_3_profit_threshold_spot = 0.05
+480: grinding_v2_buyback_3_profit_threshold_futures = 0.05
+481: grinding_v2_buyback_3_use_derisk = True
+482: grinding_v2_buyback_3_derisk_spot = -0.26
+483: grinding_v2_buyback_3_derisk_futures = -0.26
+486: system_v3_name = "system_v3"
+487: system_v3_1_name = "system_v3_1"
+488: system_v3_2_name = "system_v3_2"
+489: system_name_use = system_v3_2_name
+491: system_v3_max_stake = 1.0  # ratio of first entry
+492: system_v3_1_max_stake = 3.0  # ratio of first entry
+494: system_v3_stop_threshold_doom_spot = 0.14
+495: system_v3_stop_threshold_doom_futures = 0.35
+496: system_v3_stop_threshold_spot_rebuy = 0.70
+497: system_v3_stop_threshold_futures_rebuy = 1.75
+498: system_v3_stop_threshold_rapid_spot = 0.14
+499: system_v3_stop_threshold_rapid_futures = 0.35
+500: system_v3_stop_threshold_scalp_spot = 0.14
+501: system_v3_stop_threshold_scalp_futures = 0.35
+503: system_v3_1_stop_threshold_doom_spot = 0.24
+504: system_v3_1_stop_threshold_doom_futures = 0.70
+505: system_v3_1_stop_threshold_spot_rebuy = 0.47
+506: system_v3_1_stop_threshold_futures_rebuy = 1.40
+507: system_v3_1_stop_threshold_rapid_spot = 0.24
+508: system_v3_1_stop_threshold_rapid_futures = 0.70
+509: system_v3_1_stop_threshold_scalp_spot = 0.24
+510: system_v3_1_stop_threshold_scalp_futures = 0.70
+512: system_v3_2_stops_enable = False
+513: system_v3_2_stop_threshold_doom_spot = 0.12
+514: system_v3_2_stop_threshold_doom_futures = 0.35
+515: system_v3_2_stop_threshold_spot_rebuy = 0.48
+516: system_v3_2_stop_threshold_futures_rebuy = 1.40
+517: system_v3_2_stop_threshold_rapid_spot = 0.12
+518: system_v3_2_stop_threshold_rapid_futures = 0.35
+519: system_v3_2_stop_threshold_scalp_spot = 0.12
+520: system_v3_2_stop_threshold_scalp_futures = 0.35
+522: system_v3_1_stake_multiplier = 0.50
+523: system_v3_1_rebuy_stakes_spot = [0.5, 0.5]
+524: system_v3_1_rebuy_stakes_futures = [0.5, 0.5]
+525: system_v3_1_rebuy_thresholds_spot = [-0.25, -0.16, -0.16, -0.20]
+526: system_v3_1_rebuy_thresholds_futures = [-0.25, -0.16, -0.16, -0.20]
+528: system_v3_derisk_level_1_enable = True
+529: system_v3_derisk_level_1_spot = [-0.04, -0.06]
+530: system_v3_derisk_level_1_futures = [-0.12, -0.18]
+531: system_v3_derisk_level_1_stake_spot = 0.10
+532: system_v3_derisk_level_1_stake_futures = 0.10
+533: system_v3_derisk_level_2_enable = True
+534: system_v3_derisk_level_2_spot = [-0.06, -0.08]
+535: system_v3_derisk_level_2_futures = [-0.18, -0.24]
+536: system_v3_derisk_level_2_stake_spot = 0.10
+537: system_v3_derisk_level_2_stake_futures = 0.10
+538: system_v3_derisk_level_3_enable = True
+539: system_v3_derisk_level_3_spot = [-0.08, -0.10]
+540: system_v3_derisk_level_3_futures = [-0.24, -0.30]
+541: system_v3_derisk_level_3_stake_spot = 0.10
+542: system_v3_derisk_level_3_stake_futures = 0.10
+544: system_v3_2_stake_multiplier = 1.0
+545: system_v3_2_derisk_level_1_enable = True
+546: system_v3_2_derisk_level_1_spot = [-0.04, -0.08]
+547: system_v3_2_derisk_level_1_futures = [-0.12, -0.24]
+548: system_v3_2_derisk_level_1_stake_spot = 0.20
+549: system_v3_2_derisk_level_1_stake_futures = 0.20
+550: system_v3_2_derisk_level_2_enable = True
+551: system_v3_2_derisk_level_2_spot = [-0.04, -0.12]
+552: system_v3_2_derisk_level_2_futures = [-0.12, -0.36]
+553: system_v3_2_derisk_level_2_stake_spot = 0.30
+554: system_v3_2_derisk_level_2_stake_futures = 0.30
+555: system_v3_2_derisk_level_3_enable = True
+556: system_v3_2_derisk_level_3_spot = [-0.04, -0.16]
+557: system_v3_2_derisk_level_3_futures = [-0.12, -0.48]
+558: system_v3_2_derisk_level_3_stake_spot = 0.50
+559: system_v3_2_derisk_level_3_stake_futures = 0.50
+560: system_v3_2_derisk_level_4_enable = False
+561: system_v3_2_derisk_level_4_spot = [-0.02, -0.08]
+562: system_v3_2_derisk_level_4_futures = [-0.06, -0.24]
+563: system_v3_2_derisk_level_4_stake_spot = 1.0
+564: system_v3_2_derisk_level_4_stake_futures = 1.0
+566: system_v3_grind_1_enable = True
+567: system_v3_grind_1_stakes_spot = [0.20, 0.20, 0.20, 0.20, 0.20]
+568: system_v3_grind_1_thresholds_spot = [-0.06, -0.07, -0.08, -0.09, -0.10]
+569: system_v3_grind_1_stakes_futures = [0.20, 0.20, 0.20, 0.20, 0.20]
+570: system_v3_grind_1_thresholds_futures = [-0.06, -0.07, -0.08, -0.09, -0.10]
+571: system_v3_grind_1_profit_threshold_spot = 0.025
+572: system_v3_grind_1_profit_threshold_futures = 0.025
+573: system_v3_grind_1_use_derisk = True
+574: system_v3_grind_1_derisk_spot = -0.12
+575: system_v3_grind_1_derisk_futures = -0.12
+577: system_v3_grind_2_enable = True
+578: system_v3_grind_2_stakes_spot = [0.10, 0.12, 0.14, 0.16, 0.18]
+579: system_v3_grind_2_thresholds_spot = [-0.06, -0.07, -0.08, -0.09, -0.10]
+580: system_v3_grind_2_stakes_futures = [0.10, 0.12, 0.14, 0.16, 0.18]
+581: system_v3_grind_2_thresholds_futures = [-0.06, -0.07, -0.08, -0.09, -0.10]
+582: system_v3_grind_2_profit_threshold_spot = 0.035
+583: system_v3_grind_2_profit_threshold_futures = 0.035
+584: system_v3_grind_2_use_derisk = True
+585: system_v3_grind_2_derisk_spot = -0.12
+586: system_v3_grind_2_derisk_futures = -0.12
+588: system_v3_grind_3_enable = True
+589: system_v3_grind_3_stakes_spot = [0.10, 0.12, 0.14, 0.16, 0.18]
+590: system_v3_grind_3_thresholds_spot = [-0.06, -0.07, -0.08, -0.09, -0.10]
+591: system_v3_grind_3_stakes_futures = [0.10, 0.12, 0.14, 0.16, 0.18]
+592: system_v3_grind_3_thresholds_futures = [-0.06, -0.07, -0.08, -0.09, -0.10]
+593: system_v3_grind_3_profit_threshold_spot = 0.04
+594: system_v3_grind_3_profit_threshold_futures = 0.04
+595: system_v3_grind_3_use_derisk = True
+596: system_v3_grind_3_derisk_spot = -0.12
+597: system_v3_grind_3_derisk_futures = -0.12
+599: system_v3_grind_4_enable = True
+600: system_v3_grind_4_stakes_spot = [0.05, 0.06, 0.07, 0.08, 0.09]
+601: system_v3_grind_4_thresholds_spot = [-0.06, -0.07, -0.08, -0.09, -0.10]
+602: system_v3_grind_4_stakes_futures = [0.05, 0.06, 0.07, 0.08, 0.09]
+603: system_v3_grind_4_thresholds_futures = [-0.06, -0.07, -0.08, -0.09, -0.10]
+604: system_v3_grind_4_profit_threshold_spot = 0.08
+605: system_v3_grind_4_profit_threshold_futures = 0.08
+606: system_v3_grind_4_use_derisk = True
+607: system_v3_grind_4_derisk_spot = -0.12
+608: system_v3_grind_4_derisk_futures = -0.12
+610: system_v3_grind_5_enable = True
+611: system_v3_grind_5_stakes_spot = [0.05, 0.06, 0.07, 0.08, 0.09]
+612: system_v3_grind_5_thresholds_spot = [-0.06, -0.07, -0.08, -0.09, -0.10]
+613: system_v3_grind_5_stakes_futures = [0.05, 0.06, 0.07, 0.08, 0.09]
+614: system_v3_grind_5_thresholds_futures = [-0.06, -0.07, -0.08, -0.09, -0.10]
+615: system_v3_grind_5_profit_threshold_spot = 0.10
+616: system_v3_grind_5_profit_threshold_futures = 0.10
+617: system_v3_grind_5_use_derisk = True
+618: system_v3_grind_5_derisk_spot = -0.12
+619: system_v3_grind_5_derisk_futures = -0.12
+621: system_v3_buyback_1_enable = False
+622: system_v3_buyback_1_stake_spot = 1.00
+623: system_v3_buyback_1_stake_futures = 1.00
+624: system_v3_buyback_1_distance_ratio_negative_spot = -0.04
+625: system_v3_buyback_1_distance_ratio_negative_futures = -0.04
+626: system_v3_buyback_1_distance_ratio_positive_spot = 0.02
+627: system_v3_buyback_1_distance_ratio_positive_futures = 0.02
+630: system_v3_buyback_1_use_derisk = True
+631: system_v3_buyback_1_derisk_spot = -0.08
+632: system_v3_buyback_1_derisk_futures = -0.08
+635: rebuy_mode_stake_multiplier = 0.35
+636: rebuy_mode_derisk_spot = -0.60
+637: rebuy_mode_derisk_futures = -0.60
+638: rebuy_mode_stakes_spot = [1.0, 1.0]
+639: rebuy_mode_stakes_futures = [1.0, 1.0]
+640: rebuy_mode_thresholds_spot = [-0.08, -0.10]
+641: rebuy_mode_thresholds_futures = [-0.08, -0.10]
+644: system_v3_rebuy_mode_stake_multiplier = 0.25
+645: system_v3_rebuy_mode_stakes_spot = [1.0, 1.0, 1.0, 1.0]
+646: system_v3_rebuy_mode_stakes_futures = [1.0, 1.0, 1.0, 1.0]
+647: system_v3_rebuy_mode_thresholds_spot = [-0.08, -0.12, -0.16, -0.20]
+648: system_v3_rebuy_mode_thresholds_futures = [-0.08, -0.12, -0.16, -0.20]
+651: rapid_mode_stake_multiplier_spot = [0.75]
+652: rapid_mode_stake_multiplier_futures = [0.75]
+655: min_free_slots_scalp_mode = 1
+658: grind_mode_stake_multiplier_spot = [0.20, 0.30, 0.40, 0.50, 0.60, 0.70]
+659: grind_mode_stake_multiplier_futures = [0.20, 0.30, 0.40, 0.50]
+660: grind_mode_first_entry_profit_threshold_spot = 0.018
+661: grind_mode_first_entry_profit_threshold_futures = 0.018
+662: grind_mode_first_entry_stop_threshold_spot = -0.20
+663: grind_mode_first_entry_stop_threshold_futures = -0.20
+664: grind_mode_max_slots = 1
+665: grind_mode_coins = [
+719: btc_mode_max_slots = 0
+720: btc_mode_coins = [
+725: top_coins_mode_coins = [
+784: profit_max_thresholds = [0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.05, 0.05]
+787: max_slippage = 0.01
+790: btc_stakes = ["BTC", "ETH"]
+795: long_entry_signal_params = {
+830: short_entry_signal_params = {
+849: hold_trades_cache = None
+850: target_profit_cache = None
+880: def __init__(self, config: dict) -> None:
+1000: def plot_config(self):
+1019: def get_ticker_indicator(self):
+1024: def mark_profit_target(
+1044: def exit_profit_target(
+1707: def calc_total_profit(
+1761: def custom_exit(
+2345: def custom_stake_amount(
+2498: def order_filled(self, pair: str, trade: Trade, order: Order, current_time: datetime, **kwargs) -> None:
+2511: def adjust_trade_position(
+2814: def notification_msg(
+2947: def informative_pairs(self):
+2984: def informative_1d_indicators(self, metadata: dict, info_timeframe) -> DataFrame:
+3108: def informative_4h_indicators(self, metadata: dict, info_timeframe) -> DataFrame:
+3268: def informative_1h_indicators(self, metadata: dict, info_timeframe) -> DataFrame:
+3425: def informative_15m_indicators(self, metadata: dict, info_timeframe) -> DataFrame:
+3537: def base_tf_5m_indicators(self, metadata: dict, df: DataFrame) -> DataFrame:
+3703: def info_switcher(self, metadata: dict, info_timeframe) -> DataFrame:
+3717: def btc_info_1d_indicators(self, btc_info_pair, btc_info_timeframe, metadata: dict) -> DataFrame:
+3755: def btc_info_4h_indicators(self, btc_info_pair, btc_info_timeframe, metadata: dict) -> DataFrame:
+3773: def btc_info_1h_indicators(self, btc_info_pair, btc_info_timeframe, metadata: dict) -> DataFrame:
+3791: def btc_info_15m_indicators(self, btc_info_pair, btc_info_timeframe, metadata: dict) -> DataFrame:
+3809: def btc_info_5m_indicators(self, btc_info_pair, btc_info_timeframe, metadata: dict) -> DataFrame:
+3827: def btc_info_switcher(self, btc_info_pair, btc_info_timeframe, metadata: dict) -> DataFrame:
+3843: def populate_indicators(self, df: DataFrame, metadata: dict) -> DataFrame:
+11465: def confirm_trade_entry(
+11551: def _handle_grind_mode(self, pair: str, config: dict, current_time: datetime) -> bool:
+11565: def _handle_top_coins_mode(self, pair: str, config: dict, current_time: datetime) -> bool:
+11572: def _handle_scalp_mode(self, pair: str, config: dict, current_time: datetime) -> bool:
+11581: def confirm_trade_exit(
+11624: def bot_loop_start(self, current_time: datetime, **kwargs) -> None:
+11635: def leverage(
+11655: def correct_min_stake(self, min_stake: float) -> float:
+11662: def is_backtest_mode(self) -> bool:
+11666: def is_system_v3(self, trade: Trade) -> bool:
+11670: def is_system_v3_1(self, trade: Trade) -> bool:
+11674: def is_system_v3_2(self, trade: Trade) -> bool:
+11678: def has_valid_entry_conditions(self, trade: Trade, exit_rate: float, last_candle, previous_candle) -> bool:
+11692: def update_signals_from_config(self, config):
+11707: def _set_profit_target(
+11720: def _remove_profit_target(self, pair: str):
+11727: def get_hold_trades_config_file(self):
+11754: def load_hold_trades_config(self):
+11766: def _should_hold_trade(self, trade: "Trade", rate: float, sell_reason: str) -> bool:
+11859: def populate_exit_trend(self, df: DataFrame, metadata: dict) -> DataFrame:
+11889: def populate_entry_trend(self, df: DataFrame, metadata: dict) -> DataFrame:
+25177: def long_exit_normal(
+25436: def long_exit_pump(
+25687: def long_exit_quick(
+25977: def long_exit_rebuy(
+26254: def long_exit_high_profit(
+26484: def long_exit_rapid(
+26815: def long_exit_grind(
+26846: def long_exit_btc(
+26877: def long_exit_top_coins(
+27134: def long_exit_scalp(
+27412: def long_exit_signals(
+27509: def long_exit_main(
+27612: def long_exit_williams_r(
+29299: def long_exit_dec(
+43115: def long_exit_stoploss(
+43253: def long_grind_adjust_trade_position_v2(
+45291: def long_buyback_entry_v2(
+45382: def long_grind_entry_v2(
+45631: def long_buyback_exit_v2(
+45646: def long_grind_exit_v2(
+45663: def long_grind_adjust_trade_position_v3(
+47282: def long_grind_entry_v3(
+47531: def long_buyback_entry_v3(
+47547: def long_rebuy_entry_v3(
+47564: def long_grind_adjust_trade_position(
+49675: def long_grind_entry(
+49768: def long_adjust_trade_position_no_derisk(
+51235: def long_rebuy_adjust_trade_position(
+51422: def long_rebuy_adjust_trade_position_v3(
+51597: def short_exit_normal(
+51856: def short_exit_pump(
+52107: def short_exit_quick(
+52397: def short_exit_rebuy(
+52674: def short_exit_high_profit(
+52904: def short_exit_rapid(
+53235: def short_exit_grind(
+53266: def short_exit_top_coins(
+53523: def short_exit_scalp(
+53801: def short_exit_signals(
+53898: def short_exit_main(
+54001: def short_exit_williams_r(
+55688: def short_exit_dec(
+69504: def short_exit_stoploss(
+69643: def short_grind_adjust_trade_position_v2(
+71663: def short_buyback_entry_v2(
+71754: def short_grind_entry_v2(
+72003: def short_buyback_exit_v2(
+72018: def short_grind_exit_v2(
+72035: def short_grind_adjust_trade_position_v3(
+73389: def short_grind_entry_v3(
+73638: def short_rebuy_entry_v3(
+73657: def short_grind_adjust_trade_position(
+75706: def short_grind_entry(
+75799: def short_adjust_trade_position_no_derisk(
+77266: def short_rebuy_adjust_trade_position(
+77443: def short_rebuy_adjust_trade_position_v3(
+77597: conditions = []
+77603: result = reduce(lambda x, y: x & y, conditions)
+77610: conditions = []
+77616: result = reduce(lambda x, y: x & y, conditions)
+77623: ema1 = ta.EMA(df, timeperiod=ema1_length)
+77624: ema2 = ta.EMA(df, timeperiod=ema2_length)
+77625: emadiff = (ema1 - ema2) / df["close"] * 100.0
+77669: df = df[["open", "close", "high", "low"]].copy().fillna(0)
+77686: open_ha = open_ha.fillna(0)
+77687: high_ha = high_ha.fillna(0)
+77688: low_ha = low_ha.fillna(0)
+77689: close_ha = close_ha.fillna(0)
+77742: class Cache:
+77743: def __init__(self, path):
+77754: def rapidjson_load_kwargs():
+77758: def rapidjson_dump_kwargs():
+77761: def load(self):
+77765: def save(self):
+77769: def process_loaded_data(self, data):
+77772: def _load(self):
+77784: def _save(self):
+77791: class HoldsCache(Cache):
+77793: def rapidjson_load_kwargs():
+77801: def rapidjson_dump_kwargs():
+77807: def save(self):
+77810: def process_loaded_data(self, data):
+77921: def _object_hook(data):

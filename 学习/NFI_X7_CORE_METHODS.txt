@@ -1,0 +1,66 @@
+1761: def custom_exit(
+2345: def custom_stake_amount(
+2498: def order_filled(self, pair: str, trade: Trade, order: Order, current_time: datetime, **kwargs) -> None:
+2511: def adjust_trade_position(
+2947: def informative_pairs(self):
+2984: def informative_1d_indicators(self, metadata: dict, info_timeframe) -> DataFrame:
+3108: def informative_4h_indicators(self, metadata: dict, info_timeframe) -> DataFrame:
+3268: def informative_1h_indicators(self, metadata: dict, info_timeframe) -> DataFrame:
+3425: def informative_15m_indicators(self, metadata: dict, info_timeframe) -> DataFrame:
+3537: def base_tf_5m_indicators(self, metadata: dict, df: DataFrame) -> DataFrame:
+3843: def populate_indicators(self, df: DataFrame, metadata: dict) -> DataFrame:
+11465: def confirm_trade_entry(
+11581: def confirm_trade_exit(
+11624: def bot_loop_start(self, current_time: datetime, **kwargs) -> None:
+11635: def leverage(
+25177: def long_exit_normal(
+25436: def long_exit_pump(
+25687: def long_exit_quick(
+25977: def long_exit_rebuy(
+26254: def long_exit_high_profit(
+26484: def long_exit_rapid(
+26815: def long_exit_grind(
+26846: def long_exit_btc(
+26877: def long_exit_top_coins(
+27134: def long_exit_scalp(
+27412: def long_exit_signals(
+27509: def long_exit_main(
+27612: def long_exit_williams_r(
+29299: def long_exit_dec(
+43115: def long_exit_stoploss(
+43253: def long_grind_adjust_trade_position_v2(
+45382: def long_grind_entry_v2(
+45646: def long_grind_exit_v2(
+45663: def long_grind_adjust_trade_position_v3(
+47282: def long_grind_entry_v3(
+47547: def long_rebuy_entry_v3(
+47564: def long_grind_adjust_trade_position(
+49675: def long_grind_entry(
+49768: def long_adjust_trade_position_no_derisk(
+51235: def long_rebuy_adjust_trade_position(
+51422: def long_rebuy_adjust_trade_position_v3(
+51597: def short_exit_normal(
+51856: def short_exit_pump(
+52107: def short_exit_quick(
+52397: def short_exit_rebuy(
+52674: def short_exit_high_profit(
+52904: def short_exit_rapid(
+53235: def short_exit_grind(
+53266: def short_exit_top_coins(
+53523: def short_exit_scalp(
+53801: def short_exit_signals(
+53898: def short_exit_main(
+54001: def short_exit_williams_r(
+55688: def short_exit_dec(
+69504: def short_exit_stoploss(
+69643: def short_grind_adjust_trade_position_v2(
+71754: def short_grind_entry_v2(
+72018: def short_grind_exit_v2(
+72035: def short_grind_adjust_trade_position_v3(
+73389: def short_grind_entry_v3(
+73638: def short_rebuy_entry_v3(
+73657: def short_grind_adjust_trade_position(
+75706: def short_grind_entry(
+75799: def short_adjust_trade_position_no_derisk(
+77266: def short_rebuy_adjust_trade_position(
+77443: def short_rebuy_adjust_trade_position_v3(
