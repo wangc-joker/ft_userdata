@@ -1,0 +1,77 @@
+"""Long-side custom exit routing extracted from NFI."""
+
+from nfi_refactor.exits.custom_exit_call import route_custom_exit_modes
+from nfi_refactor.exits.custom_exit_long_match import (
+  matches_long_btc,
+  matches_long_grind,
+  matches_long_high_profit,
+  matches_long_normal,
+  matches_long_pump,
+  matches_long_quick,
+  matches_long_rapid,
+  matches_long_rebuy,
+  matches_long_scalp,
+  matches_long_top_coins,
+)
+
+
+def route_long_custom_exit(
+  strategy,
+  pair: str,
+  trade,
+  current_time,
+  current_rate: float,
+  enter_tag,
+  enter_tags,
+  filled_entries,
+  filled_exits,
+  profit_stake,
+  profit_ratio,
+  profit_current_stake_ratio,
+  profit_init_ratio,
+  max_profit,
+  max_loss,
+  last_candle,
+  previous_candle_1,
+  previous_candle_2,
+  previous_candle_3,
+  previous_candle_4,
+  previous_candle_5,
+):
+  rules = (
+    (matches_long_normal, strategy.long_exit_normal),
+    (matches_long_pump, strategy.long_exit_pump),
+    (matches_long_quick, strategy.long_exit_quick),
+    (matches_long_rebuy, strategy.long_exit_rebuy),
+    (matches_long_high_profit, strategy.long_exit_high_profit),
+    (matches_long_rapid, strategy.long_exit_rapid),
+    (matches_long_grind, strategy.long_exit_grind),
+    (matches_long_btc, strategy.long_exit_btc),
+    (matches_long_top_coins, strategy.long_exit_top_coins),
+    (matches_long_scalp, strategy.long_exit_scalp),
+  )
+
+  return route_custom_exit_modes(
+    rules,
+    strategy,
+    enter_tag,
+    enter_tags,
+    pair,
+    current_rate,
+    profit_stake,
+    profit_ratio,
+    profit_current_stake_ratio,
+    profit_init_ratio,
+    max_profit,
+    max_loss,
+    filled_entries,
+    filled_exits,
+    last_candle,
+    previous_candle_1,
+    previous_candle_2,
+    previous_candle_3,
+    previous_candle_4,
+    previous_candle_5,
+    trade,
+    current_time,
+  )

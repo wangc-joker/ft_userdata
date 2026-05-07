@@ -1,0 +1,93 @@
+{
+    "freqai": {
+        "enabled": true,
+        "train_period_days": 60,
+        "backtest_period_days": 14,
+        "live_retrain_hours": 4,
+        "purge_old_models": 2,
+        "identifier": "nfi-filter-v1-0-30c",
+        "feature_parameters": {
+            "include_timeframes": [
+                "5m",
+                "15m",
+                "1h"
+            ],
+            "include_corr_pairlist": [
+                "BTC/USDT:USDT",
+                "ETH/USDT:USDT"
+            ],
+            "include_shifted_candles": 2,
+            "indicator_periods_candles": [
+                10,
+                20,
+                40
+            ],
+            "label_period_candles": 48,
+            "DI_threshold": 0.85,
+            "weight_factor": 0,
+            "principal_component_analysis": false,
+            "use_SVM_to_remove_outliers": false,
+            "plot_feature_importances": 0,
+            "shuffle_after_split": false,
+            "buffer_train_data_candles": 0
+        },
+        "data_split_parameters": {
+            "test_size": 0.25,
+            "shuffle": false
+        },
+        "model_training_parameters": {
+            "n_estimators": 200,
+            "learning_rate": 0.05,
+            "max_depth": 6,
+            "num_leaves": 31,
+            "min_child_weight": 5,
+            "subsample": 0.8,
+            "colsample_bytree": 0.8
+        },
+        "write_metrics_to_disk": false,
+        "conv_width": 1,
+        "expiration_hours": 0,
+        "save_backtest_models": false,
+        "activate_tensorboard": true,
+        "wait_for_training_iteration_on_reload": true,
+        "continual_learning": false,
+        "keras": false,
+        "override_exchange_check": false
+    },
+    "timeframe": "5m",
+    "stake_amount": "unlimited",
+    "stake_currency": "USDT",
+    "max_open_trades": 2,
+    "pairs": [
+        "BTC/USDT:USDT",
+        "ETH/USDT:USDT",
+        "APE/USDT:USDT",
+        "SOL/USDT:USDT",
+        "ZEC/USDT:USDT",
+        "DOGE/USDT:USDT",
+        "XRP/USDT:USDT",
+        "HYPE/USDT:USDT",
+        "GALA/USDT:USDT",
+        "BNB/USDT:USDT",
+        "ADA/USDT:USDT",
+        "SUI/USDT:USDT",
+        "AAVE/USDT:USDT",
+        "AVAX/USDT:USDT",
+        "LINK/USDT:USDT",
+        "FIL/USDT:USDT",
+        "TRX/USDT:USDT",
+        "DOT/USDT:USDT",
+        "NEAR/USDT:USDT",
+        "DYDX/USDT:USDT",
+        "BCH/USDT:USDT",
+        "WLD/USDT:USDT",
+        "LTC/USDT:USDT",
+        "CRV/USDT:USDT",
+        "ARB/USDT:USDT",
+        "XLM/USDT:USDT",
+        "XMR/USDT:USDT",
+        "OP/USDT:USDT",
+        "DASH/USDT:USDT",
+        "APT/USDT:USDT"
+    ]
+}
