@@ -1,6 +1,8 @@
+import json
 from datetime import timedelta
+from pathlib import Path
 
-from NFIRefactorStrategy import NFIRefactorStrategy
+from NostalgiaForInfinityX7 import NostalgiaForInfinityX7
 
 
 def _safe_ratio(value, fallback=0.0):
@@ -13,13 +15,14 @@ def _safe_ratio(value, fallback=0.0):
 
 
 class NFIRiskDurationDynamicRiskBudgetVolatilityCap12TightRebuyScaleRecoveryCutGentleStrategy(
-    NFIRefactorStrategy
+    NostalgiaForInfinityX7
 ):
     """
-    Production candidate: NFI refactor with risk-duration controls.
+    Production candidate: NFI original wrapper with risk-duration controls.
 
-    This is the retained strategy after the optimization experiments.  It keeps
-    the NFI entry logic and grind engine, but adds these risk controls:
+    This wrapper inherits the original NostalgiaForInfinityX7 directly.
+    Updating upstream NFI only requires replacing NostalgiaForInfinityX7.py,
+    while this file keeps the RecoveryCutGentle risk overlay:
     - smaller tag-120 initial/add exposure,
     - dynamic tag-120 risk budget based on account growth and pair volatility,
     - stabilized confirmation before adding to falling tag-120 trades,
@@ -84,8 +87,295 @@ class NFIRiskDurationDynamicRiskBudgetVolatilityCap12TightRebuyScaleRecoveryCutG
     risk_recovery_hot_loss_profit = -0.16
     risk_recovery_hot_pressure = 0.85
 
+    # Volume-tier capital safety belt.  This caps order size, but keeps the NFI
+    # signal / grind / rebuy decision engine intact.
+    volume_tier_file = "config/pair_volume_tiers.json"
+    volume_tier_first_cap_enabled = True
+    volume_tier_adjustment_cap_enabled = True
+    # 10,000,000 USDT 24h volume -> max 1,000 USDT first order.
+    # Larger markets scale linearly, so this is a liquidity ceiling rather than
+    # an account-size ceiling.
+    volume_first_cap_per_10m = 1000.0
+    volume_first_cap_base_volume = 10_000_000.0
+    volume_absolute_first_cap = None
+    volume_bracket_first_caps = [
+        (1_000_000_000.0, 3000.0),
+        (100_000_000.0, 2000.0),
+        (50_000_000.0, 1000.0),
+        (0.0, 500.0),
+    ]
+    volume_tier_params = {
+        "L5": {
+            "max_adds": 2,
+            "total_first_mult": 3.0,
+            "add_first_mult": 1.0,
+        },
+        "L4": {
+            "max_adds": 2,
+            "total_first_mult": 3.0,
+            "add_first_mult": 1.0,
+        },
+        "L3": {
+            "max_adds": 2,
+            "total_first_mult": 3.0,
+            "add_first_mult": 1.0,
+        },
+        "L2": {
+            "max_adds": 1,
+            "total_first_mult": 2.0,
+            "add_first_mult": 1.0,
+        },
+        "L1": {
+            "max_adds": 0,
+            "total_first_mult": 1.0,
+            "add_first_mult": 0.0,
+        },
+    }
+
     def version(self) -> str:
-        return "nfi-risk-duration-dynamic-risk-budget-volatility-cap-12-tight-rebuy-scale-recovery-cut-gentle-0.1.0"
+        return "nfi-original-wrapper-recovery-cut-gentle-volume-tier-cap-0.5.0"
+
+    def bot_start(self, **kwargs):
+        try:
+            super().bot_start(**kwargs)
+        except AttributeError:
+            pass
+        self.load_volume_tiers()
+
+    def _volume_tier_path_candidates(self):
+        configured = Path(str(self.volume_tier_file))
+        candidates = [configured]
+
+        user_data_dir = self.config.get("user_data_dir") if hasattr(self, "config") else None
+        if user_data_dir:
+            user_data_dir = Path(str(user_data_dir))
+            candidates.extend(
+                [
+                    user_data_dir / configured,
+                    user_data_dir / "config" / "pair_volume_tiers.json",
+                ]
+            )
+
+        cwd = Path.cwd()
+        candidates.extend(
+            [
+                cwd / configured,
+                cwd / "user_data" / configured,
+                cwd / "user_data" / "config" / "pair_volume_tiers.json",
+                Path("/freqtrade/user_data/config/pair_volume_tiers.json"),
+            ]
+        )
+
+        seen = set()
+        unique = []
+        for path in candidates:
+            key = str(path)
+            if key not in seen:
+                unique.append(path)
+                seen.add(key)
+        return unique
+
+    def load_volume_tiers(self):
+        self.pair_to_volume_tier = {}
+        self.pair_to_volume = {}
+
+        for path in self._volume_tier_path_candidates():
+            try:
+                if not path.exists():
+                    continue
+                with path.open("r", encoding="utf-8") as handle:
+                    data = json.load(handle)
+                break
+            except Exception:
+                data = None
+        else:
+            data = None
+
+        if not data:
+            return
+
+        for tier, obj in data.get("tiers", {}).items():
+            for pair in obj.get("pairs", []):
+                self.pair_to_volume_tier[str(pair)] = tier
+
+        for pair, volume in data.get("volumes", {}).items():
+            self.pair_to_volume[str(pair)] = _safe_ratio(volume, 0.0)
+
+    def _pair_keys(self, pair: str):
+        pair = str(pair)
+        keys = [pair]
+        if ":USDT" in pair:
+            keys.append(pair.replace(":USDT", ""))
+        if "/" in pair:
+            keys.append(pair.replace("/", "").replace(":USDT", ""))
+        return keys
+
+    def get_pair_tier(self, pair: str) -> str:
+        if not hasattr(self, "pair_to_volume_tier"):
+            self.load_volume_tiers()
+
+        for key in self._pair_keys(pair):
+            tier = self.pair_to_volume_tier.get(key)
+            if tier:
+                return tier
+        return "L0"
+
+    def get_pair_24h_volume(self, pair: str):
+        if not hasattr(self, "pair_to_volume"):
+            self.load_volume_tiers()
+
+        for key in self._pair_keys(pair):
+            if key in self.pair_to_volume:
+                return self.pair_to_volume[key]
+        return None
+
+    def _tier_config(self, pair: str):
+        return self.volume_tier_params.get(self.get_pair_tier(pair))
+
+    def _configured_max_adds(self) -> int:
+        value = self.config.get("max_entry_position_adjustment", 0)
+        try:
+            return max(int(value or 0), 0)
+        except (TypeError, ValueError):
+            return 0
+
+    def _volume_cap_capital(self, fallback: float) -> float:
+        wallets = getattr(self, "wallets", None)
+        if wallets is not None:
+            try:
+                value = _safe_ratio(wallets.get_total_stake_amount(), 0.0)
+                if value > 0:
+                    return value
+            except Exception:
+                pass
+        equity = self._current_wallet_equity()
+        return equity if equity > 0 else fallback
+
+    def _volume_custom_config(self) -> dict:
+        config = getattr(self, "config", {}) or {}
+        value = config.get("nfi_volume_tier", {})
+        return value if isinstance(value, dict) else {}
+
+    def _volume_absolute_first_cap(self):
+        custom = self._volume_custom_config()
+        value = custom.get("absolute_first_cap", self.volume_absolute_first_cap)
+        if value is None:
+            return None
+        value = _safe_ratio(value, 0.0)
+        return value if value > 0 else None
+
+    def _volume_bracket_first_cap(self, pair: str):
+        custom = self._volume_custom_config()
+        if custom.get("use_volume_bracket_first_cap", True) is False:
+            return None
+
+        volume = self.get_pair_24h_volume(pair)
+        if volume is None:
+            return None
+
+        brackets = custom.get("volume_bracket_first_caps", self.volume_bracket_first_caps)
+        for min_volume, cap in brackets:
+            if volume >= _safe_ratio(min_volume, 0.0):
+                cap = _safe_ratio(cap, 0.0)
+                return cap if cap > 0 else None
+        return None
+
+    def _volume_first_order_cap(self, pair: str):
+        volume = self.get_pair_24h_volume(pair)
+        if not volume:
+            return None
+        base_volume = max(_safe_ratio(self.volume_first_cap_base_volume, 0.0), 1.0)
+        base_cap = _safe_ratio(self.volume_first_cap_per_10m, 0.0)
+        return volume / base_volume * base_cap
+
+    def _volume_first_cap(self, pair: str, stake: float, proposed_stake: float, min_stake, max_stake):
+        if not self.volume_tier_first_cap_enabled:
+            return stake
+
+        tier_cfg = self._tier_config(pair)
+        if tier_cfg is None:
+            return 0.0
+
+        max_stake = proposed_stake if max_stake is None else max_stake
+        capital = self._volume_cap_capital(max_stake or proposed_stake)
+        slots = max(int(self.config.get("max_open_trades", 1) or 1), 1)
+
+        # First entry uses an equal account split, then liquidity caps it only
+        # when the pair is too small for that order size.
+        budget_first_cap = capital / slots
+        volume_first_cap = self._volume_first_order_cap(pair)
+        caps = [stake, budget_first_cap, max_stake]
+        if volume_first_cap is not None:
+            caps.append(volume_first_cap)
+        absolute_first_cap = self._volume_absolute_first_cap()
+        if absolute_first_cap is not None:
+            caps.append(absolute_first_cap)
+        bracket_first_cap = self._volume_bracket_first_cap(pair)
+        if bracket_first_cap is not None:
+            caps.append(bracket_first_cap)
+
+        capped = min(caps)
+        if min_stake is not None and capped < min_stake:
+            return 0.0
+        return capped
+
+    def _first_entry_stake(self, trade) -> float:
+        try:
+            entries = trade.select_filled_orders(trade.entry_side)
+            if entries:
+                return _safe_ratio(entries[0].cost, 0.0)
+        except Exception:
+            pass
+
+        entries_count = max(int(getattr(trade, "nr_of_successful_entries", 1) or 1), 1)
+        stake = _safe_ratio(getattr(trade, "stake_amount", 0.0), 0.0)
+        return stake / entries_count
+
+    def _replace_adjustment_amount(self, adjustment, amount: float):
+        if isinstance(adjustment, tuple):
+            return (amount, *adjustment[1:])
+        return amount
+
+    def _cap_adjustment_to_volume_tier(self, trade, adjustment, min_stake, max_stake):
+        if not self.volume_tier_adjustment_cap_enabled or adjustment is None:
+            return adjustment
+
+        amount = self._adjustment_amount(adjustment)
+        if amount <= 0:
+            return adjustment
+
+        tier_cfg = self._tier_config(trade.pair)
+        if tier_cfg is None:
+            return None
+
+        max_adds = int(tier_cfg["max_adds"])
+        already_added = max(int(getattr(trade, "nr_of_successful_entries", 1) or 1) - 1, 0)
+        if already_added >= max_adds:
+            return None
+
+        max_stake = amount if max_stake is None else max_stake
+        first_entry_stake = self._first_entry_stake(trade)
+        if first_entry_stake <= 0:
+            first_entry_stake = _safe_ratio(getattr(trade, "stake_amount", 0.0), 0.0)
+
+        volume_first_cap = self._volume_first_order_cap(trade.pair)
+        volume_total_cap = volume_first_cap * (1 + max_adds) if volume_first_cap is not None else None
+        first_total_cap = first_entry_stake * tier_cfg["total_first_mult"]
+        pair_total_caps = [first_total_cap]
+        if volume_total_cap is not None:
+            pair_total_caps.append(volume_total_cap)
+        pair_total_cap = min(pair_total_caps)
+
+        current_stake = _safe_ratio(getattr(trade, "stake_amount", 0.0), 0.0)
+        remaining_budget = pair_total_cap - current_stake
+        if remaining_budget <= 0:
+            return None
+
+        single_add_cap = first_entry_stake * tier_cfg["add_first_mult"]
+        capped = min(amount, remaining_budget, single_add_cap, max_stake)
+        if min_stake is not None and capped < min_stake:
+            return None
+        return self._replace_adjustment_amount(adjustment, capped)
 
     def populate_indicators(self, df, metadata: dict):
         df = super().populate_indicators(df, metadata)
@@ -307,22 +597,57 @@ class NFIRiskDurationDynamicRiskBudgetVolatilityCap12TightRebuyScaleRecoveryCutG
         side: str,
         **kwargs,
     ) -> float:
-        stake = super().custom_stake_amount(
+        try:
+            stake = super().custom_stake_amount(
+                pair,
+                current_time,
+                current_rate,
+                proposed_stake,
+                min_stake,
+                max_stake,
+                leverage,
+                entry_tag,
+                side,
+                **kwargs,
+            )
+        except AttributeError:
+            stake = proposed_stake
+
+        if stake is None:
+            stake = proposed_stake
+
+        if side == "long" and self._is_grind120(entry_tag):
+            min_allowed = min_stake if min_stake is not None else 0.0
+            stake = max(stake * self.risk_grind_stake_scale, min_allowed)
+
+        return self._volume_first_cap(pair, stake, proposed_stake, min_stake, max_stake)
+
+    def confirm_trade_entry(
+        self,
+        pair: str,
+        order_type: str,
+        amount: float,
+        rate: float,
+        time_in_force: str,
+        current_time,
+        entry_tag,
+        side: str,
+        **kwargs,
+    ) -> bool:
+        if self.get_pair_tier(pair) == "L0":
+            return False
+
+        return super().confirm_trade_entry(
             pair,
+            order_type,
+            amount,
+            rate,
+            time_in_force,
             current_time,
-            current_rate,
-            proposed_stake,
-            min_stake,
-            max_stake,
-            leverage,
             entry_tag,
             side,
             **kwargs,
         )
-        if side == "long" and self._is_grind120(entry_tag):
-            min_allowed = min_stake if min_stake is not None else 0.0
-            return max(stake * self.risk_grind_stake_scale, min_allowed)
-        return stake
 
     def custom_exit(
         self,
@@ -435,15 +760,16 @@ class NFIRiskDurationDynamicRiskBudgetVolatilityCap12TightRebuyScaleRecoveryCutG
             if self._adjustment_amount(adjustment) <= 0:
                 return adjustment
             if current_profit > self.risk_grind_stabilized_profit:
-                return adjustment
+                return self._cap_adjustment_to_volume_tier(trade, adjustment, min_stake, max_stake)
 
             recent_crash, stabilized = self._pair_recovery_state(trade.pair)
             if recent_crash and not stabilized:
                 return None
-            return adjustment
+            return self._cap_adjustment_to_volume_tier(trade, adjustment, min_stake, max_stake)
 
         if self._adjustment_amount(adjustment) <= 0:
             return adjustment
 
         scale = self._rebuy_volatility_scale(trade.pair)
-        return self._scale_positive_adjustment_by_value(adjustment, scale)
+        adjustment = self._scale_positive_adjustment_by_value(adjustment, scale)
+        return self._cap_adjustment_to_volume_tier(trade, adjustment, min_stake, max_stake)

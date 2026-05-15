@@ -1,0 +1,96 @@
+{
+  "updated_at": "2026-05-12T01:53:58.8837052Z",
+  "exchange": "binanceusdm",
+  "market_type": "future",
+  "quote": "USDT",
+  "source_pairlist": "config.backtest.nfi.top30.600u.max4.recovery_cut_gentle.json",
+  "min_quote_volume": 10000000,
+  "volume_unit": "USDT_24h_quote_volume",
+  "tiers": {
+    "L5": {
+      "min_volume": 1000000000,
+      "pairs": [
+        "BTC/USDT:USDT",
+        "ETH/USDT:USDT",
+        "SOL/USDT:USDT"
+      ]
+    },
+    "L4": {
+      "min_volume": 500000000,
+      "pairs": [
+        "XRP/USDT:USDT",
+        "ZEC/USDT:USDT",
+        "DOGE/USDT:USDT",
+        "SUI/USDT:USDT"
+      ]
+    },
+    "L3": {
+      "min_volume": 100000000,
+      "pairs": [
+        "TAO/USDT:USDT",
+        "HYPE/USDT:USDT",
+        "BNB/USDT:USDT",
+        "ADA/USDT:USDT",
+        "AVAX/USDT:USDT",
+        "ENA/USDT:USDT",
+        "LINK/USDT:USDT",
+        "AAVE/USDT:USDT",
+        "NEAR/USDT:USDT",
+        "FIL/USDT:USDT"
+      ]
+    },
+    "L2": {
+      "min_volume": 50000000,
+      "pairs": [
+        "DOT/USDT:USDT",
+        "BCH/USDT:USDT",
+        "LTC/USDT:USDT",
+        "UNI/USDT:USDT",
+        "CRV/USDT:USDT",
+        "APT/USDT:USDT",
+        "XLM/USDT:USDT"
+      ]
+    },
+    "L1": {
+      "min_volume": 10000000,
+      "pairs": [
+        "RIVER/USDT:USDT",
+        "FET/USDT:USDT",
+        "TRX/USDT:USDT",
+        "ARB/USDT:USDT",
+        "GALA/USDT:USDT"
+      ]
+    }
+  },
+  "volumes": {
+    "BTC/USDT:USDT": 9668975735.04,
+    "ETH/USDT:USDT": 7091340297.09,
+    "SOL/USDT:USDT": 2676050686.0468,
+    "XRP/USDT:USDT": 813408498.1488,
+    "ZEC/USDT:USDT": 815397186.9,
+    "DOGE/USDT:USDT": 738566052.8629,
+    "TAO/USDT:USDT": 190753313.15,
+    "HYPE/USDT:USDT": 286836215.15273,
+    "BNB/USDT:USDT": 360048489.023,
+    "RIVER/USDT:USDT": 20635865.0971,
+    "ADA/USDT:USDT": 184641659.2349,
+    "SUI/USDT:USDT": 869474244.65546,
+    "AVAX/USDT:USDT": 139883291.907,
+    "ENA/USDT:USDT": 114410397.41576,
+    "LINK/USDT:USDT": 118288605.23,
+    "DOT/USDT:USDT": 57133529.64,
+    "AAVE/USDT:USDT": 108472772.261,
+    "NEAR/USDT:USDT": 107748856.397,
+    "FIL/USDT:USDT": 141784459.84,
+    "BCH/USDT:USDT": 94812188.73,
+    "FET/USDT:USDT": 33795011.3827,
+    "TRX/USDT:USDT": 39932548.00621,
+    "LTC/USDT:USDT": 88361122.67,
+    "UNI/USDT:USDT": 89693465.259,
+    "CRV/USDT:USDT": 66027344.300132,
+    "ARB/USDT:USDT": 30574673.52415,
+    "APT/USDT:USDT": 60577681.41494,
+    "XLM/USDT:USDT": 52621345.32859,
+    "GALA/USDT:USDT": 12843269.075177
+  }
+}
