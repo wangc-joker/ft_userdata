@@ -1,0 +1,9 @@
+﻿run_id,strategy,sample,entry_tag,trades,total_profit_abs,total_profit_pct,profit_factor,winrate,max_drawdown_abs,max_drawdown_pct,avg_profit_pct
+pair_DualTrendCompressionRestartShortPullbackOnlyV1Strategy_full,DualTrendCompressionRestartShortPullbackOnlyV1Strategy,full,short_pullback_restart,337,1007.051988,100.7052,1.5224,31.454,180.73708,9.2717,1.0384
+pair_DualTrendCompressionRestartShortPullbackOnlyV1Strategy_recent,DualTrendCompressionRestartShortPullbackOnlyV1Strategy,recent,short_pullback_restart,169,377.669475,37.7669,1.474,33.7278,124.674748,9.3136,1.0437
+pair_DualTrendCompressionRestartShortCompressionOnlyV1Strategy_full,DualTrendCompressionRestartShortCompressionOnlyV1Strategy,full,short_compression_breakdown,116,227.62606,22.7626,1.4472,29.3103,111.264086,10.9811,0.9071
+pair_DualTrendCompressionRestartShortCompressionOnlyV1Strategy_recent,DualTrendCompressionRestartShortCompressionOnlyV1Strategy,recent,short_compression_breakdown,58,183.881355,18.3881,1.6795,32.7586,80.376501,6.3576,1.2484
+pair_DualTrendCompressionRestartShortV1Strategy_full,DualTrendCompressionRestartShortV1Strategy,full,short_pullback_restart,261,635.898644,63.5899,1.4164,31.4176,178.597512,10.71,0.9436
+pair_DualTrendCompressionRestartShortV1Strategy_full,DualTrendCompressionRestartShortV1Strategy,full,short_compression_breakdown,78,391.196205,39.1196,1.9381,32.0513,74.837839,7.4395,1.4268
+pair_DualTrendCompressionRestartShortV1Strategy_recent,DualTrendCompressionRestartShortV1Strategy,recent,short_compression_breakdown,35,237.855553,23.7856,2.6026,40.0,31.509342,2.5188,2.6511
+pair_DualTrendCompressionRestartShortV1Strategy_recent,DualTrendCompressionRestartShortV1Strategy,recent,short_pullback_restart,136,153.683371,15.3683,1.2329,32.3529,121.609299,10.343,0.6708

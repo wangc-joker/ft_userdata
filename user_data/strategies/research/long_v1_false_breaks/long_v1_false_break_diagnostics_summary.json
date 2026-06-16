@@ -1,0 +1,80 @@
+[
+  {
+    "sample": "full_20221001_20260507",
+    "all": {
+      "trades": 95,
+      "false_break_3h_pct": 43.1579,
+      "false_break_6h_pct": 54.7368,
+      "hit_half_r_6h_pct": 46.3158,
+      "hit_1r_12h_pct": 27.3684,
+      "avg_max_favorable_r": 0.765,
+      "median_max_favorable_r": 0.561,
+      "avg_max_adverse_r": 0.655,
+      "median_max_adverse_r": 0.551
+    },
+    "wins": {
+      "trades": 43,
+      "false_break_3h_pct": 32.5581,
+      "false_break_6h_pct": 39.5349,
+      "hit_half_r_6h_pct": 67.4419,
+      "hit_1r_12h_pct": 55.814,
+      "avg_max_favorable_r": 1.201,
+      "median_max_favorable_r": 1.17,
+      "avg_max_adverse_r": 0.386,
+      "median_max_adverse_r": 0.349
+    },
+    "losses": {
+      "trades": 52,
+      "false_break_3h_pct": 51.9231,
+      "false_break_6h_pct": 67.3077,
+      "hit_half_r_6h_pct": 28.8462,
+      "hit_1r_12h_pct": 3.8462,
+      "avg_max_favorable_r": 0.405,
+      "median_max_favorable_r": 0.295,
+      "avg_max_adverse_r": 0.877,
+      "median_max_adverse_r": 0.827
+    },
+    "loss_false_break_3h_count": 27,
+    "loss_false_break_6h_count": 35,
+    "loss_count": 52
+  },
+  {
+    "sample": "recent_20250101_20260507",
+    "all": {
+      "trades": 30,
+      "false_break_3h_pct": 30.0,
+      "false_break_6h_pct": 43.3333,
+      "hit_half_r_6h_pct": 40.0,
+      "hit_1r_12h_pct": 23.3333,
+      "avg_max_favorable_r": 0.752,
+      "median_max_favorable_r": 0.524,
+      "avg_max_adverse_r": 0.442,
+      "median_max_adverse_r": 0.397
+    },
+    "wins": {
+      "trades": 15,
+      "false_break_3h_pct": 33.3333,
+      "false_break_6h_pct": 40.0,
+      "hit_half_r_6h_pct": 60.0,
+      "hit_1r_12h_pct": 46.6667,
+      "avg_max_favorable_r": 1.13,
+      "median_max_favorable_r": 0.943,
+      "avg_max_adverse_r": 0.359,
+      "median_max_adverse_r": 0.348
+    },
+    "losses": {
+      "trades": 15,
+      "false_break_3h_pct": 26.6667,
+      "false_break_6h_pct": 46.6667,
+      "hit_half_r_6h_pct": 20.0,
+      "hit_1r_12h_pct": 0.0,
+      "avg_max_favorable_r": 0.374,
+      "median_max_favorable_r": 0.307,
+      "avg_max_adverse_r": 0.526,
+      "median_max_adverse_r": 0.526
+    },
+    "loss_false_break_3h_count": 4,
+    "loss_false_break_6h_count": 7,
+    "loss_count": 15
+  }
+]

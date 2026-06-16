@@ -80,6 +80,7 @@ class Top9RegimeStructureStrategy(IStrategy):
     require_4h_long_trend = False
     require_strong_bull_long = False
     use_v2_long_breakout = False
+    require_btc_long_market = False
 
     @property
     def protections(self):
@@ -112,6 +113,13 @@ class Top9RegimeStructureStrategy(IStrategy):
     @staticmethod
     def _crossed_below(series: pd.Series, level: pd.Series) -> pd.Series:
         return (series < level) & (series.shift(1) >= level.shift(1))
+
+    @staticmethod
+    def _merge_btc_context(dataframe: DataFrame, btc_dataframe: DataFrame, columns: dict) -> DataFrame:
+        """Attach BTC context by timestamp without disturbing the pair's own informative columns."""
+        left = dataframe.sort_values("date")
+        right = btc_dataframe[["date", *columns.keys()]].rename(columns=columns).sort_values("date")
+        return pd.merge_asof(left, right, on="date", direction="backward")
 
     @staticmethod
     def _trend_indicators(dataframe: DataFrame) -> DataFrame:
@@ -210,6 +218,24 @@ class Top9RegimeStructureStrategy(IStrategy):
             (dataframe["high"].shift(1).rolling(8).max() > dataframe["ema_fast"].shift(1) * 0.994)
             | (dataframe["high"].shift(1).rolling(8).max() > dataframe["ema_slow"].shift(1) * 0.990)
         )
+
+        if self.require_btc_long_market and self.dp and metadata["pair"] != "BTC/USDT:USDT":
+            btc_4h = self.dp.get_pair_dataframe(pair="BTC/USDT:USDT", timeframe="4h")
+            btc_1d = self.dp.get_pair_dataframe(pair="BTC/USDT:USDT", timeframe="1d")
+            if btc_4h is not None and not btc_4h.empty:
+                btc_4h = self.populate_indicators_4h(btc_4h.copy(), {"pair": "BTC/USDT:USDT"})
+                dataframe = self._merge_btc_context(
+                    dataframe,
+                    btc_4h,
+                    {"trend_long_ok": "btc_trend_long_ok_4h"},
+                )
+            if btc_1d is not None and not btc_1d.empty:
+                btc_1d = self.populate_indicators_1d(btc_1d.copy(), {"pair": "BTC/USDT:USDT"})
+                dataframe = self._merge_btc_context(
+                    dataframe,
+                    btc_1d,
+                    {"regime_id": "btc_regime_id_1d"},
+                )
         return dataframe
 
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
@@ -226,6 +252,13 @@ class Top9RegimeStructureStrategy(IStrategy):
         trend_4h_short_ok = dataframe.get("trend_short_ok_4h", pd.Series(True, index=dataframe.index)).fillna(False)
         breakdown_4h_short_ok = dataframe.get("breakdown_short_ok_4h", pd.Series(True, index=dataframe.index)).fillna(False)
         trend_4h_long_ok = dataframe.get("trend_long_ok_4h", pd.Series(True, index=dataframe.index)).fillna(False)
+        btc_trend_long_ok = dataframe.get("btc_trend_long_ok_4h", pd.Series(True, index=dataframe.index)).fillna(True)
+        btc_regime = dataframe.get("btc_regime_id_1d", pd.Series(3, index=dataframe.index)).fillna(0)
+        btc_long_market_filter = (
+            (btc_trend_long_ok & btc_regime.eq(3))
+            if self.require_btc_long_market and metadata["pair"] != "BTC/USDT:USDT"
+            else True
+        )
         long_4h_trend_filter = trend_4h_long_ok if self.require_4h_long_trend else True
         short_4h_trend_filter = trend_4h_short_ok if self.require_4h_short_trend else True
         pair_needs_major_breakdown = (
@@ -244,6 +277,7 @@ class Top9RegimeStructureStrategy(IStrategy):
                 long_regime
                 & base_filter
                 & long_4h_trend_filter
+                & btc_long_market_filter
                 & dataframe["breakout_vol_ok"]
                 & dataframe["range_tight"]
                 & dataframe["ema_slow_slope_up"]
@@ -334,6 +368,12 @@ class Top9RegimeStructureStrategy(IStrategy):
                 quality *= 1.08
             else:
                 quality *= 0.70
+
+            if self.require_btc_long_market and pair != "BTC/USDT:USDT":
+                if bool(candle.get("btc_trend_long_ok_4h", False)) and int(candle.get("btc_regime_id_1d", 0) or 0) == 3:
+                    quality *= 1.05
+                else:
+                    quality *= 0.65
 
             regime = int(candle.get("regime_id_1d", 0) or 0)
             if regime == 3:
@@ -706,5 +746,13 @@ class Top9RegimeStructureV2LongBreakoutQualityStrategy(
         **Top9RegimeStructureQualityStake4hShortTrendTightStopStrategy.signal_multipliers,
         "long_trend_breakout": 0.72,
     }
+
+
+class Top9RegimeStructureV2LongBreakoutBtcConfirmStrategy(
+    Top9RegimeStructureV2LongBreakoutQualityStrategy
+):
+    """V2.2b: allow long breakouts only when BTC is also in a confirmed bull context."""
+
+    require_btc_long_market = True
 
 

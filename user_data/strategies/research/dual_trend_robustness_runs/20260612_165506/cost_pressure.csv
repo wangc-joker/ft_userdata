@@ -1,0 +1,7 @@
+﻿category,sample,cost_case,trades,total_profit_abs,total_profit_pct,profit_factor,winrate
+slippage_postprocess,full,slippage_0.05pct_each_side,339,897.11232,89.7112,1.4406,31.2684
+slippage_postprocess,full,slippage_0.10pct_each_side,339,767.129789,76.713,1.3603,30.9735
+slippage_postprocess,full,slippage_0.20pct_each_side,339,507.164729,50.7165,1.2191,30.3835
+slippage_postprocess,recent,slippage_0.05pct_each_side,171,338.532671,33.8533,1.4005,33.3333
+slippage_postprocess,recent,slippage_0.10pct_each_side,171,285.526419,28.5526,1.3235,33.3333
+slippage_postprocess,recent,slippage_0.20pct_each_side,171,179.513914,17.9514,1.1876,32.7485
