@@ -1,0 +1,19 @@
+请先只执行文档中的第 1 到第 7 步。
+
+本轮目标不是优化策略，也不是改参数，而是：
+
+1. 复现 Positive13 + Combined + max_open_trades=3 的三年和近一年基线结果；
+2. 实现或复用 trade 结果解析脚本；
+3. 做 fee2x + slippage 压力测试；
+4. 输出 positive13_fee_slippage_stress.md 报告。
+
+第 8 步及后面的 max4/max5 多余交易诊断、压力月份诊断、long 模块诊断、entry_tag 诊断、策略优化版本，全部暂时不要执行。
+
+完成第 7 步后先停止，并在报告里明确回答：
+
+1. baseline 是否复现成功；
+2. fee2x + light / medium / heavy slippage 后，三年和近一年是否仍然稳定；
+3. PF 是否仍大于 1.6；
+4. MaxDD 是否仍小于 12%；
+5. 是否建议进入下一阶段诊断；
+6. 是否暂时不要改策略。

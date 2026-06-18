@@ -1,6 +1,0 @@
-from .CombinedTrendCaptureMilestoneV2Strategy import CombinedTrendCaptureMilestoneV2Strategy
-from shared.pair_groups import TOP9_MAIN_PAIRS
-
-
-class CombinedTrendCaptureMilestoneV2Top9Strategy(CombinedTrendCaptureMilestoneV2Strategy):
-    allowed_pairs = TOP9_MAIN_PAIRS
