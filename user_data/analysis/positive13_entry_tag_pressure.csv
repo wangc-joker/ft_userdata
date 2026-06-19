@@ -1,0 +1,4 @@
+entry_tag,trades,profit_abs,profit_pct,pf,maxdd_pct,winrate_pct,avg_profit_pct,avg_duration_h,best_pair,worst_pair,best_year,worst_year,worst_month,fee2x_medium_profit_pct,fee2x_medium_pf,fee2x_heavy_profit_pct,fee2x_heavy_pf
+short_pullback_restart,8,-58.8216,-5.8822,0.33,8.6919,25.0000,-1.3006,87.6250,XRP/USDT:USDT,SUI/USDT:USDT,2026,2026,2026-03,0.0000,0.00,0.0000,0.00
+short_compression_breakdown,8,-51.1856,-5.1186,0.51,9.8379,12.5000,-0.6611,40.2500,ZEC/USDT:USDT,SOL/USDT:USDT,2026,2026,2026-05,0.0000,0.00,0.0000,0.00
+long_1d_center_compression,1,-19.2202,-1.9220,0.00,1.9220,0.0000,-2.0782,18.0000,BTC/USDT:USDT,BTC/USDT:USDT,2026,2026,2026-04,0.0000,0.00,0.0000,0.00

@@ -1,0 +1,11 @@
+sample,scenario,trades,profit_abs,profit_pct,profit_factor,maxdd_pct,winrate_pct,avg_profit_pct,worst_month,worst_month_abs,worst_pair,worst_pair_abs,source_zip
+3y,baseline,241,1511.3275,151.1327,2.0055,7.2354,34.4398,1.5941,2026-03,-49.8115,NEAR/USDT:USDT,-23.6059,backtest-result-2026-06-19_01-07-59.zip
+3y,fee2x,241,1407.5333,140.7533,1.9159,7.8368,34.0249,1.5287,2026-03,-51.5928,NEAR/USDT:USDT,-26.0121,backtest-result-2026-06-19_01-10-20.zip
+3y,fee2x + light slippage,241,1346.1569,134.6157,1.8528,9.8720,33.6100,1.4682,2026-03,-53.9632,NEAR/USDT:USDT,-28.4621,backtest-result-2026-06-19_01-10-20.zip
+3y,fee2x + medium slippage,241,1305.2394,130.5239,1.8125,10.2097,33.6100,1.4284,2026-03,-55.5435,NEAR/USDT:USDT,-30.0954,backtest-result-2026-06-19_01-10-20.zip
+3y,fee2x + heavy slippage,241,1202.9454,120.2945,1.7176,11.0564,33.6100,1.3288,2026-03,-59.4941,NEAR/USDT:USDT,-34.1788,backtest-result-2026-06-19_01-10-20.zip
+1y,baseline,101,387.7846,38.7785,1.8571,7.1698,35.6436,1.4035,2025-06,-30.0030,DOGE/USDT:USDT,-33.3861,backtest-result-2026-06-19_01-08-53.zip
+1y,fee2x,101,361.7959,36.1796,1.7711,7.7439,34.6535,1.3317,2025-06,-30.8341,DOGE/USDT:USDT,-35.2166,backtest-result-2026-06-19_01-11-15.zip
+1y,fee2x + light slippage,101,343.4421,34.3442,1.7130,8.1817,34.6535,1.2713,2025-06,-31.3589,DOGE/USDT:USDT,-36.6444,backtest-result-2026-06-19_01-11-15.zip
+1y,fee2x + medium slippage,101,331.2062,33.1206,1.6759,8.4777,34.6535,1.2315,2025-06,-31.7087,DOGE/USDT:USDT,-37.5963,backtest-result-2026-06-19_01-11-15.zip
+1y,fee2x + heavy slippage,101,300.6166,30.0617,1.5885,9.2324,34.6535,1.1318,2026-03,-33.3618,DOGE/USDT:USDT,-39.9760,backtest-result-2026-06-19_01-11-15.zip

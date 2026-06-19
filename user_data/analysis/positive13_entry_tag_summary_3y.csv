@@ -1,0 +1,4 @@
+entry_tag,trades,profit_abs,profit_pct,pf,maxdd_pct,winrate_pct,avg_profit_pct,avg_duration_h,best_pair,worst_pair,best_year,worst_year,worst_month,fee2x_medium_profit_pct,fee2x_medium_pf,fee2x_heavy_profit_pct,fee2x_heavy_pf
+short_pullback_restart,166,1038.8931,103.8893,1.90,10.7078,34.9398,1.4093,43.7470,ADA/USDT:USDT,BTC/USDT:USDT,2026,2023,2026-03,86.9280,1.72,79.6935,1.63
+short_compression_breakdown,78,459.2420,45.9242,1.91,9.2308,35.8974,1.5296,45.7564,ZEC/USDT:USDT,LINK/USDT:USDT,2025,2026,2026-02,38.6870,1.74,35.6402,1.65
+long_1d_center_compression,47,495.3103,49.5310,2.53,6.6873,34.0426,1.9449,75.5319,BNB/USDT:USDT,NEAR/USDT:USDT,2024,2023,2025-05,42.9461,2.24,40.5414,2.12

@@ -1,0 +1,6 @@
+{
+  "api_server": {
+    "jwt_secret_key": "positive13_backtest_local_jwt_secret_20260619",
+    "ws_token": "positive13_backtest_local_ws_token_20260619"
+  }
+}
