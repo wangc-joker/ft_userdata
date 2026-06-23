@@ -44,12 +44,12 @@ class _DualTrendCombinedGlobalFilterBase(DualTrendCombinedLongDailyCenterShortV1
 
     @informative("1d")
     def populate_indicators_1d(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-        dataframe = super().populate_indicators_1d(dataframe, metadata)
-        return self._add_legacy_center(dataframe)
+        dataframe = super().populate_indicators_1d(dataframe, metadata).copy()
+        return self._add_legacy_center(dataframe).copy()
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-        dataframe = super().populate_indicators(dataframe, metadata)
-        return self._add_legacy_center(dataframe)
+        dataframe = super().populate_indicators(dataframe, metadata).copy()
+        return self._add_legacy_center(dataframe).copy()
 
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe = super().populate_entry_trend(dataframe, metadata)

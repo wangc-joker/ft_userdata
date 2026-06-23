@@ -214,6 +214,7 @@ class DualTrendCompressionRestartShortV1Strategy(IStrategy):
 
         dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
         dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+        dataframe = dataframe.copy()
         dataframe["short_compression_risk_pct"] = (dataframe["short_compression_stop"] - dataframe["close"]) / dataframe["close"]
         dataframe["short_pullback_risk_pct"] = (dataframe["short_pullback_stop"] - dataframe["close"]) / dataframe["close"]
         dataframe["short_compression_risk_pct_ok"] = dataframe["short_compression_risk_pct"].between(

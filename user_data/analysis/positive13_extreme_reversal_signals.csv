@@ -1,0 +1,1 @@
+variant,variant_label,pair,signal_date,extreme_date,year,side,entry_tag,entry_price,stop_price,risk_pct,confirmation_delay_h,rsi_1d,rsi_4h,rsi_1h,ema20_1h,atr_1h,return_6h_pct,return_24h_pct,return_72h_pct,mfe_6h_pct,mfe_24h_pct,mfe_72h_pct,mae_6h_pct,mae_24h_pct,mae_72h_pct,first_to_1r,first_to_2r,first_to_stop,max_r_72h,min_r_72h

@@ -77,7 +77,7 @@ class DualTrendCombinedLongDailyCenterShortV1Strategy(DualTrendCompressionRestar
         return self._populate_long_structure_indicators(dataframe.copy())
 
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-        dataframe = super().populate_entry_trend(dataframe, metadata)
+        dataframe = super().populate_entry_trend(dataframe, metadata).copy()
         dataframe["enter_long"] = dataframe.get("enter_long", 0)
 
         if not self.enable_long_daily_center:

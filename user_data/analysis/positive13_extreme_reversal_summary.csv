@@ -1,0 +1,4 @@
+﻿group_type,group_value,signals,avg_return_6h_pct,avg_mfe_6h_pct,avg_mae_6h_pct,avg_return_24h_pct,avg_mfe_24h_pct,avg_mae_24h_pct,avg_return_72h_pct,avg_mfe_72h_pct,avg_mae_72h_pct,first_to_1r_pct,first_to_2r_pct,first_to_stop_pct,avg_max_r,avg_min_r,variant,variant_label
+variant,A,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,A,4H + 1H extreme
+variant,B,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,B,A + strict 1D
+variant,C,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,C,super extreme
