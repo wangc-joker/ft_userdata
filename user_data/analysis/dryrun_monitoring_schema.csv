@@ -1,0 +1,64 @@
+﻿field_name,type,description,source,calculation,nullable
+trade_id,integer,Freqtrade trade identifier,trades.id,direct,False
+pair,string,Trading pair,trades.pair,direct,False
+side,string,long or short,trades.is_short,mapped,False
+is_short,float/string,is short,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,False
+entry_tag,float/string,entry tag,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+open_date,float/string,open date,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,False
+close_date,float/string,close date,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+is_open,float/string,is open,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,False
+open_rate,float/string,open rate,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,False
+close_rate,float/string,close rate,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+current_rate,float/string,current rate,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+current_profit_ratio,float/string,current profit ratio,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+stake_amount,float/string,stake amount,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+amount,float/string,amount,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+leverage,float/string,leverage,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+profit_abs,float/string,profit abs,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+profit_ratio,float/string,profit ratio,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+fee_open,float/string,fee open,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+fee_close,float/string,fee close,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+funding_fees,float/string,funding fees,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+exit_reason,float/string,exit reason,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+trade_duration_hours,float/string,trade duration hours,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+stop_price,float/string,stop price,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+risk_abs,float/string,risk abs,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+risk_source,float/string,risk source,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+mae_pct,float/string,mae pct,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+mfe_pct,float/string,mfe pct,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+max_favorable_price,float/string,max favorable price,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+max_adverse_price,float/string,max adverse price,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+quick_reverse_1h,float/string,quick reverse 1h,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+quick_reverse_2h,float/string,quick reverse 2h,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+quick_reverse_3h,float/string,quick reverse 3h,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+quick_reverse_4h,float/string,quick reverse 4h,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+quick_reverse_5h,float/string,quick reverse 5h,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+quick_reverse_1h_5h,boolean,Entry-price reversal within first five 1H bars before +0.5R,OHLCV + trade,sequential path test,True
+false_breakdown,boolean,Short closes above approximate 12H compression low before +0.5R,1H OHLCV,pre-entry 12-bar low approximation,True
+false_breakdown_12h_low,float/string,false breakdown 12h low,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+false_breakdown_24h_low,float/string,false breakdown 24h low,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+false_breakout,boolean,Long closes below approximate 12H compression high before +0.5R,1H OHLCV,pre-entry 12-bar high approximation,True
+false_breakout_12h_high,float/string,false breakout 12h high,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+false_breakout_24h_high,float/string,false breakout 24h high,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+compression_boundary_source,float/string,compression boundary source,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+range_market,boolean,Pair 4H is range or EMA50 slope is in lowest 30%,4H OHLCV,regime and rolling slope quantile,True
+btc_4h_regime,float/string,btc 4h regime,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+btc_1d_regime,float/string,btc 1d regime,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+pair_4h_regime,float/string,pair 4h regime,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+atr_percentile_1h,float/string,atr percentile 1h,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+atr_percentile_4h,float/string,atr percentile 4h,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+pair_ema50_slope_4h,float/string,pair ema50 slope 4h,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+distance_to_ema50_4h,float/string,distance to ema50 4h,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+distance_to_ema50_1d,float/string,distance to ema50 1d,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+signal_price,float/string,signal price,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+signal_price_source,float/string,signal price source,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+estimated_slippage_pct,float,Direction-adjusted entry slippage,trade + 1H OHLCV,requested price preferred; signal close fallback,True
+slippage_level,float/string,slippage level,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+actual_fee_pct,float,Entry and exit fee share of stake,trades fee fields,fee cost / stake or fee rates,True
+funding_fee_pct,float,Absolute funding fee share of stake,trades.funding_fees,abs(funding) / stake,True
+funding_fee_to_profit_abs,float/string,funding fee to profit abs,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+cost_total_pct,float,"Conservative fee, funding and slippage total",derived,fee + abs(funding) + abs(slippage),True
+concurrent_trades_at_entry,float/string,concurrent trades at entry,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+max_concurrent_trades_during_trade,float/string,max concurrent trades during trade,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+was_slot_full,float/string,was slot full,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True
+data_warnings,float/string,data warnings,trade database or local OHLCV,direct or derived; see dryrun_monitor.py,True

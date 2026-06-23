@@ -1,0 +1,2 @@
+﻿period,start_date,end_date,closed_trades,profit_abs,profit_pct_sum,profit_factor,max_drawdown_pct,winrate,avg_profit,avg_duration_hours,total_fee_pct,total_funding_fee,avg_slippage_pct,max_slippage_pct,quick_reverse_rate,false_breakdown_rate,false_breakout_rate,range_market_rate,max_loss_streak
+2026-06-23,2026-06-17 00:00:00+00:00,2026-06-23 00:00:00+00:00,0,0,0,,,,,,0,0,,,,,,,0
