@@ -110,5 +110,5 @@
     "process_throttle_secs": 300
   },
   "reduce_df_footprint": true,
-  "strategy": "DualTrendCombinedShortPullbackShapeV1Strategy"
+  "strategy": "DualTrendGuardStrategy"
 }

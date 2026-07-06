@@ -1,0 +1,30 @@
+{
+  "exchange": {
+    "ccxt_config": {
+      "enableRateLimit": true,
+      "timeout": 60000,
+      "verify": false,
+      "options": {
+        "adjustForTimeDifference": true,
+        "recvWindow": 60000,
+        "fetchCurrencies": false,
+        "fetchMarkets": [
+          "linear"
+        ]
+      }
+    },
+    "ccxt_async_config": {
+      "enableRateLimit": true,
+      "timeout": 60000,
+      "verify": false,
+      "options": {
+        "adjustForTimeDifference": true,
+        "recvWindow": 60000,
+        "fetchCurrencies": false,
+        "fetchMarkets": [
+          "linear"
+        ]
+      }
+    }
+  }
+}

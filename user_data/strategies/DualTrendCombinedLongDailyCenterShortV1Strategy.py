@@ -131,6 +131,9 @@ class DualTrendCombinedLongDailyCenterShortV1Strategy(DualTrendCompressionRestar
         initial_stop = float(candle.get("enter_initial_stop", np.nan))
         capped_stop = trade.open_rate * (1 - self.max_stop_distance)
         stop_price = capped_stop if not np.isfinite(initial_stop) else max(initial_stop, capped_stop)
+        profit_lock_stop = self._profit_lock_stop_price(trade, current_profit)
+        if profit_lock_stop is not None:
+            stop_price = max(stop_price, profit_lock_stop)
         return stoploss_from_absolute(
             stop_price,
             current_rate,

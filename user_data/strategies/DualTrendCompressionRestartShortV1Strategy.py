@@ -69,6 +69,25 @@ class DualTrendCompressionRestartShortV1Strategy(IStrategy):
     risk_per_trade = 0.0075
     max_position_value_pct = 0.35
     leverage_value = 1.0
+    breakeven_profit_threshold = 0.02
+    breakeven_lock_profit = 0.001
+    profit_lock_steps: tuple[tuple[float, float], ...] = ()
+    partial_profit_steps: tuple[tuple[float, float], ...] = ()
+    partial_trail_rules: tuple[tuple[float, float], ...] = ()
+    partial_ladder_enabled = False
+    partial_ladder_start_profit = 0.10
+    partial_ladder_step_profit = 0.10
+    partial_ladder_fraction = 0.50
+    partial_ladder_fractions: tuple[float, ...] = ()
+    partial_ladder_max_steps = 6
+    partial_ladder_lock_first = 0.05
+    partial_ladder_lock_step = 0.005
+    partial_ladder_lock_max = 0.08
+    partial_ladder_lock_values: tuple[float, ...] = ()
+    partial_ladder_trail_gap_enabled = False
+    partial_ladder_trail_gap_first = 0.05
+    partial_ladder_trail_gap_step = 0.005
+    partial_ladder_trail_gap_max = 0.10
     use_btc_filter = True
     enable_short_pullback_restart = True
     enable_short_compression_breakdown = True
@@ -318,6 +337,54 @@ class DualTrendCompressionRestartShortV1Strategy(IStrategy):
             return None
         return candidates.iloc[-1]
 
+    def _profit_lock_stop_price(self, trade: Trade, current_profit: float) -> Optional[float]:
+        lock_profit = None
+        for trigger_profit, locked_profit in sorted(self.profit_lock_steps, reverse=True):
+            if current_profit >= trigger_profit:
+                lock_profit = locked_profit
+                break
+        max_profit = current_profit
+        if self.partial_trail_rules or self.partial_ladder_enabled:
+            getter = getattr(trade, "get_custom_data", None)
+            setter = getattr(trade, "set_custom_data", None)
+            stored_max = getter(key="dualtrend_max_profit") if getter else None
+            if stored_max is not None:
+                max_profit = max(max_profit, float(stored_max))
+            if setter:
+                setter(key="dualtrend_max_profit", value=float(max_profit))
+        if self.partial_trail_rules:
+            for trigger_profit, trail_gap in sorted(self.partial_trail_rules, reverse=True):
+                if max_profit >= trigger_profit:
+                    trail_lock = max_profit - trail_gap
+                    lock_profit = max(lock_profit or self.breakeven_lock_profit, trail_lock)
+                    break
+        if self.partial_ladder_enabled and max_profit >= self.partial_ladder_start_profit:
+            ladder_steps = int(
+                (max_profit - self.partial_ladder_start_profit)
+                // self.partial_ladder_step_profit
+            ) + 1
+            ladder_steps = max(1, min(ladder_steps, self.partial_ladder_max_steps))
+            if self.partial_ladder_trail_gap_enabled:
+                trail_gap = self.partial_ladder_trail_gap_first + (
+                    ladder_steps - 1
+                ) * self.partial_ladder_trail_gap_step
+                trail_gap = min(trail_gap, self.partial_ladder_trail_gap_max)
+                ladder_lock = max_profit - trail_gap
+            elif ladder_steps <= len(self.partial_ladder_lock_values):
+                ladder_lock = self.partial_ladder_lock_values[ladder_steps - 1]
+            else:
+                ladder_lock = self.partial_ladder_lock_first + (ladder_steps - 1) * self.partial_ladder_lock_step
+                ladder_lock = min(ladder_lock, self.partial_ladder_lock_max)
+            lock_profit = max(lock_profit or self.breakeven_lock_profit, ladder_lock)
+        if lock_profit is None:
+            return None
+
+        leverage = max(float(trade.leverage or 1.0), 1.0)
+        price_move = lock_profit / leverage
+        if trade.is_short:
+            return trade.open_rate * (1 - price_move)
+        return trade.open_rate * (1 + price_move)
+
     def custom_stake_amount(
         self,
         pair: str,
@@ -375,12 +442,70 @@ class DualTrendCompressionRestartShortV1Strategy(IStrategy):
         initial_stop = float(candle.get(stop_col, np.nan))
         capped_stop = trade.open_rate * (1 + self.max_stop_distance)
         stop_price = capped_stop if not np.isfinite(initial_stop) else min(initial_stop, capped_stop)
+        profit_lock_stop = self._profit_lock_stop_price(trade, current_profit)
+        if profit_lock_stop is not None:
+            stop_price = min(stop_price, profit_lock_stop)
         return stoploss_from_absolute(
             stop_price,
             current_rate,
             is_short=True,
             leverage=trade.leverage,
         )
+
+    def adjust_trade_position(
+        self,
+        trade: Trade,
+        current_time,
+        current_rate: float,
+        current_profit: float,
+        min_stake: Optional[float],
+        max_stake: float,
+        current_entry_rate: float,
+        current_exit_rate: float,
+        current_entry_profit: float,
+        current_exit_profit: float,
+        **kwargs,
+    ) -> Optional[float]:
+        if not self.partial_profit_steps and not self.partial_ladder_enabled:
+            return None
+
+        getter = getattr(trade, "get_custom_data", None)
+        setter = getattr(trade, "set_custom_data", None)
+        if getter is None or setter is None:
+            return None
+
+        if self.partial_ladder_enabled:
+            done_steps = int(getter(key="dualtrend_ladder_done_steps") or 0)
+            if done_steps >= self.partial_ladder_max_steps:
+                return None
+            trigger_profit = self.partial_ladder_start_profit + done_steps * self.partial_ladder_step_profit
+            if current_profit >= trigger_profit:
+                if done_steps < len(self.partial_ladder_fractions):
+                    fraction = self.partial_ladder_fractions[done_steps]
+                else:
+                    fraction = self.partial_ladder_fraction
+                stake_to_sell = float(trade.stake_amount) * fraction
+                if min_stake is not None and fraction < 1.0 and stake_to_sell < min_stake:
+                    return None
+                next_steps = done_steps + 1
+                setter(key="dualtrend_ladder_done_steps", value=next_steps)
+                setter(key=f"dualtrend_ladder_step_{next_steps}_time", value=current_time.isoformat())
+                setter(key=f"dualtrend_ladder_step_{next_steps}_profit", value=float(current_profit))
+                return -stake_to_sell
+
+        for trigger_profit, fraction in sorted(self.partial_profit_steps):
+            key = f"dualtrend_partial_{trigger_profit:.4f}"
+            if current_profit < trigger_profit or getter(key=key):
+                continue
+            stake_to_sell = float(trade.stake_amount) * fraction
+            if min_stake is not None and stake_to_sell < min_stake:
+                return None
+            setter(key=key, value=True)
+            setter(key=f"{key}_time", value=current_time.isoformat())
+            setter(key=f"{key}_profit", value=float(current_profit))
+            return -stake_to_sell
+
+        return None
 
     def custom_exit(
         self,

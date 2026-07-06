@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.freqtrade.io/schema.json",
-  "max_open_trades": 3,
+  "max_open_trades": 6,
   "stake_currency": "USDT",
   "stake_amount": "unlimited",
   "tradable_balance_ratio": 0.99,
@@ -70,7 +70,6 @@
       "HYPE/USDT:USDT",
       "BNB/USDT:USDT",
       "SUI/USDT:USDT",
-      "TON/USDT:USDT",
       "ADA/USDT:USDT",
       "AVAX/USDT:USDT",
       "FIL/USDT:USDT",
@@ -90,7 +89,8 @@
       "APT/USDT:USDT",
       "ICP/USDT:USDT",
       "CRV/USDT:USDT",
-      "LDO/USDT:USDT"
+      "LDO/USDT:USDT",
+      "TAO/USDT:USDT"
     ],
     "pair_blacklist": [],
     "skip_pair_validation": true,
@@ -112,18 +112,18 @@
     "listen_port": 8080,
     "verbosity": "error",
     "enable_openapi": false,
-    "jwt_secret_key": "local-backtest-jwt-secret-key-32chars-ok",
-    "ws_token": "local-backtest-ws-token-32chars-ok",
+    "jwt_secret_key": "CHANGE_ME",
+    "ws_token": "CHANGE_ME",
     "CORS_origins": [],
     "username": "freqtrader",
-    "password": "local-backtest-password"
+    "password": ""
   },
-  "bot_name": "dualtrend_combined_top40_302u_max3_backtest",
+  "bot_name": "dualtrend_combined_top30_max6_backtest",
   "initial_state": "stopped",
   "force_entry_enable": false,
   "internals": {
     "process_throttle_secs": 5
   },
   "reduce_df_footprint": true,
-  "strategy": "DualTrendCombinedGlobalV2Strategy"
+  "strategy": "DualTrendRawStrategy"
 }

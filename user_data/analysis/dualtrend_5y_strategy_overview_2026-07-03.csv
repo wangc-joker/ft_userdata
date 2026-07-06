@@ -1,0 +1,37 @@
+﻿row_type,strategy_name,strategy_file,role,sample_start,sample_end,trades,profit_pct,final_balance,winrate,profit_factor,max_drawdown,year,start_balance,end_balance,profit_abs,return_pct
+overall,DualTrendRawStrategy,DualTrendMainStrategies.py,原始基线,2022-11-11 16:00:00,2026-06-18 00:00:00,347,262.39,3623.881,33.72,2.0,7.08,,,,,
+overall,DualTrendRawBreakevenGuardStrongRunnerStructureStrategy,DualTrendMainStrategies.py,当前主候选,2022-11-11 16:00:00,2026-06-18 00:00:00,390,183.0,2829.958,53.08,2.2,5.78,,,,,
+overall,DualTrendRawBreakevenGuardStrategy,DualTrendMainStrategies.py,保本+guard 对照,2022-11-11 16:00:00,2026-06-18 00:00:00,375,179.23,2792.25,50.67,2.21,7.13,,,,,
+overall,DualTrendGuardStrategy,DualTrendMainStrategies.py,旧主 guard,2022-11-11 16:00:00,2026-06-18 00:00:00,379,177.62,2776.185,50.92,2.2,5.78,,,,,
+overall,DualTrendRawBreakevenStrategy,DualTrendMainStrategies.py,保本对照,2022-11-11 16:00:00,2026-06-18 00:00:00,380,172.18,2721.775,50.26,2.15,7.13,,,,,
+overall,DualTrendBaselineStrategy,DualTrendMainStrategies.py,旧主基线,2022-11-11 16:00:00,2026-06-18 00:00:00,384,169.25,2692.478,50.52,2.13,5.78,,,,,
+year,DualTrendRawStrategy,,,,,13,,,38.46,3.15,2.01,2022,1000.0,1081.656,81.656,8.17
+year,DualTrendRawStrategy,,,,,78,,,20.51,1.25,8.36,2023,1081.656,1181.447,99.79,9.23
+year,DualTrendRawStrategy,,,,,86,,,34.88,2.15,7.77,2024,1181.447,1745.41,563.963,47.73
+year,DualTrendRawStrategy,,,,,116,,,39.66,2.17,7.68,2025,1745.41,3012.28,1266.87,72.58
+year,DualTrendRawStrategy,,,,,54,,,37.04,1.98,7.08,2026,3012.28,3623.881,611.601,20.3
+year,DualTrendRawBreakevenStrategy,,,,,14,,,35.71,1.5,1.56,2022,1000.0,1016.553,16.553,1.66
+year,DualTrendRawBreakevenStrategy,,,,,82,,,47.56,1.52,7.79,2023,1016.553,1137.164,120.611,11.86
+year,DualTrendRawBreakevenStrategy,,,,,93,,,50.54,2.32,7.56,2024,1137.164,1556.086,418.922,36.84
+year,DualTrendRawBreakevenStrategy,,,,,128,,,53.12,2.32,7.13,2025,1556.086,2352.725,796.639,51.2
+year,DualTrendRawBreakevenStrategy,,,,,63,,,50.79,2.2,4.82,2026,2352.725,2721.775,369.05,15.69
+year,DualTrendRawBreakevenGuardStrategy,,,,,14,,,35.71,1.5,1.56,2022,1000.0,1016.553,16.553,1.66
+year,DualTrendRawBreakevenGuardStrategy,,,,,82,,,47.56,1.52,7.79,2023,1016.553,1137.164,120.611,11.86
+year,DualTrendRawBreakevenGuardStrategy,,,,,90,,,52.22,2.53,6.73,2024,1137.164,1588.042,450.878,39.65
+year,DualTrendRawBreakevenGuardStrategy,,,,,127,,,53.54,2.39,7.13,2025,1588.042,2419.322,831.28,52.35
+year,DualTrendRawBreakevenGuardStrategy,,,,,62,,,50.0,2.17,4.81,2026,2419.322,2792.25,372.929,15.41
+year,DualTrendBaselineStrategy,,,,,14,,,35.71,0.86,1.78,2022,1000.0,995.354,-4.646,-0.46
+year,DualTrendBaselineStrategy,,,,,82,,,47.56,1.48,7.78,2023,995.354,1102.774,107.42,10.79
+year,DualTrendBaselineStrategy,,,,,94,,,50.0,2.37,7.89,2024,1102.774,1541.58,438.807,39.79
+year,DualTrendBaselineStrategy,,,,,130,,,52.31,2.23,5.78,2025,1541.58,2301.184,759.604,49.27
+year,DualTrendBaselineStrategy,,,,,64,,,54.69,2.29,2.7,2026,2301.184,2692.478,391.294,17.0
+year,DualTrendGuardStrategy,,,,,14,,,35.71,0.86,1.78,2022,1000.0,995.354,-4.646,-0.46
+year,DualTrendGuardStrategy,,,,,82,,,47.56,1.48,7.78,2023,995.354,1102.774,107.42,10.79
+year,DualTrendGuardStrategy,,,,,91,,,51.65,2.57,6.59,2024,1102.774,1573.741,470.967,42.71
+year,DualTrendGuardStrategy,,,,,129,,,52.71,2.31,5.78,2025,1573.741,2377.942,804.201,51.1
+year,DualTrendGuardStrategy,,,,,63,,,53.97,2.27,2.68,2026,2377.942,2776.185,398.243,16.75
+year,DualTrendRawBreakevenGuardStrongRunnerStructureStrategy,,,,,14,,,42.86,1.99,1.51,2022,1000.0,1031.847,31.847,3.18
+year,DualTrendRawBreakevenGuardStrongRunnerStructureStrategy,,,,,85,,,49.41,1.39,6.84,2023,1031.847,1123.072,91.224,8.84
+year,DualTrendRawBreakevenGuardStrongRunnerStructureStrategy,,,,,94,,,54.26,2.59,6.08,2024,1123.072,1607.748,484.677,43.16
+year,DualTrendRawBreakevenGuardStrongRunnerStructureStrategy,,,,,130,,,54.62,2.17,5.78,2025,1607.748,2326.783,719.035,44.72
+year,DualTrendRawBreakevenGuardStrongRunnerStructureStrategy,,,,,67,,,55.22,2.47,3.37,2026,2326.783,2829.958,503.175,21.63
