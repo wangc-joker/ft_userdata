@@ -37,6 +37,7 @@ class DualTrendCompressionRestartShortV1Strategy(IStrategy):
     ignore_roi_if_entry_signal = True
     use_custom_stoploss = True
     position_adjustment_enable = False
+    max_entry_position_adjustment = 1
 
     minimal_roi = {"0": 0.10}
     stoploss = -0.06
@@ -88,6 +89,21 @@ class DualTrendCompressionRestartShortV1Strategy(IStrategy):
     partial_ladder_trail_gap_first = 0.05
     partial_ladder_trail_gap_step = 0.005
     partial_ladder_trail_gap_max = 0.10
+    pyramiding_enabled = False
+    pyramid_allowed_tags: tuple[str, ...] = ()
+    pyramid_profit_threshold = 0.02
+    pyramid_profit_cap = 0.05
+    pyramid_stake_fraction = 0.50
+    pyramid_max_additions = 1
+    pyramid_use_structural_reinforcement = False
+    pyramid_leg_breakeven_enabled = False
+    pyramid_leg_breakeven_trigger_profit = 0.02
+    pyramid_require_close_position_max: Optional[float] = None
+    pyramid_require_body_pct_min: Optional[float] = None
+    pyramid_require_ema20_distance_min: Optional[float] = None
+    pyramid_reinforcement_require_volume = True
+    pyramid_reinforcement_profit_floor = 0.008
+    pyramid_reinforcement_profit_cap = 0.03
     use_btc_filter = True
     enable_short_pullback_restart = True
     enable_short_compression_breakdown = True
@@ -187,6 +203,8 @@ class DualTrendCompressionRestartShortV1Strategy(IStrategy):
         pw = self.pretrend_window
 
         dataframe["atr"] = self._atr(dataframe, self.atr_period_1h)
+        dataframe["ema20_1h"] = self._ema(dataframe["close"], 20)
+        dataframe["ema20_1h_prev"] = dataframe["ema20_1h"].shift(3)
         dataframe["atr_ref"] = dataframe["atr"].shift(1)
         dataframe["atr_pct"] = dataframe["atr"] / dataframe["close"]
         dataframe["volume_ma20"] = dataframe["volume"].shift(1).rolling(self.volume_ma_window_1h).mean()
@@ -252,6 +270,15 @@ class DualTrendCompressionRestartShortV1Strategy(IStrategy):
                 btc_4h = self._add_4h_trend(btc_4h.copy())
                 dataframe = self._merge_btc_context(dataframe, btc_4h)
                 dataframe["btc_filter_short_ok"] = ~dataframe["btc_trend_up_4h"].fillna(False)
+
+        dataframe["short_reinforce_probe"] = (
+            dataframe.get("trend_down_4h", pd.Series(False, index=dataframe.index)).fillna(False)
+            & dataframe["center_down"].fillna(False)
+            & (dataframe["close"] < dataframe["ema20_1h"])
+            & (dataframe["ema20_1h"] < dataframe["ema20_1h_prev"])
+            & (dataframe["close_position"] <= 0.55)
+            & (dataframe["volume"] > 0)
+        )
 
         dataframe["enter_initial_stop"] = np.nan
         dataframe["enter_risk_pct"] = np.nan
@@ -385,6 +412,164 @@ class DualTrendCompressionRestartShortV1Strategy(IStrategy):
             return trade.open_rate * (1 - price_move)
         return trade.open_rate * (1 + price_move)
 
+    def _current_entry_signal_matches_trade(self, pair: str, trade: Trade) -> bool:
+        candle = self._current_candle(pair)
+        if candle is None:
+            return False
+        trade_tag = trade.enter_tag or ""
+        candle_tag = candle.get("enter_tag", None)
+        if candle_tag is None or trade_tag != str(candle_tag):
+            return False
+        if bool(getattr(trade, "is_short", False)):
+            return bool(candle.get("enter_short", 0) == 1)
+        return bool(candle.get("enter_long", 0) == 1)
+
+    def _pyramid_extra_filters_pass(self, pair: str, trade: Trade) -> bool:
+        candle = self._current_candle(pair)
+        if candle is None:
+            return False
+
+        close_position_max = self.pyramid_require_close_position_max
+        if close_position_max is not None:
+            close_position = float(candle.get("close_position", np.nan))
+            if not np.isfinite(close_position) or close_position > close_position_max:
+                return False
+
+        body_pct_min = self.pyramid_require_body_pct_min
+        if body_pct_min is not None:
+            body_pct = float(candle.get("body_pct_of_range", np.nan))
+            if not np.isfinite(body_pct) or body_pct < body_pct_min:
+                return False
+
+        ema20_distance_min = self.pyramid_require_ema20_distance_min
+        if ema20_distance_min is not None and bool(getattr(trade, "is_short", False)):
+            close_price = float(candle.get("close", np.nan))
+            ema20 = float(candle.get("ema20_1h", np.nan))
+            if not np.isfinite(close_price) or not np.isfinite(ema20) or ema20 <= 0:
+                return False
+            ema20_distance = (ema20 - close_price) / ema20
+            if ema20_distance < ema20_distance_min:
+                return False
+
+        return True
+
+    def _manage_pyramid_leg_breakeven(
+        self,
+        trade: Trade,
+        current_time,
+        current_rate: float,
+        min_stake: Optional[float],
+    ) -> Optional[float]:
+        if not self.pyramid_leg_breakeven_enabled:
+            return None
+
+        getter = getattr(trade, "get_custom_data", None)
+        setter = getattr(trade, "set_custom_data", None)
+        if getter is None or setter is None:
+            return None
+
+        additions_done = int(getter(key="dualtrend_pyramid_additions") or 0)
+        if additions_done <= 0:
+            return None
+
+        for addition_index in range(1, additions_done + 1):
+            addition_rate = getter(key=f"dualtrend_pyramid_addition_{addition_index}_rate")
+            addition_stake = getter(key=f"dualtrend_pyramid_addition_{addition_index}_stake")
+            if addition_rate is None or addition_stake is None:
+                continue
+            if getter(key=f"dualtrend_pyramid_addition_{addition_index}_breakeven_exited"):
+                continue
+
+            addition_rate = float(addition_rate)
+            addition_stake = float(addition_stake)
+            if addition_stake <= 0 or not np.isfinite(addition_rate) or addition_rate <= 0:
+                continue
+
+            if bool(getattr(trade, "is_short", False)):
+                leg_profit = (addition_rate - current_rate) / addition_rate
+                breakeven_reclaim = current_rate >= addition_rate
+            else:
+                leg_profit = (current_rate - addition_rate) / addition_rate
+                breakeven_reclaim = current_rate <= addition_rate
+
+            armed_key = f"dualtrend_pyramid_addition_{addition_index}_breakeven_armed"
+            if not getter(key=armed_key) and leg_profit >= self.pyramid_leg_breakeven_trigger_profit:
+                setter(key=armed_key, value=True)
+                setter(
+                    key=f"dualtrend_pyramid_addition_{addition_index}_breakeven_arm_time",
+                    value=current_time.isoformat(),
+                )
+                setter(
+                    key=f"dualtrend_pyramid_addition_{addition_index}_breakeven_arm_profit",
+                    value=float(leg_profit),
+                )
+
+            if getter(key=armed_key) and breakeven_reclaim:
+                stake_to_reduce = min(addition_stake, float(trade.stake_amount))
+                if min_stake is not None and stake_to_reduce < min_stake:
+                    continue
+                setter(key=f"dualtrend_pyramid_addition_{addition_index}_breakeven_exited", value=True)
+                setter(
+                    key=f"dualtrend_pyramid_addition_{addition_index}_breakeven_exit_time",
+                    value=current_time.isoformat(),
+                )
+                setter(
+                    key=f"dualtrend_pyramid_addition_{addition_index}_breakeven_exit_rate",
+                    value=float(current_rate),
+                )
+                return -stake_to_reduce
+
+        return None
+
+    def _short_pullback_reinforcement_signal(self, pair: str) -> bool:
+        candle = self._current_candle(pair)
+        if candle is None:
+            return False
+
+        if bool(candle.get("short_reinforce_probe", False)):
+            return True
+
+        trend_down = bool(candle.get("trend_down_4h", False))
+        center_down = bool(candle.get("center_down", False))
+        candle_quality = bool(candle.get("candle_quality_short", False))
+        vol_ok = bool(candle.get("vol_ok", False))
+        close_below_ema20 = bool(float(candle.get("close", np.nan)) < float(candle.get("ema20_1h", np.nan)))
+        ema20_falling = bool(float(candle.get("ema20_1h", np.nan)) < float(candle.get("ema20_1h_prev", np.nan)))
+
+        if self.pyramid_reinforcement_require_volume and not vol_ok:
+            return False
+
+        return bool(
+            trend_down
+            and center_down
+            and candle_quality
+            and close_below_ema20
+            and ema20_falling
+        )
+
+    def _pyramid_stake_amount(
+        self,
+        trade: Trade,
+        min_stake: Optional[float],
+        max_stake: float,
+    ) -> float:
+        getter = getattr(trade, "get_custom_data", None)
+        setter = getattr(trade, "set_custom_data", None)
+        base_stake = None
+        if getter is not None:
+            stored = getter(key="dualtrend_initial_stake_amount")
+            if stored is not None:
+                base_stake = float(stored)
+        if base_stake is None:
+            base_stake = float(trade.stake_amount)
+            if setter is not None:
+                setter(key="dualtrend_initial_stake_amount", value=base_stake)
+
+        stake = min(float(max_stake), base_stake * self.pyramid_stake_fraction)
+        if min_stake is not None and stake < min_stake:
+            return 0.0
+        return max(0.0, stake)
+
     def custom_stake_amount(
         self,
         pair: str,
@@ -466,12 +651,48 @@ class DualTrendCompressionRestartShortV1Strategy(IStrategy):
         current_exit_profit: float,
         **kwargs,
     ) -> Optional[float]:
-        if not self.partial_profit_steps and not self.partial_ladder_enabled:
-            return None
-
         getter = getattr(trade, "get_custom_data", None)
         setter = getattr(trade, "set_custom_data", None)
         if getter is None or setter is None:
+            return None
+
+        pyramid_leg_exit = self._manage_pyramid_leg_breakeven(
+            trade=trade,
+            current_time=current_time,
+            current_rate=current_rate,
+            min_stake=min_stake,
+        )
+        if pyramid_leg_exit is not None:
+            return pyramid_leg_exit
+
+        if self.pyramiding_enabled:
+            tag = trade.enter_tag or ""
+            additions_done = int(getter(key="dualtrend_pyramid_additions") or 0)
+            signal_matches = self._current_entry_signal_matches_trade(trade.pair, trade)
+            if (
+                additions_done < self.pyramid_max_additions
+                and tag in self.pyramid_allowed_tags
+                and current_profit >= self.pyramid_profit_threshold
+                and current_profit <= self.pyramid_profit_cap
+                and signal_matches
+                and self._pyramid_extra_filters_pass(trade.pair, trade)
+            ):
+                stake_to_add = self._pyramid_stake_amount(
+                    trade=trade,
+                    min_stake=min_stake,
+                    max_stake=max_stake,
+                )
+                if stake_to_add > 0:
+                    next_addition = additions_done + 1
+                    setter(key="dualtrend_pyramid_additions", value=next_addition)
+                    setter(key=f"dualtrend_pyramid_addition_{next_addition}_time", value=current_time.isoformat())
+                    setter(key=f"dualtrend_pyramid_addition_{next_addition}_profit", value=float(current_profit))
+                    setter(key=f"dualtrend_pyramid_addition_{next_addition}_tag", value=tag)
+                    setter(key=f"dualtrend_pyramid_addition_{next_addition}_rate", value=float(current_rate))
+                    setter(key=f"dualtrend_pyramid_addition_{next_addition}_stake", value=float(stake_to_add))
+                    return stake_to_add
+
+        if not self.partial_profit_steps and not self.partial_ladder_enabled:
             return None
 
         if self.partial_ladder_enabled:
