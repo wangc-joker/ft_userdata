@@ -1,0 +1,6 @@
+strategy,second_add_fraction,trades,profit_pct,pf,maxdd_account_pct,winrate_pct,second_add_trades
+DualTrendPyramidSecondAdd10TestStrategy,0.10,314,196.8651,2.6684,4.8212,51.2739,11
+DualTrendPyramidSecondAdd12TestStrategy,0.12,314,197.1597,2.6703,4.8232,51.2739,11
+DualTrendPyramidSecondAdd15V1Strategy,0.15,314,198.3306,2.6772,4.8155,51.2739,11
+DualTrendPyramidSecondAdd18TestStrategy,0.18,314,198.9001,2.6803,4.8167,51.2739,11
+DualTrendPyramidSecondAdd20V1Strategy,0.20,314,199.2171,2.6816,4.8185,51.2739,11

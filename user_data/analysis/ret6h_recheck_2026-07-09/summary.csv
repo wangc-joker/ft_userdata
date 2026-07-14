@@ -1,0 +1,10 @@
+﻿strategy,label,window,backtest_from,backtest_to,trades,profit_pct,profit_factor,max_drawdown_pct,winrate_pct,long_short_trades,log_file
+DualTrendBaselineStrategy,baseline,1y,2025-06-18 00:00:00,2026-06-18 00:00:00,131,42.40,2.34,4.84,55.0,15 / 116,D:\test\ft_userdata\user_data\analysis\ret6h_recheck_2026-07-09\baseline_1y.log
+DualTrendBaselineStrategy,baseline,3y,2023-06-18 00:00:00,2026-06-18 00:00:00,330,144.61,2.15,5.77,50.0,48 / 282,D:\test\ft_userdata\user_data\analysis\ret6h_recheck_2026-07-09\baseline_3y.log
+DualTrendBaselineStrategy,baseline,pressure,2026-03-01 00:00:00,2026-05-31 00:00:00,18,1.98,1.46,2.65,38.9,1 / 17,D:\test\ft_userdata\user_data\analysis\ret6h_recheck_2026-07-09\baseline_pressure.log
+DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy,candidate,1y,2025-06-18 00:00:00,2026-06-18 00:00:00,123,66.01,3.21,4.96,55.3,14 / 109,D:\test\ft_userdata\user_data\analysis\ret6h_recheck_2026-07-09\candidate_1y.log
+DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy,candidate,3y,2023-06-18 00:00:00,2026-06-18 00:00:00,313,191.75,2.60,5.03,50.8,47 / 266,D:\test\ft_userdata\user_data\analysis\ret6h_recheck_2026-07-09\candidate_3y.log
+DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy,candidate,pressure,2026-03-01 00:00:00,2026-05-31 00:00:00,15,4.82,2.96,1.75,40.0,1 / 14,D:\test\ft_userdata\user_data\analysis\ret6h_recheck_2026-07-09\candidate_pressure.log
+DualTrendRawStrategy,raw,1y,2025-06-18 00:00:00,2026-06-18 00:00:00,112,51.07,1.98,7.05,38.4,14 / 98,D:\test\ft_userdata\user_data\analysis\ret6h_recheck_2026-07-09\raw_1y.log
+DualTrendRawStrategy,raw,3y,2023-06-18 00:00:00,2026-06-18 00:00:00,295,199.63,2.00,7.06,34.2,46 / 249,D:\test\ft_userdata\user_data\analysis\ret6h_recheck_2026-07-09\raw_3y.log
+DualTrendRawStrategy,raw,pressure,2026-03-01 00:00:00,2026-05-31 00:00:00,17,-4.36,0.40,6.07,17.6,1 / 16,D:\test\ft_userdata\user_data\analysis\ret6h_recheck_2026-07-09\raw_pressure.log

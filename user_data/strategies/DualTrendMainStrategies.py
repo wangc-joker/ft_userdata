@@ -79,6 +79,7 @@ class _DualTrendCombinedGlobalFilterBase(DualTrendCombinedLongDailyCenterShortV1
         dataframe["ema20_1h"] = dataframe["close"].ewm(span=20, adjust=False, min_periods=20).mean()
         dataframe["ema50_1h"] = dataframe["close"].ewm(span=50, adjust=False, min_periods=50).mean()
         dataframe["ret_1h"] = dataframe["close"] / dataframe["close"].shift(1) - 1.0
+        dataframe["ret_6h"] = dataframe["close"] / dataframe["close"].shift(6) - 1.0
         dataframe["prev_3h_return"] = dataframe["close"].shift(1) / dataframe["close"].shift(4) - 1.0
         dataframe["prev_6h_return"] = dataframe["close"].shift(1) / dataframe["close"].shift(7) - 1.0
         dataframe["breakdown_depth"] = (dataframe["compression_low"] - dataframe["close"]) / dataframe["compression_low"]
@@ -877,6 +878,160 @@ class DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strateg
 
     pyramid_profit_threshold = 0.005
     pyramid_profit_cap = 0.015
+
+
+class _DualTrendPyramidClosePositionFloorMixin:
+    """Avoid adding on flush candles that close at the extreme low."""
+
+    pyramid_require_close_position_min = 0.07
+
+    def _pyramid_extra_filters_pass(self, pair: str, trade: Trade) -> bool:
+        if not super()._pyramid_extra_filters_pass(pair, trade):
+            return False
+        candle = self._current_candle(pair)
+        if candle is None:
+            return False
+        close_position = float(candle.get("close_position", np.nan))
+        return bool(
+            np.isfinite(close_position)
+            and close_position >= self.pyramid_require_close_position_min
+        )
+
+
+class DualTrendPyramidCloseFloor07V1Strategy(
+    _DualTrendPyramidClosePositionFloorMixin,
+    DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy,
+):
+    """Current candidate plus one diagnosed anti-flush add-on filter."""
+
+
+class _DualTrendSecondAddMixin:
+    """
+    Research layer for a second winner add-on.
+
+    The base strategy already handles multiple add-on legs and leg-level
+    breakeven state. This layer only makes the second leg smaller and later.
+    """
+
+    max_entry_position_adjustment = 2
+    pyramid_max_additions = 2
+    pyramid_leg_stake_fractions = (0.25, 0.12)
+    pyramid_second_profit_threshold = 0.018
+    pyramid_second_profit_cap = 0.035
+    pyramid_second_require_trend_down_4h = False
+    pyramid_second_require_center_down = False
+
+    def _pyramid_stake_amount(
+        self,
+        trade: Trade,
+        min_stake: Optional[float],
+        max_stake: float,
+    ) -> float:
+        getter = getattr(trade, "get_custom_data", None)
+        setter = getattr(trade, "set_custom_data", None)
+        additions_done = int(getter(key="dualtrend_pyramid_additions") or 0) if getter else 0
+
+        base_stake = None
+        if getter is not None:
+            stored = getter(key="dualtrend_initial_stake_amount")
+            if stored is not None:
+                base_stake = float(stored)
+        if base_stake is None:
+            base_stake = float(trade.stake_amount)
+            if setter is not None:
+                setter(key="dualtrend_initial_stake_amount", value=base_stake)
+
+        fractions = tuple(getattr(self, "pyramid_leg_stake_fractions", (self.pyramid_stake_fraction,)))
+        fraction = fractions[min(additions_done, len(fractions) - 1)] if fractions else self.pyramid_stake_fraction
+        stake = min(float(max_stake), base_stake * float(fraction))
+        if min_stake is not None and stake < min_stake:
+            return 0.0
+        return max(0.0, stake)
+
+    def _pyramid_extra_filters_pass(self, pair: str, trade: Trade) -> bool:
+        if not super()._pyramid_extra_filters_pass(pair, trade):
+            return False
+
+        getter = getattr(trade, "get_custom_data", None)
+        additions_done = int(getter(key="dualtrend_pyramid_additions") or 0) if getter else 0
+        if additions_done < 1:
+            return True
+
+        candle = self._current_candle(pair)
+        if candle is None:
+            return False
+        if self.pyramid_second_require_trend_down_4h and not bool(candle.get("trend_down_4h", False)):
+            return False
+        if self.pyramid_second_require_center_down and not bool(candle.get("center_down", False)):
+            return False
+        return True
+
+    def adjust_trade_position(
+        self,
+        trade: Trade,
+        current_time,
+        current_rate: float,
+        current_profit: float,
+        min_stake: Optional[float],
+        max_stake: float,
+        current_entry_rate: float,
+        current_exit_rate: float,
+        current_entry_profit: float,
+        current_exit_profit: float,
+        **kwargs,
+    ) -> Optional[float]:
+        getter = getattr(trade, "get_custom_data", None)
+        if getter is not None and int(getter(key="dualtrend_pyramid_additions") or 0) >= 1:
+            original_threshold = self.pyramid_profit_threshold
+            original_cap = self.pyramid_profit_cap
+            self.pyramid_profit_threshold = self.pyramid_second_profit_threshold
+            self.pyramid_profit_cap = self.pyramid_second_profit_cap
+            try:
+                return super().adjust_trade_position(
+                    trade=trade,
+                    current_time=current_time,
+                    current_rate=current_rate,
+                    current_profit=current_profit,
+                    min_stake=min_stake,
+                    max_stake=max_stake,
+                    current_entry_rate=current_entry_rate,
+                    current_exit_rate=current_exit_rate,
+                    current_entry_profit=current_entry_profit,
+                    current_exit_profit=current_exit_profit,
+                    **kwargs,
+                )
+            finally:
+                self.pyramid_profit_threshold = original_threshold
+                self.pyramid_profit_cap = original_cap
+
+        return super().adjust_trade_position(
+            trade=trade,
+            current_time=current_time,
+            current_rate=current_rate,
+            current_profit=current_profit,
+            min_stake=min_stake,
+            max_stake=max_stake,
+            current_entry_rate=current_entry_rate,
+            current_exit_rate=current_exit_rate,
+            current_entry_profit=current_entry_profit,
+            current_exit_profit=current_exit_profit,
+            **kwargs,
+        )
+
+
+class DualTrendPyramidSecondAdd15V1Strategy(
+    _DualTrendSecondAddMixin,
+    DualTrendPyramidCloseFloor07V1Strategy,
+):
+    """CloseFloor07 plus a 15% second add-on after stronger confirmation."""
+
+    pyramid_leg_stake_fractions = (0.25, 0.15)
+
+
+class DualTrendPyramidSecondAdd20V1Strategy(DualTrendPyramidSecondAdd15V1Strategy):
+    """CloseFloor07 plus a larger 20% second add-on after stronger confirmation."""
+
+    pyramid_leg_stake_fractions = (0.25, 0.20)
 
 
 class DualTrendCombinedShortPullbackShapeV1Strategy(DualTrendRawStrategy):

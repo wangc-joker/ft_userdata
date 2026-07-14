@@ -1,0 +1,12 @@
+﻿label,strategy,timerange,trades,profit_pct,profit_abs_usdt,profit_factor,winrate_pct,max_dd_account_pct,max_dd_relative_pct,avg_holding,rejected_signals
+3y_baseline,DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy,20230618-20260618,313,191.75,1917.482,2.595,50.8,5.03,8.69,"1 day, 6:30:00",911
+3y_baseline,DualTrendPyramidRiskBudgetV1Strategy,20230618-20260618,314,188.14,1881.393,2.57,50.64,5.74,8.65,"1 day, 6:03:00",887
+3y_baseline,DualTrendPyramidRiskBudgetStructureV1Strategy,20230618-20260618,312,179.5,1794.974,2.611,51.28,7.35,8.5,"1 day, 5:51:00",887
+3y_nopyramid,DualTrendCompressionCloseQualityGuard028CompressionTightStopStrategy,20230618-20260618,317,171.09,1710.942,2.508,52.05,5.05,7.54,"1 day, 5:02:00",875
+3y_closefloor07,DualTrendPyramidCloseFloor07V1Strategy,20230618-20260618,313,193.31,1933.128,2.659,51.12,4.83,8.48,"1 day, 6:18:00",911
+1y_closefloor07,DualTrendPyramidCloseFloor07V1Strategy,20250618-20260618,123,67.56,675.61,3.379,56.1,4.75,4.75,"1 day, 11:50:00",567
+pressure_closefloor07,DualTrendPyramidCloseFloor07V1Strategy,20260301-20260531,15,4.82,48.177,2.957,40.0,1.75,1.75,"1 day, 18:05:00",60
+5y_compare,DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy,20210618-20260618,477,252.14,2521.395,2.348,51.15,5.02,7.37,"1 day, 4:56:00",1157
+5y_compare,DualTrendPyramidCloseFloor07V1Strategy,20210618-20260618,477,250.64,2506.372,2.383,51.36,4.82,7.42,"1 day, 4:27:00",1157
+3y_closefloor07_fee_1p5x,DualTrendPyramidCloseFloor07V1Strategy,20230618-20260618,312,176.56,1765.643,2.483,35.26,6.09,7.98,"1 day, 6:49:00",911
+3y_closefloor07_fee_2x,DualTrendPyramidCloseFloor07V1Strategy,20230618-20260618,311,165.9,1658.979,2.327,31.51,6.26,8.15,"1 day, 7:08:00",917

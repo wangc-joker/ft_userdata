@@ -1,0 +1,997 @@
+time="2026-07-10T12:15:09+08:00" level=warning msg="Found orphan containers ([nfi-top9-exbtc-10000u-max4-dryrun]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container ft_userdata-freqtrade-run-ce36c18ab423 Creating 
+ Container ft_userdata-freqtrade-run-ce36c18ab423 Created 
+2026-07-10 04:15:09,873 - freqtrade - INFO - freqtrade 2026.4
+2026-07-10 04:15:10,240 - numexpr.utils - INFO - NumExpr defaulting to 16 threads.
+2026-07-10 04:15:11,815 - freqtrade.configuration.load_config - INFO - Using config: /freqtrade/user_data/config.backtest.dualtrend.combined.top50.positive13.max3.json ...
+2026-07-10 04:15:11,821 - freqtrade.loggers - INFO - Enabling colorized output.
+2026-07-10 04:15:11,821 - freqtrade.loggers - INFO - Logfile configured
+2026-07-10 04:15:11,822 - freqtrade.loggers - INFO - Verbosity set to 0
+2026-07-10 04:15:11,822 - freqtrade.configuration.configuration - INFO - Using additional Strategy lookup path: /freqtrade/user_data/strategies
+2026-07-10 04:15:11,823 - freqtrade.configuration.configuration - INFO - Parameter -i/--timeframe detected ... Using timeframe: 1h ...
+2026-07-10 04:15:11,823 - freqtrade.configuration.configuration - INFO - Using max_open_trades: 3 ...
+2026-07-10 04:15:11,823 - freqtrade.configuration.configuration - INFO - Parameter --timeframe-detail detected, using 5m for intra-candle backtesting ...
+2026-07-10 04:15:11,823 - freqtrade.configuration.configuration - INFO - Parameter --timerange detected: 20230618-20260618 ...
+2026-07-10 04:15:32,997 - freqtrade.configuration.configuration - INFO - Using user-data directory: /freqtrade/user_data ...
+2026-07-10 04:15:33,000 - freqtrade.configuration.configuration - INFO - Using data directory: /freqtrade/user_data/data/binance ...
+2026-07-10 04:15:33,000 - freqtrade.configuration.configuration - INFO - Using /freqtrade/user_data/analysis/pyramid_risk_budget_2026-07-10 as backtest directory ...
+2026-07-10 04:15:33,000 - freqtrade.configuration.configuration - INFO - Using strategy list of 3 strategies
+2026-07-10 04:15:33,000 - freqtrade.configuration.configuration - INFO - Parameter --export detected: trades ...
+2026-07-10 04:15:33,001 - freqtrade.configuration.configuration - INFO - Parameter --cache=day detected ...
+2026-07-10 04:15:33,001 - freqtrade.configuration.configuration - INFO - Parameter --notes detected: 3y ...
+2026-07-10 04:15:33,001 - freqtrade.configuration.configuration - INFO - Filter trades by timerange: 20230618-20260618
+2026-07-10 04:15:33,002 - freqtrade.exchange.check_exchange - INFO - Checking exchange...
+2026-07-10 04:15:33,008 - freqtrade.exchange.check_exchange - INFO - Exchange "binance" is officially supported by the Freqtrade development team.
+2026-07-10 04:15:33,009 - freqtrade.configuration.configuration - INFO - Using pairlist from configuration.
+2026-07-10 04:15:33,009 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
+2026-07-10 04:15:33,011 - freqtrade.commands.optimize_commands - INFO - Starting freqtrade in Backtesting mode
+2026-07-10 04:15:33,011 - freqtrade.exchange.exchange - INFO - Instance is running with dry_run enabled
+2026-07-10 04:15:33,012 - freqtrade.exchange.exchange - INFO - Using CCXT 4.5.50
+2026-07-10 04:15:33,012 - freqtrade.exchange.exchange - INFO - Applying additional ccxt config: {'options': {'defaultType': 'swap', 'adjustForTimeDifference': True, 'recvWindow': 60000, 
+'fetchCurrencies': False, 'fetchMarkets': ['linear']}, 'enableRateLimit': True, 'timeout': 60000}
+2026-07-10 04:15:33,019 - freqtrade.exchange.exchange - INFO - Applying additional ccxt config: {'options': {'defaultType': 'swap', 'adjustForTimeDifference': True, 'recvWindow': 60000, 
+'fetchCurrencies': False, 'fetchMarkets': ['linear']}, 'enableRateLimit': True, 'timeout': 60000}
+2026-07-10 04:15:33,026 - freqtrade.exchange.exchange - INFO - Using Exchange "Binance"
+2026-07-10 04:15:34,222 - freqtrade.resolvers.exchange_resolver - INFO - Using resolved exchange 'Binance'...
+2026-07-10 04:15:34,402 - freqtrade.resolvers.iresolver - INFO - Using resolved strategy DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy from 
+'/freqtrade/user_data/strategies/DualTrendMainStrategies.py'...
+2026-07-10 04:15:34,404 - freqtrade.strategy.hyper - INFO - Found no parameter file.
+2026-07-10 04:15:34,405 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'timeframe' with value from the configuration: 1h.
+2026-07-10 04:15:34,405 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_currency' with value from the configuration: USDT.
+2026-07-10 04:15:34,406 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_amount' with value from the configuration: unlimited.
+2026-07-10 04:15:34,407 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'unfilledtimeout' with value from the configuration: {'entry': 10, 'exit': 10, 'exit_timeout_count': 0, 
+'unit': 'minutes'}.
+2026-07-10 04:15:34,407 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'max_open_trades' with value from the configuration: 3.
+2026-07-10 04:15:34,407 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using minimal_roi: {'0': 0.1}
+2026-07-10 04:15:34,407 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using timeframe: 1h
+2026-07-10 04:15:34,408 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stoploss: -0.06
+2026-07-10 04:15:34,408 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop: False
+2026-07-10 04:15:34,408 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop_positive_offset: 0.0
+2026-07-10 04:15:34,408 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_only_offset_is_reached: False
+2026-07-10 04:15:34,409 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_custom_stoploss: True
+2026-07-10 04:15:34,409 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using process_only_new_candles: True
+2026-07-10 04:15:34,410 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_types: {'entry': 'limit', 'exit': 'limit', 'stoploss': 'limit', 'stoploss_on_exchange': False, 
+'stoploss_on_exchange_interval': 60}
+2026-07-10 04:15:34,410 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_time_in_force: {'entry': 'GTC', 'exit': 'GTC'}
+2026-07-10 04:15:34,410 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_currency: USDT
+2026-07-10 04:15:34,410 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_amount: unlimited
+2026-07-10 04:15:34,411 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using startup_candle_count: 1000
+2026-07-10 04:15:34,411 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using unfilledtimeout: {'entry': 10, 'exit': 10, 'exit_timeout_count': 0, 'unit': 'minutes'}
+2026-07-10 04:15:34,411 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_exit_signal: True
+2026-07-10 04:15:34,412 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_only: False
+2026-07-10 04:15:34,412 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_roi_if_entry_signal: True
+2026-07-10 04:15:34,412 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_offset: 0.0
+2026-07-10 04:15:34,413 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using disable_dataframe_checks: False
+2026-07-10 04:15:34,413 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_buying_expired_candle_after: 0
+2026-07-10 04:15:34,413 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using position_adjustment_enable: True
+2026-07-10 04:15:34,414 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_entry_position_adjustment: 1
+2026-07-10 04:15:34,414 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_open_trades: 3
+2026-07-10 04:15:34,414 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
+2026-07-10 04:15:34,468 - freqtrade.resolvers.iresolver - INFO - Using resolved strategy DualTrendPyramidRiskBudgetV1Strategy from '/freqtrade/user_data/strategies/DualTrendMainStrategies.py'...
+2026-07-10 04:15:34,470 - freqtrade.strategy.hyper - INFO - Found no parameter file.
+2026-07-10 04:15:34,471 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'timeframe' with value from the configuration: 1h.
+2026-07-10 04:15:34,472 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_currency' with value from the configuration: USDT.
+2026-07-10 04:15:34,472 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_amount' with value from the configuration: unlimited.
+2026-07-10 04:15:34,472 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'unfilledtimeout' with value from the configuration: {'entry': 10, 'exit': 10, 'exit_timeout_count': 0, 
+'unit': 'minutes'}.
+2026-07-10 04:15:34,472 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'max_open_trades' with value from the configuration: 3.
+2026-07-10 04:15:34,473 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using minimal_roi: {'0': 0.1}
+2026-07-10 04:15:34,473 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using timeframe: 1h
+2026-07-10 04:15:34,473 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stoploss: -0.06
+2026-07-10 04:15:34,474 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop: False
+2026-07-10 04:15:34,474 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop_positive_offset: 0.0
+2026-07-10 04:15:34,474 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_only_offset_is_reached: False
+2026-07-10 04:15:34,474 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_custom_stoploss: True
+2026-07-10 04:15:34,474 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using process_only_new_candles: True
+2026-07-10 04:15:34,475 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_types: {'entry': 'limit', 'exit': 'limit', 'stoploss': 'limit', 'stoploss_on_exchange': False, 
+'stoploss_on_exchange_interval': 60, 'emergency_exit': 'market'}
+2026-07-10 04:15:34,475 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_time_in_force: {'entry': 'GTC', 'exit': 'GTC'}
+2026-07-10 04:15:34,476 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_currency: USDT
+2026-07-10 04:15:34,476 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_amount: unlimited
+2026-07-10 04:15:34,476 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using startup_candle_count: 1000
+2026-07-10 04:15:34,476 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using unfilledtimeout: {'entry': 10, 'exit': 10, 'exit_timeout_count': 0, 'unit': 'minutes'}
+2026-07-10 04:15:34,477 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_exit_signal: True
+2026-07-10 04:15:34,477 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_only: False
+2026-07-10 04:15:34,478 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_roi_if_entry_signal: True
+2026-07-10 04:15:34,478 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_offset: 0.0
+2026-07-10 04:15:34,478 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using disable_dataframe_checks: False
+2026-07-10 04:15:34,478 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_buying_expired_candle_after: 0
+2026-07-10 04:15:34,479 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using position_adjustment_enable: True
+2026-07-10 04:15:34,479 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_entry_position_adjustment: 1
+2026-07-10 04:15:34,479 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_open_trades: 3
+2026-07-10 04:15:34,479 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
+2026-07-10 04:15:34,522 - freqtrade.resolvers.iresolver - INFO - Using resolved strategy DualTrendPyramidRiskBudgetStructureV1Strategy from 
+'/freqtrade/user_data/strategies/DualTrendMainStrategies.py'...
+2026-07-10 04:15:34,524 - freqtrade.strategy.hyper - INFO - Found no parameter file.
+2026-07-10 04:15:34,525 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'timeframe' with value from the configuration: 1h.
+2026-07-10 04:15:34,525 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_currency' with value from the configuration: USDT.
+2026-07-10 04:15:34,525 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_amount' with value from the configuration: unlimited.
+2026-07-10 04:15:34,525 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'unfilledtimeout' with value from the configuration: {'entry': 10, 'exit': 10, 'exit_timeout_count': 0, 
+'unit': 'minutes'}.
+2026-07-10 04:15:34,526 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'max_open_trades' with value from the configuration: 3.
+2026-07-10 04:15:34,526 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using minimal_roi: {'0': 0.1}
+2026-07-10 04:15:34,526 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using timeframe: 1h
+2026-07-10 04:15:34,526 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stoploss: -0.06
+2026-07-10 04:15:34,526 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop: False
+2026-07-10 04:15:34,526 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop_positive_offset: 0.0
+2026-07-10 04:15:34,527 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_only_offset_is_reached: False
+2026-07-10 04:15:34,527 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_custom_stoploss: True
+2026-07-10 04:15:34,527 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using process_only_new_candles: True
+2026-07-10 04:15:34,527 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_types: {'entry': 'limit', 'exit': 'limit', 'stoploss': 'limit', 'stoploss_on_exchange': False, 
+'stoploss_on_exchange_interval': 60, 'emergency_exit': 'market'}
+2026-07-10 04:15:34,527 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_time_in_force: {'entry': 'GTC', 'exit': 'GTC'}
+2026-07-10 04:15:34,527 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_currency: USDT
+2026-07-10 04:15:34,528 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_amount: unlimited
+2026-07-10 04:15:34,528 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using startup_candle_count: 1000
+2026-07-10 04:15:34,528 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using unfilledtimeout: {'entry': 10, 'exit': 10, 'exit_timeout_count': 0, 'unit': 'minutes'}
+2026-07-10 04:15:34,528 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_exit_signal: True
+2026-07-10 04:15:34,528 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_only: False
+2026-07-10 04:15:34,528 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_roi_if_entry_signal: True
+2026-07-10 04:15:34,529 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_offset: 0.0
+2026-07-10 04:15:34,529 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using disable_dataframe_checks: False
+2026-07-10 04:15:34,529 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_buying_expired_candle_after: 0
+2026-07-10 04:15:34,529 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using position_adjustment_enable: True
+2026-07-10 04:15:34,529 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_entry_position_adjustment: 1
+2026-07-10 04:15:34,529 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_open_trades: 3
+2026-07-10 04:15:34,530 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
+2026-07-10 04:15:34,533 - freqtrade.resolvers.iresolver - INFO - Using resolved pairlist StaticPairList from '/freqtrade/freqtrade/plugins/pairlist/StaticPairList.py'...
+2026-07-10 04:15:34,541 - freqtrade.optimize.backtesting - INFO - Using fee 0.0500% - worst case fee from exchange (lowest tier).
+2026-07-10 04:15:34,542 - freqtrade.exchange.exchange - WARNING - Using 3 calls to get OHLCV. This can result in slower operations for the bot. Please check if you really need 1000 candles for your 
+strategy.
+2026-07-10 04:15:34,904 - freqtrade.data.history.datahandlers.idatahandler - WARNING - TAO/USDT:USDT, futures, 1h, data starts at 2024-04-11 14:00:00
+2026-07-10 04:15:34,940 - freqtrade.data.history.datahandlers.idatahandler - WARNING - SUI/USDT:USDT, futures, 1h, data starts at 2023-06-18 00:00:00
+2026-07-10 04:15:34,980 - freqtrade.data.history.datahandlers.idatahandler - WARNING - PAXG/USDT:USDT, futures, 1h, data starts at 2025-03-27 10:00:00
+2026-07-10 04:15:35,071 - freqtrade.optimize.backtesting - INFO - Loading data from 2023-05-07 08:00:00 up to 2026-06-18 00:00:00 (1137 days).
+2026-07-10 04:15:35,177 - freqtrade.data.history.datahandlers.idatahandler - WARNING - ETH/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:35,387 - freqtrade.data.history.datahandlers.idatahandler - WARNING - ZEC/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:35,585 - freqtrade.data.history.datahandlers.idatahandler - WARNING - BTC/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:35,769 - freqtrade.data.history.datahandlers.idatahandler - WARNING - ADA/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:35,956 - freqtrade.data.history.datahandlers.idatahandler - WARNING - BNB/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:36,123 - freqtrade.data.history.datahandlers.idatahandler - WARNING - SOL/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:36,325 - freqtrade.data.history.datahandlers.idatahandler - WARNING - DOGE/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:36,530 - freqtrade.data.history.datahandlers.idatahandler - WARNING - XRP/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:36,706 - freqtrade.data.history.datahandlers.idatahandler - WARNING - TAO/USDT:USDT, futures, 5m, data starts at 2024-04-11 14:30:00
+2026-07-10 04:15:36,707 - freqtrade.data.history.datahandlers.idatahandler - WARNING - TAO/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:36,840 - freqtrade.data.history.datahandlers.idatahandler - WARNING - SUI/USDT:USDT, futures, 5m, data starts at 2024-02-28 00:00:00
+2026-07-10 04:15:36,841 - freqtrade.data.history.datahandlers.idatahandler - WARNING - SUI/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:36,960 - freqtrade.data.history.datahandlers.idatahandler - WARNING - PAXG/USDT:USDT, futures, 5m, data starts at 2025-03-27 10:30:00
+2026-07-10 04:15:36,960 - freqtrade.data.history.datahandlers.idatahandler - WARNING - PAXG/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:37,082 - freqtrade.data.history.datahandlers.idatahandler - WARNING - NEAR/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:37,400 - freqtrade.data.history.datahandlers.idatahandler - WARNING - LINK/USDT:USDT, futures, 5m, data ends at 2026-06-17 23:55:00
+2026-07-10 04:15:37,932 - freqtrade.data.history.datahandlers.idatahandler - WARNING - TAO/USDT:USDT, funding_rate, 1h, data starts at 2024-04-11 16:00:00
+2026-07-10 04:15:37,996 - freqtrade.data.history.datahandlers.idatahandler - WARNING - PAXG/USDT:USDT, funding_rate, 1h, data starts at 2025-03-27 08:00:00
+2026-07-10 04:15:39,434 - freqtrade.data.history.datahandlers.idatahandler - WARNING - TAO/USDT:USDT, mark, 1h, data starts at 2024-04-11 12:00:00
+2026-07-10 04:15:39,529 - freqtrade.data.history.datahandlers.idatahandler - WARNING - PAXG/USDT:USDT, mark, 1h, data starts at 2025-03-27 07:00:00
+2026-07-10 04:15:41,686 - freqtrade.optimize.backtesting - INFO - Dataload complete. Calculating indicators
+2026-07-10 04:15:41,735 - freqtrade.optimize.backtesting - INFO - Running backtesting for Strategy DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy
+2026-07-10 04:15:41,737 - freqtrade.data.dataprovider - INFO - Loading data for ETH/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:15:41,753 - freqtrade.data.history.datahandlers.idatahandler - WARNING - ETH/USDT:USDT, futures, 1d, data starts at 2022-10-01 00:00:00
+2026-07-10 04:15:41,810 - freqtrade.data.dataprovider - INFO - Loading data for ETH/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+2026-07-10 04:15:41,921 - freqtrade.data.dataprovider - INFO - Loading data for BTC/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:15:44,149 - freqtrade.data.dataprovider - INFO - Loading data for ZEC/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:15:44,168 - freqtrade.data.history.datahandlers.idatahandler - WARNING - ZEC/USDT:USDT, futures, 1d, data starts at 2022-10-01 00:00:00
+2026-07-10 04:15:44,221 - freqtrade.data.dataprovider - INFO - Loading data for ZEC/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+2026-07-10 04:15:46,925 - freqtrade.data.dataprovider - INFO - Loading data for BTC/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:15:46,946 - freqtrade.data.history.datahandlers.idatahandler - WARNING - BTC/USDT:USDT, futures, 1d, data starts at 2022-10-01 00:00:00
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+2026-07-10 04:15:49,526 - freqtrade.data.dataprovider - INFO - Loading data for ADA/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:15:49,543 - freqtrade.data.history.datahandlers.idatahandler - WARNING - ADA/USDT:USDT, futures, 1d, data starts at 2022-10-01 00:00:00
+2026-07-10 04:15:49,603 - freqtrade.data.dataprovider - INFO - Loading data for ADA/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+2026-07-10 04:15:51,866 - freqtrade.data.dataprovider - INFO - Loading data for BNB/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:15:51,886 - freqtrade.data.history.datahandlers.idatahandler - WARNING - BNB/USDT:USDT, futures, 1d, data starts at 2022-10-01 00:00:00
+2026-07-10 04:15:51,965 - freqtrade.data.dataprovider - INFO - Loading data for BNB/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+2026-07-10 04:15:54,363 - freqtrade.data.dataprovider - INFO - Loading data for SOL/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:15:54,379 - freqtrade.data.history.datahandlers.idatahandler - WARNING - SOL/USDT:USDT, futures, 1d, data starts at 2022-10-01 00:00:00
+2026-07-10 04:15:54,436 - freqtrade.data.dataprovider - INFO - Loading data for SOL/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+2026-07-10 04:15:56,744 - freqtrade.data.dataprovider - INFO - Loading data for DOGE/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:15:56,762 - freqtrade.data.history.datahandlers.idatahandler - WARNING - DOGE/USDT:USDT, futures, 1d, data starts at 2022-10-01 00:00:00
+2026-07-10 04:15:56,821 - freqtrade.data.dataprovider - INFO - Loading data for DOGE/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+2026-07-10 04:15:59,608 - freqtrade.data.dataprovider - INFO - Loading data for XRP/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:15:59,630 - freqtrade.data.history.datahandlers.idatahandler - WARNING - XRP/USDT:USDT, futures, 1d, data starts at 2022-10-01 00:00:00
+2026-07-10 04:15:59,699 - freqtrade.data.dataprovider - INFO - Loading data for XRP/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+2026-07-10 04:16:02,071 - freqtrade.data.dataprovider - INFO - Loading data for TAO/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:16:02,092 - freqtrade.data.history.datahandlers.idatahandler - WARNING - TAO/USDT:USDT, futures, 1d, data starts at 2024-04-11 00:00:00
+2026-07-10 04:16:02,129 - freqtrade.data.dataprovider - INFO - Loading data for TAO/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:16:02,152 - freqtrade.data.history.datahandlers.idatahandler - WARNING - TAO/USDT:USDT, futures, 4h, data starts at 2024-04-11 12:00:00
+2026-07-10 04:16:03,713 - freqtrade.data.dataprovider - INFO - Loading data for SUI/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:16:03,734 - freqtrade.data.history.datahandlers.idatahandler - WARNING - SUI/USDT:USDT, futures, 1d, data starts at 2023-06-18 00:00:00
+2026-07-10 04:16:03,771 - freqtrade.data.dataprovider - INFO - Loading data for SUI/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:16:03,793 - freqtrade.data.history.datahandlers.idatahandler - WARNING - SUI/USDT:USDT, futures, 4h, data starts at 2023-06-18 00:00:00
+2026-07-10 04:16:06,326 - freqtrade.data.dataprovider - INFO - Loading data for PAXG/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:16:06,340 - freqtrade.data.history.datahandlers.idatahandler - WARNING - PAXG/USDT:USDT, futures, 1d, data starts at 2025-03-27 00:00:00
+2026-07-10 04:16:06,372 - freqtrade.data.dataprovider - INFO - Loading data for PAXG/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:16:06,398 - freqtrade.data.history.datahandlers.idatahandler - WARNING - PAXG/USDT:USDT, futures, 4h, data starts at 2025-03-27 08:00:00
+2026-07-10 04:16:07,280 - freqtrade.data.dataprovider - INFO - Loading data for NEAR/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:16:07,300 - freqtrade.data.history.datahandlers.idatahandler - WARNING - NEAR/USDT:USDT, futures, 1d, data starts at 2022-10-01 00:00:00
+2026-07-10 04:16:07,354 - freqtrade.data.dataprovider - INFO - Loading data for NEAR/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+2026-07-10 04:16:09,607 - freqtrade.data.dataprovider - INFO - Loading data for LINK/USDT:USDT 1d from 2020-09-21 00:00:00 to 2026-06-18 00:00:00
+2026-07-10 04:16:09,631 - freqtrade.data.history.datahandlers.idatahandler - WARNING - LINK/USDT:USDT, futures, 1d, data starts at 2022-10-01 00:00:00
+2026-07-10 04:16:09,682 - freqtrade.data.dataprovider - INFO - Loading data for LINK/USDT:USDT 4h from 2023-01-02 08:00:00 to 2026-06-18 00:00:00
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+2026-07-10 04:16:12,356 - freqtrade.optimize.backtesting - INFO - Backtesting with data from 2023-06-18 00:00:00 up to 2026-06-18 00:00:00 (1096 days).
+2026-07-10 04:16:12,357 - freqtrade.resolvers.iresolver - INFO - Using resolved protection CooldownPeriod from '/freqtrade/freqtrade/plugins/protections/cooldown_period.py'...
+2026-07-10 04:16:12,359 - freqtrade.resolvers.iresolver - INFO - Using resolved protection StoplossGuard from '/freqtrade/freqtrade/plugins/protections/stoploss_guard.py'...
+2026-07-10 04:16:12,360 - freqtrade.resolvers.iresolver - INFO - Using resolved protection MaxDrawdown from '/freqtrade/freqtrade/plugins/protections/max_drawdown_protection.py'...
+2026-07-10 04:22:16,814 - freqtrade.optimize.backtesting - INFO - Running backtesting for Strategy DualTrendPyramidRiskBudgetV1Strategy
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+2026-07-10 04:22:43,465 - freqtrade.optimize.backtesting - INFO - Backtesting with data from 2023-06-18 00:00:00 up to 2026-06-18 00:00:00 (1096 days).
+2026-07-10 04:22:43,491 - freqtrade.resolvers.iresolver - INFO - Using resolved protection CooldownPeriod from '/freqtrade/freqtrade/plugins/protections/cooldown_period.py'...
+2026-07-10 04:22:43,493 - freqtrade.resolvers.iresolver - INFO - Using resolved protection StoplossGuard from '/freqtrade/freqtrade/plugins/protections/stoploss_guard.py'...
+2026-07-10 04:22:43,495 - freqtrade.resolvers.iresolver - INFO - Using resolved protection MaxDrawdown from '/freqtrade/freqtrade/plugins/protections/max_drawdown_protection.py'...
+2026-07-10 04:28:24,544 - freqtrade.optimize.backtesting - INFO - Running backtesting for Strategy DualTrendPyramidRiskBudgetStructureV1Strategy
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:241: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["near_low_zone"] = dataframe["compression_high"] <= dataframe["recent_low_24"] * self.low_zone_buffer
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:244: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["body_pct_of_range"] = (dataframe["close"] - dataframe["open"]).abs() / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:245: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["close_position"] = (dataframe["close"] - dataframe["low"]) / candle_range.replace(0, np.nan)
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:246: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["candle_quality_short"] = (
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:252: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_compression_stop"] = dataframe["compression_high"] + self.stop_atr_buffer * dataframe["atr_ref"]
+/freqtrade/user_data/strategies/DualTrendCompressionRestartShortV1Strategy.py:253: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe["short_pullback_stop"] = dataframe["pullback_high_12"] + self.stop_atr_buffer * dataframe["atr_ref"]
+2026-07-10 04:28:51,030 - freqtrade.optimize.backtesting - INFO - Backtesting with data from 2023-06-18 00:00:00 up to 2026-06-18 00:00:00 (1096 days).
+2026-07-10 04:28:51,065 - freqtrade.resolvers.iresolver - INFO - Using resolved protection CooldownPeriod from '/freqtrade/freqtrade/plugins/protections/cooldown_period.py'...
+2026-07-10 04:28:51,067 - freqtrade.resolvers.iresolver - INFO - Using resolved protection StoplossGuard from '/freqtrade/freqtrade/plugins/protections/stoploss_guard.py'...
+2026-07-10 04:28:51,069 - freqtrade.resolvers.iresolver - INFO - Using resolved protection MaxDrawdown from '/freqtrade/freqtrade/plugins/protections/max_drawdown_protection.py'...
+2026-07-10 04:34:12,649 - freqtrade.misc - INFO - dumping json to "/freqtrade/user_data/analysis/pyramid_risk_budget_2026-07-10/backtest-result-2026-07-10_04-34-12.meta.json"
+Result for strategy DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy
+                                                   BACKTESTING REPORT                                                   
+┏━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃           Pair ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃      Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│  XRP/USDT:USDT │     41 │          1.1 │         353.359 │        35.34 │    1 day, 5:52:00 │   20     0    21  48.8 │
+│  BNB/USDT:USDT │     23 │         2.44 │         281.862 │        28.19 │    1 day, 4:37:00 │   14     0     9  60.9 │
+│  ETH/USDT:USDT │     30 │         1.88 │         267.830 │        26.78 │    1 day, 3:42:00 │   16     0    14  53.3 │
+│  BTC/USDT:USDT │     37 │         1.45 │         233.766 │        23.38 │   2 days, 0:54:00 │   18     0    19  48.6 │
+│  ADA/USDT:USDT │     34 │         1.27 │         177.204 │        17.72 │    1 day, 1:44:00 │   17     0    17  50.0 │
+│ DOGE/USDT:USDT │     23 │         1.97 │         176.699 │        17.67 │          19:25:00 │   15     0     8  65.2 │
+│  TAO/USDT:USDT │     13 │         1.69 │         129.868 │        12.99 │          22:39:00 │    8     0     5  61.5 │
+│  ZEC/USDT:USDT │     15 │          2.3 │         122.994 │         12.3 │          18:09:00 │   12     0     3  80.0 │
+│  SOL/USDT:USDT │     24 │         1.24 │          98.176 │         9.82 │    1 day, 3:44:00 │   10     0    14  41.7 │
+│ PAXG/USDT:USDT │      5 │         2.39 │          95.171 │         9.52 │ 11 days, 15:58:00 │    2     0     3  40.0 │
+│  SUI/USDT:USDT │     19 │         0.08 │          15.351 │         1.54 │           9:56:00 │    8     0    11  42.1 │
+│ NEAR/USDT:USDT │     26 │        -0.43 │         -15.485 │        -1.55 │          18:26:00 │   11     0    15  42.3 │
+│ LINK/USDT:USDT │     23 │        -0.58 │         -19.313 │        -1.93 │          17:31:00 │    8     0    15  34.8 │
+│          TOTAL │    313 │          1.2 │        1917.482 │       191.75 │    1 day, 6:30:00 │  159     0   154  50.8 │
+└────────────────┴────────┴──────────────┴─────────────────┴──────────────┴───────────────────┴────────────────────────┘
+                                         LEFT OPEN TRADES REPORT                                          
+┏━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  Pair ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃ Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ TOTAL │      0 │          0.0 │           0.000 │          0.0 │         0:00 │    0     0     0     0 │
+└───────┴────────┴──────────────┴─────────────────┴──────────────┴──────────────┴────────────────────────┘
+                                                           ENTER TAG STATS                                                           
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                   Enter Tag ┃ Entries ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│      short_pullback_restart │     204 │         0.97 │        1038.897 │       103.89 │         22:24:00 │  112     0    92  54.9 │
+│  long_1d_center_compression │      47 │         2.21 │         535.257 │        53.53 │ 2 days, 18:23:00 │   16     0    31  34.0 │
+│ short_compression_breakdown │      62 │         1.19 │         343.328 │        34.33 │   1 day, 5:59:00 │   31     0    31  50.0 │
+│                       TOTAL │     313 │          1.2 │        1917.482 │       191.75 │   1 day, 6:30:00 │  159     0   154  50.8 │
+└─────────────────────────────┴─────────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
+                                                    EXIT REASON STATS                                                     
+┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Exit Reason ┃ Exits ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│                roi │    41 │         9.96 │        1783.114 │       178.31 │  2 days, 6:27:00 │   41     0     0   100 │
+│       partial_exit │    49 │         5.26 │        1291.198 │       129.12 │   1 day, 2:08:00 │   49     0     0   100 │
+│ swing_exit_long_1d │     1 │          4.3 │          32.398 │         3.24 │ 17 days, 9:00:00 │    1     0     0   100 │
+│    stale_flat_120h │     1 │         0.65 │           2.055 │         0.21 │ 9 days, 16:10:00 │    1     0     0   100 │
+│     stale_loss_72h │     6 │        -0.96 │         -19.047 │         -1.9 │  3 days, 5:50:00 │    1     0     5  16.7 │
+│ trailing_stop_loss │   138 │        -0.56 │        -351.879 │       -35.19 │   1 day, 3:16:00 │   66     0    72  47.8 │
+│          stop_loss │    77 │        -2.77 │        -820.356 │       -82.04 │         14:59:00 │    0     0    77     0 │
+│              TOTAL │   313 │          1.2 │        1917.482 │       191.75 │   1 day, 6:30:00 │  159     0   154  50.8 │
+└────────────────────┴───────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
+                                                                     MIXED TAG STATS                                                                     
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                   Enter Tag ┃        Exit Reason ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│      short_pullback_restart │       partial_exit │     49 │         5.26 │        1291.198 │       129.12 │   1 day, 2:08:00 │   49     0     0   100 │
+│  long_1d_center_compression │                roi │     13 │         10.0 │         645.959 │         64.6 │ 4 days, 10:31:00 │   13     0     0   100 │
+│ short_compression_breakdown │                roi │     14 │         10.0 │         573.323 │        57.33 │  1 day, 15:51:00 │   14     0     0   100 │
+│      short_pullback_restart │                roi │     14 │         9.87 │         563.831 │        56.38 │         20:43:00 │   14     0     0   100 │
+│  long_1d_center_compression │ swing_exit_long_1d │      1 │          4.3 │          32.398 │         3.24 │ 17 days, 9:00:00 │    1     0     0   100 │
+│ short_compression_breakdown │    stale_flat_120h │      1 │         0.65 │           2.055 │         0.21 │ 9 days, 16:10:00 │    1     0     0   100 │
+│  long_1d_center_compression │ trailing_stop_loss │     19 │        -0.04 │          -4.298 │        -0.43 │  2 days, 7:26:00 │    2     0    17  10.5 │
+│      short_pullback_restart │     stale_loss_72h │      4 │        -0.33 │          -4.317 │        -0.43 │  3 days, 8:42:00 │    1     0     3  25.0 │
+│ short_compression_breakdown │     stale_loss_72h │      2 │        -2.22 │         -14.730 │        -1.47 │  3 days, 0:05:00 │    0     0     2     0 │
+│ short_compression_breakdown │ trailing_stop_loss │     31 │        -0.47 │         -53.342 │        -5.33 │         23:15:00 │   16     0    15  51.6 │
+│  long_1d_center_compression │          stop_loss │     14 │        -2.12 │        -138.803 │       -13.88 │         18:55:00 │    0     0    14     0 │
+│ short_compression_breakdown │          stop_loss │     14 │        -3.42 │        -163.978 │        -16.4 │         14:35:00 │    0     0    14     0 │
+│      short_pullback_restart │ trailing_stop_loss │     88 │         -0.7 │        -294.239 │       -29.42 │         22:37:00 │   48     0    40  54.5 │
+│      short_pullback_restart │          stop_loss │     49 │        -2.78 │        -517.575 │       -51.76 │         13:59:00 │    0     0    49     0 │
+│                       TOTAL │                    │    313 │          1.2 │        1917.482 │       191.75 │   1 day, 6:30:00 │  159     0   154  50.8 │
+└─────────────────────────────┴────────────────────┴────────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
+                                   SUMMARY METRICS                                    
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Metric                                 ┃ Value                                     ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Backtesting from                       │ 2023-06-18 00:00:00                       │
+│ Backtesting to                         │ 2026-06-18 00:00:00                       │
+│ Trading Mode                           │ Isolated Futures                          │
+│ Max open trades                        │ 3                                         │
+│                                        │                                           │
+│ Total/Daily Avg Trades                 │ 313 / 0.29                                │
+│ Starting balance                       │ 1000 USDT                                 │
+│ Final balance                          │ 2917.482 USDT                             │
+│ Absolute profit                        │ 1917.482 USDT                             │
+│ Total profit %                         │ 191.75%                                   │
+│ CAGR %                                 │ 42.84%                                    │
+│ Sharpe (closed trades)                 │ 1.63                                      │
+│ Sortino (closed trades)                │ 5.36                                      │
+│ Calmar (closed trades)                 │ 66.47                                     │
+│ SQN                                    │ 5.29                                      │
+│ Profit factor                          │ 2.60                                      │
+│ Expectancy (Ratio)                     │ 6.13 (0.78)                               │
+│ Avg. daily profit                      │ 1.75 USDT                                 │
+│ Avg. stake amount                      │ 442.982 USDT                              │
+│ Market change                          │ 208.26%                                   │
+│ Total trade volume                     │ 280977.235 USDT                           │
+│                                        │                                           │
+│ Long / Short trades                    │ 47 / 266                                  │
+│ Long / Short profit %                  │ 53.53% / 138.22%                          │
+│ Long / Short profit USDT               │ 535.257 / 1382.225                        │
+│                                        │                                           │
+│ Best Pair                              │ XRP/USDT:USDT 35.34%                      │
+│ Worst Pair                             │ LINK/USDT:USDT -1.93%                     │
+│ Best trade                             │ NEAR/USDT:USDT 10.02%                     │
+│ Worst trade                            │ TAO/USDT:USDT -5.00%                      │
+│ Best day                               │ 171.455 USDT                              │
+│ Worst day                              │ -44.327 USDT                              │
+│ Days win/draw/lose                     │ 95 / 875 / 119                            │
+│ Min/Max/Avg. Duration Winners          │ 0d 00:10 / 17d 09:00 / 1d 11:49           │
+│ Min/Max/Avg. Duration Losers           │ 0d 00:00 / 17d 21:15 / 1d 01:01           │
+│ Max Consecutive Wins / Loss            │ 9 / 9                                     │
+│ Rejected Entry signals                 │ 911                                       │
+│ Entry/Exit Timeouts                    │ 0 / 0                                     │
+│                                        │                                           │
+│ Min/Max balance (closed trades)        │ 967.261 USDT / 2983.825 USDT              │
+│ Max % of account underwater            │ 8.69%                                     │
+│ Absolute drawdown                      │ 99.276 USDT (5.03%)                       │
+│ Drawdown duration                      │ 45 days 16:25:00                          │
+│ Profit at drawdown start               │ 974.402 USDT                              │
+│ Profit at drawdown end                 │ 875.126 USDT                              │
+│ Drawdown start                         │ 2025-08-09 22:20:00                       │
+│ Drawdown end                           │ 2025-09-24 14:45:00                       │
+│                                        │                                           │
+│ Wallet based Metrics                   │                                           │
+│ Min/Max balance (wallet balance)       │ 967.261 USDT / 2983.825 USDT              │
+│ Min/Max balance dates (wallet balance) │ 2023-08-08 19:00:00 / 2026-06-06 05:00:00 │
+│ Max % of account underwater (balance)  │ 8.69%                                     │
+│ Absolute drawdown (wallet balance)     │ 99.276 USDT (5.03%)                       │
+│ Drawdown duration                      │ 45 days 16:00:00                          │
+│ Profit at drawdown start               │ 974.402 USDT                              │
+│ Profit at drawdown end                 │ 875.126 USDT                              │
+│ Drawdown start                         │ 2025-08-09 23:00:00                       │
+│ Drawdown end                           │ 2025-09-24 15:00:00                       │
+│ Sharpe (daily wallet balance)          │ 2.29                                      │
+│ Sortino (daily wallet balance)         │ 4.18                                      │
+│ Calmar (daily wallet balance)          │ 66.54                                     │
+└────────────────────────────────────────┴───────────────────────────────────────────┘
+
+Result for strategy DualTrendPyramidRiskBudgetV1Strategy
+                                                   BACKTESTING REPORT                                                   
+┏━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃           Pair ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃      Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│  XRP/USDT:USDT │     41 │         1.09 │         315.975 │         31.6 │    1 day, 4:44:00 │   20     0    21  48.8 │
+│  ETH/USDT:USDT │     30 │         2.03 │         282.987 │         28.3 │    1 day, 3:06:00 │   15     0    15  50.0 │
+│  BNB/USDT:USDT │     23 │         2.46 │         264.889 │        26.49 │    1 day, 4:37:00 │   14     0     9  60.9 │
+│  BTC/USDT:USDT │     37 │         1.44 │         229.820 │        22.98 │   2 days, 0:59:00 │   18     0    19  48.6 │
+│  ADA/USDT:USDT │     34 │         1.27 │         175.474 │        17.55 │    1 day, 1:44:00 │   17     0    17  50.0 │
+│ DOGE/USDT:USDT │     23 │         1.92 │         154.640 │        15.46 │          19:26:00 │   14     0     9  60.9 │
+│  TAO/USDT:USDT │     13 │         1.72 │         126.261 │        12.63 │          22:39:00 │    8     0     5  61.5 │
+│  ZEC/USDT:USDT │     15 │          2.3 │         123.119 │        12.31 │          18:09:00 │   12     0     3  80.0 │
+│ PAXG/USDT:USDT │      5 │         2.39 │          95.344 │         9.53 │ 11 days, 15:58:00 │    2     0     3  40.0 │
+│  SOL/USDT:USDT │     24 │         1.24 │          94.818 │         9.48 │    1 day, 2:20:00 │   10     0    14  41.7 │
+│ NEAR/USDT:USDT │     27 │        -0.16 │          26.102 │         2.61 │          17:07:00 │   13     0    14  48.1 │
+│  SUI/USDT:USDT │     19 │         0.08 │          12.508 │         1.25 │           9:56:00 │    8     0    11  42.1 │
+│ LINK/USDT:USDT │     23 │        -0.58 │         -20.542 │        -2.05 │          17:31:00 │    8     0    15  34.8 │
+│          TOTAL │    314 │         1.23 │        1881.393 │       188.14 │    1 day, 6:03:00 │  159     0   155  50.6 │
+└────────────────┴────────┴──────────────┴─────────────────┴──────────────┴───────────────────┴────────────────────────┘
+                                         LEFT OPEN TRADES REPORT                                          
+┏━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  Pair ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃ Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ TOTAL │      0 │          0.0 │           0.000 │          0.0 │         0:00 │    0     0     0     0 │
+└───────┴────────┴──────────────┴─────────────────┴──────────────┴──────────────┴────────────────────────┘
+                                                           ENTER TAG STATS                                                           
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                   Enter Tag ┃ Entries ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│      short_pullback_restart │     205 │         1.01 │        1004.978 │        100.5 │         21:44:00 │  112     0    93  54.6 │
+│  long_1d_center_compression │      47 │         2.21 │         533.859 │        53.39 │ 2 days, 18:23:00 │   16     0    31  34.0 │
+│ short_compression_breakdown │      62 │         1.19 │         342.556 │        34.26 │   1 day, 5:59:00 │   31     0    31  50.0 │
+│                       TOTAL │     314 │         1.23 │        1881.393 │       188.14 │   1 day, 6:03:00 │  159     0   155  50.6 │
+└─────────────────────────────┴─────────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
+                                                    EXIT REASON STATS                                                     
+┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Exit Reason ┃ Exits ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│                roi │    43 │         9.97 │        1863.206 │       186.32 │  2 days, 4:33:00 │   43     0     0   100 │
+│       partial_exit │    47 │          5.3 │        1173.529 │       117.35 │   1 day, 1:21:00 │   47     0     0   100 │
+│ swing_exit_long_1d │     1 │          4.3 │          32.398 │         3.24 │ 17 days, 9:00:00 │    1     0     0   100 │
+│    stale_flat_120h │     1 │         0.65 │           2.055 │         0.21 │ 9 days, 16:10:00 │    1     0     0   100 │
+│     stale_loss_72h │     5 │        -1.17 │         -17.802 │        -1.78 │  3 days, 6:58:00 │    0     0     5     0 │
+│ trailing_stop_loss │   140 │        -0.56 │        -354.535 │       -35.45 │   1 day, 3:02:00 │   67     0    73  47.9 │
+│          stop_loss │    77 │        -2.77 │        -817.458 │       -81.75 │         14:59:00 │    0     0    77     0 │
+│              TOTAL │   314 │         1.23 │        1881.393 │       188.14 │   1 day, 6:03:00 │  159     0   155  50.6 │
+└────────────────────┴───────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
+                                                                     MIXED TAG STATS                                                                     
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                   Enter Tag ┃        Exit Reason ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│      short_pullback_restart │       partial_exit │     47 │          5.3 │        1173.529 │       117.35 │   1 day, 1:21:00 │   47     0     0   100 │
+│      short_pullback_restart │                roi │     16 │         9.92 │         649.340 │        64.93 │         19:49:00 │   16     0     0   100 │
+│  long_1d_center_compression │                roi │     13 │         10.0 │         644.102 │        64.41 │ 4 days, 10:31:00 │   13     0     0   100 │
+│ short_compression_breakdown │                roi │     14 │         10.0 │         569.764 │        56.98 │  1 day, 15:51:00 │   14     0     0   100 │
+│  long_1d_center_compression │ swing_exit_long_1d │      1 │          4.3 │          32.398 │         3.24 │ 17 days, 9:00:00 │    1     0     0   100 │
+│ short_compression_breakdown │    stale_flat_120h │      1 │         0.65 │           2.055 │         0.21 │ 9 days, 16:10:00 │    1     0     0   100 │
+│  long_1d_center_compression │ trailing_stop_loss │     19 │        -0.04 │          -4.269 │        -0.43 │  2 days, 7:26:00 │    2     0    17  10.5 │
+│      short_pullback_restart │     stale_loss_72h │      3 │        -0.47 │          -4.675 │        -0.47 │ 3 days, 11:33:00 │    0     0     3     0 │
+│ short_compression_breakdown │     stale_loss_72h │      2 │        -2.22 │         -13.127 │        -1.31 │  3 days, 0:05:00 │    0     0     2     0 │
+│ short_compression_breakdown │ trailing_stop_loss │     31 │        -0.47 │         -52.951 │         -5.3 │         23:15:00 │   16     0    15  51.6 │
+│  long_1d_center_compression │          stop_loss │     14 │        -2.12 │        -138.372 │       -13.84 │         18:55:00 │    0     0    14     0 │
+│ short_compression_breakdown │          stop_loss │     14 │        -3.42 │        -163.184 │       -16.32 │         14:35:00 │    0     0    14     0 │
+│      short_pullback_restart │ trailing_stop_loss │     90 │         -0.7 │        -297.314 │       -29.73 │         22:21:00 │   49     0    41  54.4 │
+│      short_pullback_restart │          stop_loss │     49 │        -2.78 │        -515.902 │       -51.59 │         13:59:00 │    0     0    49     0 │
+│                       TOTAL │                    │    314 │         1.23 │        1881.393 │       188.14 │   1 day, 6:03:00 │  159     0   155  50.6 │
+└─────────────────────────────┴────────────────────┴────────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
+                                   SUMMARY METRICS                                    
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Metric                                 ┃ Value                                     ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Backtesting from                       │ 2023-06-18 00:00:00                       │
+│ Backtesting to                         │ 2026-06-18 00:00:00                       │
+│ Trading Mode                           │ Isolated Futures                          │
+│ Max open trades                        │ 3                                         │
+│                                        │                                           │
+│ Total/Daily Avg Trades                 │ 314 / 0.29                                │
+│ Starting balance                       │ 1000 USDT                                 │
+│ Final balance                          │ 2881.393 USDT                             │
+│ Absolute profit                        │ 1881.393 USDT                             │
+│ Total profit %                         │ 188.14%                                   │
+│ CAGR %                                 │ 42.25%                                    │
+│ Sharpe (closed trades)                 │ 1.62                                      │
+│ Sortino (closed trades)                │ 5.33                                      │
+│ Calmar (closed trades)                 │ 57.13                                     │
+│ SQN                                    │ 5.24                                      │
+│ Profit factor                          │ 2.57                                      │
+│ Expectancy (Ratio)                     │ 5.99 (0.77)                               │
+│ Avg. daily profit                      │ 1.717 USDT                                │
+│ Avg. stake amount                      │ 436.487 USDT                              │
+│ Market change                          │ 208.26%                                   │
+│ Total trade volume                     │ 275911.876 USDT                           │
+│                                        │                                           │
+│ Long / Short trades                    │ 47 / 267                                  │
+│ Long / Short profit %                  │ 53.39% / 134.75%                          │
+│ Long / Short profit USDT               │ 533.859 / 1347.534                        │
+│                                        │                                           │
+│ Best Pair                              │ XRP/USDT:USDT 31.60%                      │
+│ Worst Pair                             │ LINK/USDT:USDT -2.05%                     │
+│ Best trade                             │ NEAR/USDT:USDT 10.02%                     │
+│ Worst trade                            │ TAO/USDT:USDT -5.00%                      │
+│ Best day                               │ 170.274 USDT                              │
+│ Worst day                              │ -44.052 USDT                              │
+│ Days win/draw/lose                     │ 97 / 874 / 118                            │
+│ Min/Max/Avg. Duration Winners          │ 0d 00:10 / 17d 09:00 / 1d 11:23           │
+│ Min/Max/Avg. Duration Losers           │ 0d 00:00 / 17d 21:15 / 1d 00:35           │
+│ Max Consecutive Wins / Loss            │ 9 / 9                                     │
+│ Rejected Entry signals                 │ 887                                       │
+│ Entry/Exit Timeouts                    │ 0 / 0                                     │
+│                                        │                                           │
+│ Min/Max balance (closed trades)        │ 973.772 USDT / 2947.66 USDT               │
+│ Max % of account underwater            │ 8.65%                                     │
+│ Absolute drawdown                      │ 112.022 USDT (5.74%)                      │
+│ Drawdown duration                      │ 45 days 16:25:00                          │
+│ Profit at drawdown start               │ 951.291 USDT                              │
+│ Profit at drawdown end                 │ 839.269 USDT                              │
+│ Drawdown start                         │ 2025-08-09 22:20:00                       │
+│ Drawdown end                           │ 2025-09-24 14:45:00                       │
+│                                        │                                           │
+│ Wallet based Metrics                   │                                           │
+│ Min/Max balance (wallet balance)       │ 973.772 USDT / 2947.66 USDT               │
+│ Min/Max balance dates (wallet balance) │ 2023-08-07 03:00:00 / 2026-06-06 05:00:00 │
+│ Max % of account underwater (balance)  │ 8.65%                                     │
+│ Absolute drawdown (wallet balance)     │ 112.022 USDT (5.74%)                      │
+│ Drawdown duration                      │ 45 days 16:00:00                          │
+│ Profit at drawdown start               │ 951.291 USDT                              │
+│ Profit at drawdown end                 │ 839.269 USDT                              │
+│ Drawdown start                         │ 2025-08-09 23:00:00                       │
+│ Drawdown end                           │ 2025-09-24 15:00:00                       │
+│ Sharpe (daily wallet balance)          │ 2.26                                      │
+│ Sortino (daily wallet balance)         │ 4.10                                      │
+│ Calmar (daily wallet balance)          │ 57.18                                     │
+└────────────────────────────────────────┴───────────────────────────────────────────┘
+
+Result for strategy DualTrendPyramidRiskBudgetStructureV1Strategy
+                                                   BACKTESTING REPORT                                                   
+┏━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃           Pair ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃      Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│  XRP/USDT:USDT │     40 │         1.12 │         303.676 │        30.37 │    1 day, 5:18:00 │   19     0    21  47.5 │
+│  BNB/USDT:USDT │     23 │         2.46 │         256.574 │        25.66 │    1 day, 4:37:00 │   14     0     9  60.9 │
+│  BTC/USDT:USDT │     37 │         1.44 │         233.245 │        23.32 │   2 days, 0:59:00 │   18     0    19  48.6 │
+│  ETH/USDT:USDT │     30 │         1.83 │         229.568 │        22.96 │    1 day, 2:17:00 │   16     0    14  53.3 │
+│ DOGE/USDT:USDT │     23 │         2.16 │         185.697 │        18.57 │          18:41:00 │   15     0     8  65.2 │
+│  ADA/USDT:USDT │     33 │         1.07 │         140.136 │        14.01 │    1 day, 1:21:00 │   16     0    17  48.5 │
+│  ZEC/USDT:USDT │     15 │         2.43 │         131.228 │        13.12 │          18:03:00 │   13     0     2  86.7 │
+│  TAO/USDT:USDT │     13 │         1.72 │         121.433 │        12.14 │          22:39:00 │    8     0     5  61.5 │
+│  SOL/USDT:USDT │     24 │         1.28 │          96.922 │         9.69 │    1 day, 2:20:00 │   11     0    13  45.8 │
+│ PAXG/USDT:USDT │      5 │         2.39 │          91.437 │         9.14 │ 11 days, 15:58:00 │    2     0     3  40.0 │
+│ NEAR/USDT:USDT │     27 │        -0.13 │          26.967 │          2.7 │          17:07:00 │   13     0    14  48.1 │
+│  SUI/USDT:USDT │     19 │         0.18 │          20.258 │         2.03 │           9:31:00 │    8     0    11  42.1 │
+│ LINK/USDT:USDT │     23 │        -0.84 │         -42.167 │        -4.22 │          16:23:00 │    7     0    16  30.4 │
+│          TOTAL │    312 │         1.21 │        1794.974 │        179.5 │    1 day, 5:51:00 │  160     0   152  51.3 │
+└────────────────┴────────┴──────────────┴─────────────────┴──────────────┴───────────────────┴────────────────────────┘
+                                         LEFT OPEN TRADES REPORT                                          
+┏━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  Pair ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃ Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ TOTAL │      0 │          0.0 │           0.000 │          0.0 │         0:00 │    0     0     0     0 │
+└───────┴────────┴──────────────┴─────────────────┴──────────────┴──────────────┴────────────────────────┘
+                                                           ENTER TAG STATS                                                           
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                   Enter Tag ┃ Entries ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│      short_pullback_restart │     204 │         1.03 │         978.996 │         97.9 │         21:19:00 │  114     0    90  55.9 │
+│  long_1d_center_compression │      47 │         2.21 │         521.474 │        52.15 │ 2 days, 18:23:00 │   16     0    31  34.0 │
+│ short_compression_breakdown │      61 │         1.05 │         294.503 │        29.45 │   1 day, 6:16:00 │   30     0    31  49.2 │
+│                       TOTAL │     312 │         1.21 │        1794.974 │        179.5 │   1 day, 5:51:00 │  160     0   152  51.3 │
+└─────────────────────────────┴─────────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
+                                                    EXIT REASON STATS                                                     
+┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Exit Reason ┃ Exits ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│                roi │    42 │         9.97 │        1777.179 │       177.72 │  2 days, 5:30:00 │   42     0     0   100 │
+│       partial_exit │    45 │         5.31 │        1086.535 │       108.65 │   1 day, 1:01:00 │   45     0     0   100 │
+│ swing_exit_long_1d │     1 │          4.3 │          30.926 │         3.09 │ 17 days, 9:00:00 │    1     0     0   100 │
+│    stale_flat_120h │     1 │         0.65 │           2.055 │         0.21 │ 9 days, 16:10:00 │    1     0     0   100 │
+│     stale_loss_72h │     4 │        -1.35 │         -16.261 │        -1.63 │  3 days, 8:41:00 │    0     0     4     0 │
+│ trailing_stop_loss │   142 │        -0.47 │        -287.228 │       -28.72 │   1 day, 2:52:00 │   71     0    71  50.0 │
+│          stop_loss │    77 │        -2.77 │        -798.231 │       -79.82 │         14:59:00 │    0     0    77     0 │
+│              TOTAL │   312 │         1.21 │        1794.974 │        179.5 │   1 day, 5:51:00 │  160     0   152  51.3 │
+└────────────────────┴───────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
+                                                                     MIXED TAG STATS                                                                     
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                   Enter Tag ┃        Exit Reason ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│      short_pullback_restart │       partial_exit │     45 │         5.31 │        1086.535 │       108.65 │   1 day, 1:01:00 │   45     0     0   100 │
+│      short_pullback_restart │                roi │     16 │         9.92 │         632.960 │         63.3 │         19:49:00 │   16     0     0   100 │
+│  long_1d_center_compression │                roi │     13 │         10.0 │         628.724 │        62.87 │ 4 days, 10:31:00 │   13     0     0   100 │
+│ short_compression_breakdown │                roi │     13 │         10.0 │         515.496 │        51.55 │  1 day, 17:57:00 │   13     0     0   100 │
+│  long_1d_center_compression │ swing_exit_long_1d │      1 │          4.3 │          30.926 │         3.09 │ 17 days, 9:00:00 │    1     0     0   100 │
+│ short_compression_breakdown │    stale_flat_120h │      1 │         0.65 │           2.055 │         0.21 │ 9 days, 16:10:00 │    1     0     0   100 │
+│      short_pullback_restart │     stale_loss_72h │      2 │        -0.47 │          -3.494 │        -0.35 │ 3 days, 17:18:00 │    0     0     2     0 │
+│  long_1d_center_compression │ trailing_stop_loss │     19 │        -0.04 │          -4.158 │        -0.42 │  2 days, 7:26:00 │    2     0    17  10.5 │
+│ short_compression_breakdown │     stale_loss_72h │      2 │        -2.22 │         -12.767 │        -1.28 │  3 days, 0:05:00 │    0     0     2     0 │
+│ short_compression_breakdown │ trailing_stop_loss │     31 │        -0.47 │         -51.665 │        -5.17 │         23:15:00 │   16     0    15  51.6 │
+│  long_1d_center_compression │          stop_loss │     14 │        -2.12 │        -134.017 │        -13.4 │         18:55:00 │    0     0    14     0 │
+│ short_compression_breakdown │          stop_loss │     14 │        -3.42 │        -158.615 │       -15.86 │         14:35:00 │    0     0    14     0 │
+│      short_pullback_restart │ trailing_stop_loss │     92 │        -0.56 │        -231.405 │       -23.14 │         22:11:00 │   53     0    39  57.6 │
+│      short_pullback_restart │          stop_loss │     49 │        -2.78 │        -505.599 │       -50.56 │         13:59:00 │    0     0    49     0 │
+│                       TOTAL │                    │    312 │         1.21 │        1794.974 │        179.5 │   1 day, 5:51:00 │  160     0   152  51.3 │
+└─────────────────────────────┴────────────────────┴────────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
+                                   SUMMARY METRICS                                    
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Metric                                 ┃ Value                                     ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Backtesting from                       │ 2023-06-18 00:00:00                       │
+│ Backtesting to                         │ 2026-06-18 00:00:00                       │
+│ Trading Mode                           │ Isolated Futures                          │
+│ Max open trades                        │ 3                                         │
+│                                        │                                           │
+│ Total/Daily Avg Trades                 │ 312 / 0.28                                │
+│ Starting balance                       │ 1000 USDT                                 │
+│ Final balance                          │ 2794.974 USDT                             │
+│ Absolute profit                        │ 1794.974 USDT                             │
+│ Total profit %                         │ 179.50%                                   │
+│ CAGR %                                 │ 40.82%                                    │
+│ Sharpe (closed trades)                 │ 1.62                                      │
+│ Sortino (closed trades)                │ 5.62                                      │
+│ Calmar (closed trades)                 │ 42.60                                     │
+│ SQN                                    │ 5.24                                      │
+│ Profit factor                          │ 2.61                                      │
+│ Expectancy (Ratio)                     │ 5.75 (0.78)                               │
+│ Avg. daily profit                      │ 1.638 USDT                                │
+│ Avg. stake amount                      │ 423.072 USDT                              │
+│ Market change                          │ 208.26%                                   │
+│ Total trade volume                     │ 267133.312 USDT                           │
+│                                        │                                           │
+│ Long / Short trades                    │ 47 / 265                                  │
+│ Long / Short profit %                  │ 52.15% / 127.35%                          │
+│ Long / Short profit USDT               │ 521.474 / 1273.500                        │
+│                                        │                                           │
+│ Best Pair                              │ XRP/USDT:USDT 30.37%                      │
+│ Worst Pair                             │ LINK/USDT:USDT -4.22%                     │
+│ Best trade                             │ NEAR/USDT:USDT 10.02%                     │
+│ Worst trade                            │ TAO/USDT:USDT -5.00%                      │
+│ Best day                               │ 167.055 USDT                              │
+│ Worst day                              │ -43.224 USDT                              │
+│ Days win/draw/lose                     │ 99 / 874 / 116                            │
+│ Min/Max/Avg. Duration Winners          │ 0d 00:10 / 17d 09:00 / 1d 11:53           │
+│ Min/Max/Avg. Duration Losers           │ 0d 00:00 / 17d 21:15 / 0d 23:31           │
+│ Max Consecutive Wins / Loss            │ 9 / 7                                     │
+│ Rejected Entry signals                 │ 887                                       │
+│ Entry/Exit Timeouts                    │ 0 / 0                                     │
+│                                        │                                           │
+│ Min/Max balance (closed trades)        │ 973.772 USDT / 2838.829 USDT              │
+│ Max % of account underwater            │ 8.50%                                     │
+│ Absolute drawdown                      │ 123.245 USDT (7.35%)                      │
+│ Drawdown duration                      │ 80 days 23:25:00                          │
+│ Profit at drawdown start               │ 677.855 USDT                              │
+│ Profit at drawdown end                 │ 554.61 USDT                               │
+│ Drawdown start                         │ 2025-03-14 00:50:00                       │
+│ Drawdown end                           │ 2025-06-03 00:15:00                       │
+│                                        │                                           │
+│ Wallet based Metrics                   │                                           │
+│ Min/Max balance (wallet balance)       │ 973.772 USDT / 2838.829 USDT              │
+│ Min/Max balance dates (wallet balance) │ 2023-08-07 03:00:00 / 2026-06-06 05:00:00 │
+│ Max % of account underwater (balance)  │ 8.50%                                     │
+│ Absolute drawdown (wallet balance)     │ 123.294 USDT (7.35%)                      │
+│ Drawdown duration                      │ 84 days 20:00:00                          │
+│ Profit at drawdown start               │ 677.905 USDT                              │
+│ Profit at drawdown end                 │ 554.61 USDT                               │
+│ Drawdown start                         │ 2025-03-10 05:00:00                       │
+│ Drawdown end                           │ 2025-06-03 01:00:00                       │
+│ Sharpe (daily wallet balance)          │ 2.24                                      │
+│ Sortino (daily wallet balance)         │ 4.12                                      │
+│ Calmar (daily wallet balance)          │ 42.62                                     │
+└────────────────────────────────────────┴───────────────────────────────────────────┘
+
+Backtested 2023-06-18 00:00:00 -> 2026-06-18 00:00:00 | Max open trades : 3
+                                                                                            STRATEGY SUMMARY                                                                                            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┓
+┃                                                                    Strategy ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃   Avg Duration ┃  Win  Draw  Loss  Win% ┃            Drawdown ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━┩
+│ DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy │    313 │         1.20 │        1917.482 │       191.75 │ 1 day, 6:30:00 │  159     0   154  50.8 │  99.276 USDT  5.03% │
+│                                        DualTrendPyramidRiskBudgetV1Strategy │    314 │         1.23 │        1881.393 │       188.14 │ 1 day, 6:03:00 │  159     0   155  50.6 │ 112.022 USDT  5.74% │
+│                               DualTrendPyramidRiskBudgetStructureV1Strategy │    312 │         1.21 │        1794.974 │        179.5 │ 1 day, 5:51:00 │  160     0   152  51.3 │ 123.245 USDT  7.35% │
+└─────────────────────────────────────────────────────────────────────────────┴────────┴──────────────┴─────────────────┴──────────────┴────────────────┴────────────────────────┴─────────────────────┘

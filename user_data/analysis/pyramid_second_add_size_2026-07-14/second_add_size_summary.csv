@@ -1,0 +1,9 @@
+sample,strategy,trades,profit_pct,profit_abs,pf,maxdd_account_pct,winrate_pct,second_add_trades
+3y,DualTrendPyramidSecondAdd15V1Strategy,314,198.3306,1983.3056,2.6772,4.8155,51.2739,11
+3y,DualTrendPyramidSecondAdd20V1Strategy,314,199.2171,1992.171,2.6816,4.8185,51.2739,11
+1y,DualTrendPyramidSecondAdd15V1Strategy,123,68.0144,680.1439,3.3962,4.7512,56.0976,5
+1y,DualTrendPyramidSecondAdd20V1Strategy,123,68.0247,680.2469,3.3953,4.7512,56.0976,5
+pressure,DualTrendPyramidSecondAdd15V1Strategy,15,5.1158,51.1575,3.0874,1.7523,46.6667,2
+pressure,DualTrendPyramidSecondAdd20V1Strategy,15,5.1139,51.1391,3.0773,1.7523,40.0,2
+5y,DualTrendPyramidSecondAdd15V1Strategy,477,252.3746,2523.746,2.3864,4.8146,51.3627,20
+5y,DualTrendPyramidSecondAdd20V1Strategy,477,261.7274,2617.274,2.4046,4.7985,51.5723,21

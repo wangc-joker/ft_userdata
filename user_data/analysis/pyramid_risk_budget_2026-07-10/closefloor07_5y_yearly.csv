@@ -1,0 +1,13 @@
+﻿strategy,year_bucket_end,trades,wins,losses,profit_abs_usdt,profit_factor
+DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy,31/12/2021,31,15,16,-61.567,0.301
+DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy,31/12/2022,92,47,45,158.396,1.665
+DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy,31/12/2023,82,37,45,98.688,1.363
+DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy,31/12/2024,90,47,43,560.979,2.73
+DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy,31/12/2025,127,68,59,925.438,2.439
+DualTrendCompressionCloseQualityGuard028PyramidWindow05To15LegBe015Strategy,31/12/2026,55,30,25,839.462,3.748
+DualTrendPyramidCloseFloor07V1Strategy,31/12/2021,31,15,16,-62.0,0.296
+DualTrendPyramidCloseFloor07V1Strategy,31/12/2022,92,47,45,150.636,1.636
+DualTrendPyramidCloseFloor07V1Strategy,31/12/2023,82,37,45,100.89,1.377
+DualTrendPyramidCloseFloor07V1Strategy,31/12/2024,91,48,43,553.167,2.754
+DualTrendPyramidCloseFloor07V1Strategy,31/12/2025,126,67,59,907.034,2.444
+DualTrendPyramidCloseFloor07V1Strategy,31/12/2026,55,31,24,856.645,4.11
