@@ -1034,6 +1034,240 @@ class DualTrendPyramidSecondAdd20V1Strategy(DualTrendPyramidSecondAdd15V1Strateg
     pyramid_leg_stake_fractions = (0.25, 0.20)
 
 
+class _DualTrendLongExpansionMixin:
+    """Add independently testable 1h long continuations without touching short entries."""
+
+    enable_long_pullback_restart_1h = True
+    enable_long_compression_breakout_1h = True
+    long_breakout_buffer = 0.001
+    long_close_position_min = 0.60
+    long_pullback_min_depth_1h = 0.008
+    long_pullback_max_depth_1h = 0.08
+    long_pullback_ema50_buffer = 0.01
+    long_stop_atr_buffer = 0.20
+    long_pullback_deep_depth_1h = 0.025
+    long_volume_expansion_strong = 1.30
+    long_body_expansion_strong = 0.70
+
+    def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe = super().populate_indicators(dataframe, metadata).copy()
+        hw = self.compression_half_window
+        cw = self.compression_window
+
+        dataframe["low_min_first_half"] = dataframe["low"].shift(hw + 1).rolling(hw).min()
+        dataframe["low_min_last_half"] = dataframe["low"].shift(1).rolling(hw).min()
+        dataframe["long_center_up_1h"] = (
+            (dataframe["low_min_last_half"] > dataframe["low_min_first_half"])
+            & (dataframe["close_mean_last_half"] > dataframe["close_mean_first_half"])
+        )
+        dataframe["breakout_long_1h"] = dataframe["close"] > dataframe["compression_high"] * (
+            1 + self.long_breakout_buffer
+        )
+        dataframe["near_high_zone_long"] = dataframe["close"].shift(1) >= dataframe[
+            "compression_high"
+        ] * 0.985
+        dataframe["recent_high_24"] = dataframe["high"].shift(1).rolling(self.pretrend_window).max()
+        dataframe["pullback_low_12_long"] = dataframe["low"].shift(1).rolling(cw).min()
+        dataframe["pullback_depth_long_1h"] = (
+            dataframe["recent_high_24"] - dataframe["pullback_low_12_long"]
+        ) / dataframe["recent_high_24"]
+        dataframe["pullback_seen_long_1h"] = dataframe["pullback_depth_long_1h"].between(
+            self.long_pullback_min_depth_1h,
+            self.long_pullback_max_depth_1h,
+        )
+        dataframe["pullback_intact_long_1h"] = dataframe["pullback_low_12_long"] >= dataframe[
+            "ema50_4h"
+        ] * (1 - self.long_pullback_ema50_buffer)
+        candle_range = dataframe["high"] - dataframe["low"]
+        dataframe["candle_quality_long"] = (
+            (candle_range > 0)
+            & (dataframe["body_pct_of_range"] >= self.candle_body_min)
+            & (dataframe["close_position"] >= self.long_close_position_min)
+        )
+        dataframe["long_pullback_stop_1h"] = dataframe["pullback_low_12_long"] - (
+            self.long_stop_atr_buffer * dataframe["atr_ref"]
+        )
+        dataframe["long_compression_stop_1h"] = dataframe["compression_low"] - (
+            self.long_stop_atr_buffer * dataframe["atr_ref"]
+        )
+        dataframe["long_pullback_risk_pct_ok_1h"] = (
+            (dataframe["close"] - dataframe["long_pullback_stop_1h"]) / dataframe["close"]
+        ).between(self.min_stop_distance, self.max_stop_distance)
+        dataframe["long_compression_risk_pct_ok_1h"] = (
+            (dataframe["close"] - dataframe["long_compression_stop_1h"]) / dataframe["close"]
+        ).between(self.min_stop_distance, self.max_stop_distance)
+        dataframe["long_pullback_deep_1h"] = (
+            dataframe["pullback_depth_long_1h"] >= self.long_pullback_deep_depth_1h
+        )
+        dataframe["long_above_1d_center"] = dataframe["close"] > dataframe.get(
+            "legacy_market_center_1d",
+            pd.Series(np.nan, index=dataframe.index),
+        )
+        dataframe["long_1d_center_up"] = dataframe.get(
+            "legacy_center_up_1d",
+            pd.Series(False, index=dataframe.index),
+        ).fillna(False)
+        dataframe["long_strong_trend_context"] = (
+            dataframe["long_1d_center_up"]
+            & dataframe["long_above_1d_center"].fillna(False)
+            & dataframe.get("daily_momentum_long_1d", pd.Series(False, index=dataframe.index)).fillna(False)
+        )
+        dataframe["long_volume_expansion_strong"] = (
+            dataframe["volume"] >= dataframe["volume_ma20"] * self.long_volume_expansion_strong
+        )
+        dataframe["long_candle_expansion_strong"] = (
+            dataframe["body_pct_of_range"] >= self.long_body_expansion_strong
+        )
+        dataframe["btc_filter_long_ok"] = True
+        if self.use_btc_filter and metadata["pair"] != "BTC/USDT:USDT":
+            dataframe["btc_filter_long_ok"] = dataframe.get(
+                "btc_trend_up_4h",
+                pd.Series(False, index=dataframe.index),
+            ).fillna(False)
+        return dataframe
+
+    @staticmethod
+    def _append_long_tag_suffix(
+        dataframe: DataFrame,
+        mask: pd.Series,
+        base_tag: str,
+        suffix_rules: tuple[tuple[str, pd.Series], ...],
+    ) -> pd.Series:
+        tags = pd.Series(base_tag, index=dataframe.index, dtype="object")
+        for suffix, suffix_mask in suffix_rules:
+            tags.loc[mask & suffix_mask.fillna(False)] = tags.loc[mask & suffix_mask.fillna(False)] + suffix
+        return tags.loc[mask]
+
+    def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe = super().populate_entry_trend(dataframe, metadata).copy()
+        if metadata["pair"] not in self.trade_pair_allowlist:
+            return dataframe
+
+        no_existing_entry = (
+            dataframe.get("enter_long", pd.Series(0, index=dataframe.index)).fillna(0).eq(0)
+            & dataframe.get("enter_short", pd.Series(0, index=dataframe.index)).fillna(0).eq(0)
+        )
+        trend_up_4h = dataframe.get("trend_up_4h", pd.Series(False, index=dataframe.index)).fillna(False)
+        btc_filter = dataframe["btc_filter_long_ok"].fillna(False)
+        ema20_rising = dataframe["ema20_1h"] > dataframe["ema20_1h_prev"]
+        base = (
+            trend_up_4h
+            & dataframe["long_center_up_1h"].fillna(False)
+            & (dataframe["close"] > dataframe["ema20_1h"])
+            & ema20_rising
+            & dataframe["breakout_long_1h"].fillna(False)
+            & dataframe["vol_ok"].fillna(False)
+            & dataframe["candle_quality_long"].fillna(False)
+            & btc_filter
+            & (dataframe["volume"] > 0)
+        )
+        pullback_restart = (
+            self.enable_long_pullback_restart_1h
+            & base
+            & dataframe["pullback_seen_long_1h"].fillna(False)
+            & dataframe["pullback_intact_long_1h"].fillna(False)
+            & dataframe["long_pullback_risk_pct_ok_1h"].fillna(False)
+        )
+        compression_breakout = (
+            self.enable_long_compression_breakout_1h
+            & base
+            & ~pullback_restart
+            & dataframe["compression_ok"].fillna(False)
+            & dataframe["near_high_zone_long"].fillna(False)
+            & dataframe["long_compression_risk_pct_ok_1h"].fillna(False)
+        )
+
+        pullback_entry = no_existing_entry & pullback_restart
+        compression_entry = no_existing_entry & compression_breakout
+        pullback_tag = self._append_long_tag_suffix(
+            dataframe,
+            pullback_entry,
+            "long_pullback_restart_1h",
+            (
+                ("_deep", dataframe["long_pullback_deep_1h"]),
+                ("_dailyconfirm", dataframe["long_strong_trend_context"]),
+                ("_vol", dataframe["long_volume_expansion_strong"]),
+                ("_body", dataframe["long_candle_expansion_strong"]),
+            ),
+        )
+        compression_tag = self._append_long_tag_suffix(
+            dataframe,
+            compression_entry,
+            "long_compression_breakout_1h",
+            (
+                ("_dailyconfirm", dataframe["long_strong_trend_context"]),
+                ("_vol", dataframe["long_volume_expansion_strong"]),
+                ("_body", dataframe["long_candle_expansion_strong"]),
+            ),
+        )
+        dataframe.loc[pullback_entry, "enter_long"] = 1
+        dataframe.loc[pullback_entry, "enter_tag"] = pullback_tag
+        dataframe.loc[pullback_entry, "enter_initial_stop"] = dataframe.loc[
+            pullback_entry,
+            "long_pullback_stop_1h",
+        ].astype("float32")
+        dataframe.loc[pullback_entry, "enter_risk_pct"] = (
+            (dataframe.loc[pullback_entry, "close"] - dataframe.loc[pullback_entry, "long_pullback_stop_1h"])
+            / dataframe.loc[pullback_entry, "close"]
+        ).astype("float32")
+        dataframe.loc[compression_entry, "enter_long"] = 1
+        dataframe.loc[compression_entry, "enter_tag"] = compression_tag
+        dataframe.loc[compression_entry, "enter_initial_stop"] = dataframe.loc[
+            compression_entry,
+            "long_compression_stop_1h",
+        ].astype("float32")
+        dataframe.loc[compression_entry, "enter_risk_pct"] = (
+            (dataframe.loc[compression_entry, "close"] - dataframe.loc[compression_entry, "long_compression_stop_1h"])
+            / dataframe.loc[compression_entry, "close"]
+        ).astype("float32")
+        return dataframe
+
+
+class DualTrendLongExpansionPullbackBodyOnlyV1Strategy(
+    _DualTrendLongExpansionMixin,
+    DualTrendPyramidSecondAdd20V1Strategy,
+):
+    """Test only 1h long pullback restarts with a strong breakout candle body."""
+
+    enable_long_compression_breakout_1h = False
+
+    def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe = super().populate_entry_trend(dataframe, metadata).copy()
+        long_entry = dataframe.get("enter_long", pd.Series(0, index=dataframe.index)).fillna(0).eq(1)
+        enter_tag = dataframe.get("enter_tag", pd.Series("", index=dataframe.index)).fillna("")
+        reject_long = (
+            long_entry
+            & enter_tag.str.startswith("long_pullback_restart_1h")
+            & ~enter_tag.str.contains("_body", regex=False)
+        )
+        dataframe.loc[reject_long, "enter_long"] = 0
+        dataframe.loc[reject_long, "enter_tag"] = None
+        dataframe.loc[reject_long, "enter_initial_stop"] = np.nan
+        dataframe.loc[reject_long, "enter_risk_pct"] = np.nan
+        return dataframe
+
+
+class DualTrendLongExpansionPullbackBodyMicroV1Strategy(
+    DualTrendLongExpansionPullbackBodyOnlyV1Strategy
+):
+    """Allow only the rarest non-deep strong-body 1h long add-on."""
+
+    def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe = super().populate_entry_trend(dataframe, metadata).copy()
+        long_entry = dataframe.get("enter_long", pd.Series(0, index=dataframe.index)).fillna(0).eq(1)
+        enter_tag = dataframe.get("enter_tag", pd.Series("", index=dataframe.index)).fillna("")
+        reject_long = (
+            long_entry
+            & enter_tag.str.startswith("long_pullback_restart_1h")
+            & ~enter_tag.eq("long_pullback_restart_1h_body")
+        )
+        dataframe.loc[reject_long, "enter_long"] = 0
+        dataframe.loc[reject_long, "enter_tag"] = None
+        dataframe.loc[reject_long, "enter_initial_stop"] = np.nan
+        dataframe.loc[reject_long, "enter_risk_pct"] = np.nan
+        return dataframe
+
+
 class DualTrendCombinedShortPullbackShapeV1Strategy(DualTrendRawStrategy):
     """Backward-compatible alias for the old raw strategy name."""
 
