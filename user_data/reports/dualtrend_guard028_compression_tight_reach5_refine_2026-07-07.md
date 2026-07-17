@@ -1,5 +1,7 @@
 # DualTrend CompressionTight reach5 放行细化验证
 
+> **历史状态：** 本文是 2026-07-07 的阶段实验，文中的“当前 short 主候选”已经过时。最新状态见仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)。
+
 日期：2026-07-07
 
 ## 本轮目标

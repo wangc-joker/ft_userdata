@@ -1,5 +1,7 @@
 # DualTrend Top50 正贡献13池 Dry-run 配置说明
 
+> **运行状态说明：** 本文仍可用于理解现有 Positive13 dry-run 入口，但这里的 Raw 兼容策略不是当前研究主候选。研究主线与运行入口的准确差异见 [`CURRENT_DUALTREND.md`](../CURRENT_DUALTREND.md)。
+
 日期: 2026-06-18
 
 ## 1. 当前 dry-run 主候选

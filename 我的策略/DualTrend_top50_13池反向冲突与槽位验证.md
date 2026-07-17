@@ -1,5 +1,7 @@
 # DualTrend Top50 正贡献13池 反向冲突与槽位验证
 
+> **历史状态：** 本文是 2026-06-18 基于 Raw 兼容版的验证记录，不再定义当前研究主线。最新状态见 [`CURRENT_DUALTREND.md`](../CURRENT_DUALTREND.md)。
+
 日期: 2026-06-18
 
 ## 1. 目标

@@ -1,5 +1,7 @@
 # Strategies Directory
 
+> **DualTrend 提示：** 本文件主要说明 Top9 等策略族的目录结构，不定义 DualTrend 当前主线。分析 DualTrend 时先读仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)。
+
 This directory is organized by responsibility:
 
 - Before editing any strategy files, read:

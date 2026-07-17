@@ -1,5 +1,7 @@
 # DualTrend 做多入场扩展验证
 
+> **证据口径说明（2026-07-17）：** 本文“五年 20 币”段落的主线数值 `477 / +2617.27 U` 与现存 Positive13/max3 五年原始归档完全一致，而本文所述 20 币原始 zip 已清理，无法再次核对配置快照。因此该段只保留多头扩展的方向性结论，不能作为 20 币/max6 五年基线；权威口径见仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)。
+
 日期：2026-07-15
 
 ## 目标
@@ -60,9 +62,9 @@
 - 给 `_deep` 增加 1.5 倍强成交量门槛，或在 7% 提前止盈，都不能解决其机会成本问题。
 - 新多头不使用空头专属加仓；它只继承全局盈利保护。问题主要来自共享资金和开仓槽位，而不是复用了空头加仓逻辑。
 
-## 5 年 20 币最终对比
+## 5 年扩展实验对比（20 币口径未由现存归档证实）
 
-窗口：`2021-07-29 16:00 -> 2026-06-18 00:00`，20 币，`max_open_trades=6`，初始资金 1000 USDT，1h + 5m detail。
+原记录声称窗口为 `2021-07-29 16:00 -> 2026-06-18 00:00`、20 币、`max_open_trades=6`、初始资金 1000 USDT、1h + 5m detail。由于原始 zip 已清理且主线数值与 Positive13/max3 归档一致，不再把这里的 20 币/max6 标签视为已验证事实。
 
 | 版本 | Trades | Profit | PF | MaxDD | Long | Short | 结论 |
 |---|---:|---:|---:|---:|---:|---:|---|
@@ -90,7 +92,7 @@ Micro 新 tag 只有 7 笔、`+75.30 U`。它本身盈利，但改变了同一�
 
 原始 zip/meta 属于可再生成的临时产物，清理后不长期保留。复现使用：
 
-- 配置：`user_data/config.backtest.dualtrend.combined.top20.max6.pyramid20.json`
+- 原记录配置：`user_data/config.backtest.dualtrend.combined.top20.max6.pyramid20.json`（现存原始结果不足以验证五年表确实使用该配置）
 - 主线：`DualTrendPyramidSecondAdd20V1Strategy`
 - 观察版：`DualTrendLongExpansionPullbackBodyMicroV1Strategy`
 - 时间范围：`20210618-20260618`

@@ -1,5 +1,7 @@
 # DualTrend ret_6h 修复验证记录
 
+> **历史状态：** 本文用于保留 `ret_6h` 修复验证，文中的阶段性主候选结论不再代表当前状态。最新主线见仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)。
+
 日期：2026-07-09
 
 ## 1. 问题背景

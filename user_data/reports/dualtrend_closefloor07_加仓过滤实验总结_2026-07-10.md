@@ -1,5 +1,7 @@
 # CloseFloor07 加仓过滤实验总结
 
+> **历史状态：** CloseFloor07 已成为当前 SecondAdd20 的父级，但它本身不再是当前主候选。最新状态见仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)。
+
 ## 结论
 
 - 当前有效增厚点只有一条：在原主候选的加仓逻辑上，增加 `close_position >= 0.07`，避免在极端收低的 flush K 上继续加仓。

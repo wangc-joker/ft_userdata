@@ -1,5 +1,7 @@
 # DualTrend Combined top40_302u 全局过滤验证
 
+> **历史状态：** 本文属于早期 Combined/top40 研究链，只保留实验结论，不定义当前主候选。最新 DualTrend 主线见 [`CURRENT_DUALTREND.md`](../CURRENT_DUALTREND.md)。
+
 ## 1. 目标
 
 这轮验证的目标不是针对单个币种做适配，而是测试能否通过更统一的全局过滤，减少不适配币种的误判，降低亏损，提高整体胜率和稳定性。

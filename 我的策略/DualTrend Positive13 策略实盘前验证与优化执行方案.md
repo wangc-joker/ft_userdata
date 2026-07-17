@@ -1,5 +1,7 @@
 # DualTrend Positive13 策略实盘前验证与优化执行方案
 
+> **历史状态：** 本文记录较早的 Raw 兼容版实盘前方案，不再定义当前研究主线。最新状态见 [`CURRENT_DUALTREND.md`](../CURRENT_DUALTREND.md)；当前研究主候选是 `DualTrendPyramidSecondAdd20V1Strategy`，而现有 dry-run 入口仍是本文所述旧分支。
+
 ## 0. 当前背景
 
 当前主候选策略为：

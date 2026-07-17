@@ -1,4 +1,6 @@
-# DualTrend 修复后主线回测总览
+# DualTrend 修复后主线回测总览（历史快照）
+
+> **历史状态：** 本文是 2026-07-09 的阶段记录，已被仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md) 取代。本文约 `+191.75%` 的 Window05To15 只作为历史基线；当前研究主候选是 `DualTrendPyramidSecondAdd20V1Strategy`。
 
 日期：2026-07-09
 
