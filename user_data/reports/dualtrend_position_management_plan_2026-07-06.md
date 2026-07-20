@@ -1,6 +1,6 @@
 # DualTrend 持仓管理增强计划
 
-> **历史状态：** 本文是 2026-07-06 的研究计划，其中的“当前主候选”已经过时。最新状态见仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)，当前研究主候选是 `DualTrendPyramidSecondAdd20V1Strategy`。
+> **历史状态：** 本文是 2026-07-06 的研究计划，其中的“当前主候选”已经过时。最新状态见仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)，当前研究主候选是 `DualTrendPyramidSecondAdd20LongMicroV1Strategy`。
 
 ## 1. 背景
 

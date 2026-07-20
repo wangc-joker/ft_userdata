@@ -1,6 +1,6 @@
 # DualTrend 策略快速说明
 
-> **历史状态：** 本文是 2026-07-01 的旧三策略说明，不再定义当前主线。最新状态见仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)，当前研究主候选是 `DualTrendPyramidSecondAdd20V1Strategy`。
+> **历史状态：** 本文是 2026-07-01 的旧三策略说明，不再定义当前主线。最新状态见仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)，当前研究主候选是 `DualTrendPyramidSecondAdd20LongMicroV1Strategy`。
 
 日期：2026-07-01
 

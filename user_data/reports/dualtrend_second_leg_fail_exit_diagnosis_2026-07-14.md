@@ -1,6 +1,6 @@
 # DualTrend 二次加仓失败退出诊断
 
-> **历史状态：** 本文先于同日的 20% 仓位比例定稿，文中的阶段性主候选不是最终答案。最新状态见仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)，当前研究主候选是 `DualTrendPyramidSecondAdd20V1Strategy`。
+> **历史状态：** 本文先于同日的 20% 仓位比例定稿，文中的阶段性主候选不是最终答案。最新状态见仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)，当前研究主候选是 `DualTrendPyramidSecondAdd20LongMicroV1Strategy`。
 
 日期：2026-07-14
 

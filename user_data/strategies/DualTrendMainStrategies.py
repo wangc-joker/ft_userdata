@@ -1268,6 +1268,12 @@ class DualTrendLongExpansionPullbackBodyMicroV1Strategy(
         return dataframe
 
 
+class DualTrendPyramidSecondAdd20LongMicroV1Strategy(
+    DualTrendLongExpansionPullbackBodyMicroV1Strategy
+):
+    """SecondAdd20 plus the validated rare non-deep strong-body 1h long."""
+
+
 class DualTrendCombinedShortPullbackShapeV1Strategy(DualTrendRawStrategy):
     """Backward-compatible alias for the old raw strategy name."""
 

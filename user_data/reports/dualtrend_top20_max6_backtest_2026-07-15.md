@@ -1,5 +1,7 @@
 # DualTrend 20 币池 / max_open_trades=6 回测记录
 
+> **后续状态（2026-07-17）：** 本文只记录 SecondAdd20 阶段。当前 LongMicro 研究主候选已完成可核验的 Top20/max6 三年与五年对照，分别为 `+200.99%` 和 `+253.85%`；最新结论见 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md) 与 `dualtrend_nfi_peak_and_long_micro_upgrade_2026-07-17.md`。
+
 日期：2026-07-15
 
 ## 测试目标

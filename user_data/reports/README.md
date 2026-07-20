@@ -4,8 +4,9 @@
 
 分析 DualTrend 前先读仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)。如果某份历史报告中的“当前”“主线”“候选”与权威页冲突，以权威页为准。
 
-当前研究主候选为 `DualTrendPyramidSecondAdd20V1Strategy`。最近的直接依据是：
+当前研究主候选为 `DualTrendPyramidSecondAdd20LongMicroV1Strategy`，`DualTrendPyramidSecondAdd20V1Strategy` 是稳定对照。最近的直接依据是：
 
+- `dualtrend_nfi_peak_and_long_micro_upgrade_2026-07-17.md`
 - `dualtrend_second_add20_仓位比例实验_2026-07-14.md`
 - `dualtrend_long_entry_expansion_2026-07-15.md`
 - `dualtrend_top20_max6_backtest_2026-07-15.md`
