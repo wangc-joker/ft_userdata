@@ -15,6 +15,11 @@ from DualTrendCombinedLongDailyCenterShortV1Strategy import (
 )
 
 
+def _filled_bool(series: pd.Series, default: bool = False) -> pd.Series:
+    """Normalize merged informative boolean columns without implicit downcasting."""
+    return series.astype("boolean").fillna(default).astype(bool)
+
+
 class _DualTrendCombinedGlobalFilterBase(DualTrendCombinedLongDailyCenterShortV1Strategy):
     """
     Global validation variants for the combined strategy.
@@ -95,8 +100,12 @@ class _DualTrendCombinedGlobalFilterBase(DualTrendCombinedLongDailyCenterShortV1
 
         if self.use_short_daily_center_filter and short_entry.any():
             enter_tag = dataframe.get("enter_tag", pd.Series(None, index=dataframe.index))
-            center_down_1d = dataframe.get("legacy_center_down_1d", pd.Series(False, index=dataframe.index)).fillna(False)
-            center_up_1d = dataframe.get("legacy_center_up_1d", pd.Series(False, index=dataframe.index)).fillna(False)
+            center_down_1d = _filled_bool(
+                dataframe.get("legacy_center_down_1d", pd.Series(False, index=dataframe.index))
+            )
+            center_up_1d = _filled_bool(
+                dataframe.get("legacy_center_up_1d", pd.Series(False, index=dataframe.index))
+            )
             market_center_1d = dataframe.get("legacy_market_center_1d", pd.Series(np.nan, index=dataframe.index))
             close_below_center = dataframe["close"] < market_center_1d
             close_above_center = dataframe["close"] > market_center_1d
@@ -126,12 +135,14 @@ class _DualTrendCombinedGlobalFilterBase(DualTrendCombinedLongDailyCenterShortV1
 
         if self.use_long_strong_confirm and long_entry.any():
             allow_long = (
-                dataframe.get("daily_momentum_long_1d", pd.Series(False, index=dataframe.index)).fillna(False)
-                & dataframe.get("trend_up_4h", pd.Series(False, index=dataframe.index)).fillna(False)
-                & dataframe.get("center_up_1d", pd.Series(False, index=dataframe.index)).fillna(False)
+                _filled_bool(dataframe.get("daily_momentum_long_1d", pd.Series(False, index=dataframe.index)))
+                & _filled_bool(dataframe.get("trend_up_4h", pd.Series(False, index=dataframe.index)))
+                & _filled_bool(dataframe.get("center_up_1d", pd.Series(False, index=dataframe.index)))
             )
             if self.use_long_btc_trend_filter and metadata["pair"] != "BTC/USDT:USDT":
-                allow_long &= dataframe.get("btc_trend_up_4h", pd.Series(False, index=dataframe.index)).fillna(False)
+                allow_long &= _filled_bool(
+                    dataframe.get("btc_trend_up_4h", pd.Series(False, index=dataframe.index))
+                )
 
             reject_long = long_entry & ~allow_long
             dataframe.loc[reject_long, "enter_long"] = 0
@@ -141,8 +152,12 @@ class _DualTrendCombinedGlobalFilterBase(DualTrendCombinedLongDailyCenterShortV1
 
         long_entry = dataframe.get("enter_long", pd.Series(0, index=dataframe.index)).fillna(0).eq(1)
         if self.long_filter_mode != "none" and long_entry.any():
-            center_down_1d = dataframe.get("legacy_center_down_1d", pd.Series(False, index=dataframe.index)).fillna(False)
-            center_up_1d = dataframe.get("legacy_center_up_1d", pd.Series(False, index=dataframe.index)).fillna(False)
+            center_down_1d = _filled_bool(
+                dataframe.get("legacy_center_down_1d", pd.Series(False, index=dataframe.index))
+            )
+            center_up_1d = _filled_bool(
+                dataframe.get("legacy_center_up_1d", pd.Series(False, index=dataframe.index))
+            )
             market_center_1d = dataframe.get("legacy_market_center_1d", pd.Series(np.nan, index=dataframe.index))
             close_below_center = dataframe["close"] < market_center_1d
             close_above_center = dataframe["close"] > market_center_1d
@@ -150,7 +165,9 @@ class _DualTrendCombinedGlobalFilterBase(DualTrendCombinedLongDailyCenterShortV1
             if self.long_filter_mode == "reject_clear_downtrend":
                 reject_long = long_entry & center_down_1d & close_below_center
             elif self.long_filter_mode == "require_4h_trend_up":
-                allow_long = dataframe.get("trend_up_4h", pd.Series(False, index=dataframe.index)).fillna(False)
+                allow_long = _filled_bool(
+                    dataframe.get("trend_up_4h", pd.Series(False, index=dataframe.index))
+                )
                 reject_long = long_entry & ~allow_long
             elif self.long_filter_mode == "require_legacy_center_up":
                 reject_long = long_entry & ~(center_up_1d & close_above_center)
@@ -165,7 +182,9 @@ class _DualTrendCombinedGlobalFilterBase(DualTrendCombinedLongDailyCenterShortV1
         short_entry = dataframe.get("enter_short", pd.Series(0, index=dataframe.index)).fillna(0).eq(1)
         if self.use_short_pullback_shape_filter and short_entry.any():
             enter_tag = dataframe.get("enter_tag", pd.Series(None, index=dataframe.index))
-            center_down_1d = dataframe.get("legacy_center_down_1d", pd.Series(False, index=dataframe.index)).fillna(False)
+            center_down_1d = _filled_bool(
+                dataframe.get("legacy_center_down_1d", pd.Series(False, index=dataframe.index))
+            )
             market_center_1d = dataframe.get("legacy_market_center_1d", pd.Series(np.nan, index=dataframe.index))
             close_below_center = dataframe["close"] < market_center_1d
             tight_enough = dataframe.get(
@@ -247,11 +266,15 @@ class _DualTrendCombinedGlobalFilterBase(DualTrendCombinedLongDailyCenterShortV1
         long_entry = dataframe.get("enter_long", pd.Series(0, index=dataframe.index)).fillna(0).eq(1)
         if self.use_long_center_streak_filter and long_entry.any():
             enter_tag = dataframe.get("enter_tag", pd.Series(None, index=dataframe.index))
-            center_up_1d = dataframe.get("legacy_center_up_1d", pd.Series(False, index=dataframe.index)).fillna(False)
-            range_contracting_1d = dataframe.get("range_contracting_1d", pd.Series(False, index=dataframe.index)).fillna(False)
+            center_up_1d = _filled_bool(
+                dataframe.get("legacy_center_up_1d", pd.Series(False, index=dataframe.index))
+            )
+            range_contracting_1d = _filled_bool(
+                dataframe.get("range_contracting_1d", pd.Series(False, index=dataframe.index))
+            )
             streak = pd.Series(0, index=dataframe.index, dtype="int64")
             for i in range(1, self.long_center_streak_min + 1):
-                streak += center_up_1d.shift(i - 1).fillna(False).astype("int64")
+                streak += _filled_bool(center_up_1d.shift(i - 1)).astype("int64")
             streak_ok = streak >= self.long_center_streak_min
             confirm_long = range_contracting_1d & streak_ok
             reject_long = long_entry & enter_tag.eq("long_1d_center_compression") & ~confirm_long
@@ -1039,7 +1062,8 @@ class _DualTrendLongExpansionMixin:
 
     enable_long_pullback_restart_1h = True
     enable_long_compression_breakout_1h = True
-    long_breakout_buffer = 0.001
+    # Do not override the parent daily-long breakout buffer (0.009).
+    long_expansion_breakout_buffer = 0.001
     long_close_position_min = 0.60
     long_pullback_min_depth_1h = 0.008
     long_pullback_max_depth_1h = 0.08
@@ -1061,7 +1085,7 @@ class _DualTrendLongExpansionMixin:
             & (dataframe["close_mean_last_half"] > dataframe["close_mean_first_half"])
         )
         dataframe["breakout_long_1h"] = dataframe["close"] > dataframe["compression_high"] * (
-            1 + self.long_breakout_buffer
+            1 + self.long_expansion_breakout_buffer
         )
         dataframe["near_high_zone_long"] = dataframe["close"].shift(1) >= dataframe[
             "compression_high"
@@ -1103,14 +1127,13 @@ class _DualTrendLongExpansionMixin:
             "legacy_market_center_1d",
             pd.Series(np.nan, index=dataframe.index),
         )
-        dataframe["long_1d_center_up"] = dataframe.get(
-            "legacy_center_up_1d",
-            pd.Series(False, index=dataframe.index),
-        ).fillna(False)
+        dataframe["long_1d_center_up"] = _filled_bool(
+            dataframe.get("legacy_center_up_1d", pd.Series(False, index=dataframe.index))
+        )
         dataframe["long_strong_trend_context"] = (
             dataframe["long_1d_center_up"]
             & dataframe["long_above_1d_center"].fillna(False)
-            & dataframe.get("daily_momentum_long_1d", pd.Series(False, index=dataframe.index)).fillna(False)
+            & _filled_bool(dataframe.get("daily_momentum_long_1d", pd.Series(False, index=dataframe.index)))
         )
         dataframe["long_volume_expansion_strong"] = (
             dataframe["volume"] >= dataframe["volume_ma20"] * self.long_volume_expansion_strong
@@ -1120,10 +1143,9 @@ class _DualTrendLongExpansionMixin:
         )
         dataframe["btc_filter_long_ok"] = True
         if self.use_btc_filter and metadata["pair"] != "BTC/USDT:USDT":
-            dataframe["btc_filter_long_ok"] = dataframe.get(
-                "btc_trend_up_4h",
-                pd.Series(False, index=dataframe.index),
-            ).fillna(False)
+            dataframe["btc_filter_long_ok"] = _filled_bool(
+                dataframe.get("btc_trend_up_4h", pd.Series(False, index=dataframe.index))
+            )
         return dataframe
 
     @staticmethod
@@ -1147,8 +1169,10 @@ class _DualTrendLongExpansionMixin:
             dataframe.get("enter_long", pd.Series(0, index=dataframe.index)).fillna(0).eq(0)
             & dataframe.get("enter_short", pd.Series(0, index=dataframe.index)).fillna(0).eq(0)
         )
-        trend_up_4h = dataframe.get("trend_up_4h", pd.Series(False, index=dataframe.index)).fillna(False)
-        btc_filter = dataframe["btc_filter_long_ok"].fillna(False)
+        trend_up_4h = _filled_bool(
+            dataframe.get("trend_up_4h", pd.Series(False, index=dataframe.index))
+        )
+        btc_filter = _filled_bool(dataframe["btc_filter_long_ok"])
         ema20_rising = dataframe["ema20_1h"] > dataframe["ema20_1h_prev"]
         base = (
             trend_up_4h
@@ -1272,6 +1296,358 @@ class DualTrendPyramidSecondAdd20LongMicroV1Strategy(
     DualTrendLongExpansionPullbackBodyMicroV1Strategy
 ):
     """SecondAdd20 plus the validated rare non-deep strong-body 1h long."""
+
+
+class DualTrendPyramidSecondAdd20LongMicroShortOnlyV1Strategy(
+    DualTrendPyramidSecondAdd20LongMicroV1Strategy
+):
+    """Experimental short engine for split-capital portfolio reconstruction."""
+
+    enable_long_daily_center = False
+    enable_long_pullback_restart_1h = False
+    enable_long_compression_breakout_1h = False
+
+
+class DualTrendPyramidSecondAdd20LongMicroLongOnlyV1Strategy(
+    DualTrendPyramidSecondAdd20LongMicroV1Strategy
+):
+    """Experimental long engine for split-capital portfolio reconstruction."""
+
+    enable_short_pullback_restart = False
+    enable_short_compression_breakdown = False
+
+
+class _DualTrendSideSlotLimitMixin:
+    """Limit open trades by direction while retaining the global slot ceiling."""
+
+    max_open_short_slots = 3
+    max_open_long_slots = 1
+
+    def confirm_trade_entry(
+        self,
+        pair: str,
+        order_type: str,
+        amount: float,
+        rate: float,
+        time_in_force: str,
+        current_time,
+        entry_tag: Optional[str],
+        side: str,
+        **kwargs,
+    ) -> bool:
+        if not super().confirm_trade_entry(
+            pair=pair,
+            order_type=order_type,
+            amount=amount,
+            rate=rate,
+            time_in_force=time_in_force,
+            current_time=current_time,
+            entry_tag=entry_tag,
+            side=side,
+            **kwargs,
+        ):
+            return False
+
+        open_trades = Trade.get_trades_proxy(is_open=True)
+        if side == "short":
+            return sum(bool(trade.is_short) for trade in open_trades) < self.max_open_short_slots
+        if side == "long":
+            return sum(not bool(trade.is_short) for trade in open_trades) < self.max_open_long_slots
+        return False
+
+
+class DualTrendPyramidSecondAdd20LongMicroSideSlots3S1LV1Strategy(
+    _DualTrendSideSlotLimitMixin,
+    DualTrendPyramidSecondAdd20LongMicroV1Strategy,
+):
+    """Experimental max4 portfolio with at most three shorts and one long."""
+
+
+class _DualTrendHigherLowReclaimMixin:
+    """Add a confirmed higher-low plus neckline-reclaim long experiment."""
+
+    higher_low_only = False
+    higher_low_pivot_span = 2
+    higher_low_min_separation = 4
+    higher_low_max_separation = 24
+    higher_low_min_lift_atr = 0.05
+    higher_low_max_lift_atr = 2.0
+    higher_low_min_rebound_atr = 1.0
+    higher_low_max_age = 8
+    higher_low_breakout_buffer = 0.001
+    higher_low_stop_atr_buffer = 0.20
+    higher_low_close_position_min = 0.60
+
+    def _populate_higher_low_structure(self, dataframe: DataFrame) -> DataFrame:
+        size = len(dataframe)
+        trigger = np.zeros(size, dtype=bool)
+        neckline_values = np.full(size, np.nan, dtype=float)
+        second_low_values = np.full(size, np.nan, dtype=float)
+        stop_values = np.full(size, np.nan, dtype=float)
+        separation_values = np.full(size, np.nan, dtype=float)
+        lift_atr_values = np.full(size, np.nan, dtype=float)
+        rebound_atr_values = np.full(size, np.nan, dtype=float)
+
+        lows = dataframe["low"].to_numpy(dtype=float, copy=False)
+        highs = dataframe["high"].to_numpy(dtype=float, copy=False)
+        closes = dataframe["close"].to_numpy(dtype=float, copy=False)
+        atr_values = dataframe["atr_ref"].to_numpy(dtype=float, copy=False)
+        span = int(self.higher_low_pivot_span)
+        pivots: list[tuple[int, float]] = []
+        active: Optional[dict[str, float | int]] = None
+
+        for current_idx in range(span * 2, size):
+            pivot_idx = current_idx - span
+            pivot_window = lows[pivot_idx - span : pivot_idx + span + 1]
+            pivot_low = lows[pivot_idx]
+            if (
+                len(pivot_window) == span * 2 + 1
+                and np.isfinite(pivot_window).all()
+                and pivot_low < np.min(pivot_window[:span])
+                and pivot_low <= np.min(pivot_window[span + 1 :])
+            ):
+                if pivots and pivot_idx - pivots[-1][0] > self.higher_low_max_separation:
+                    pivots = []
+                if pivots:
+                    first_idx, first_low = pivots[-1]
+                    separation = pivot_idx - first_idx
+                    atr_at_pivot = atr_values[pivot_idx]
+                    if (
+                        self.higher_low_min_separation <= separation <= self.higher_low_max_separation
+                        and np.isfinite(atr_at_pivot)
+                        and atr_at_pivot > 0
+                    ):
+                        neckline = float(np.max(highs[first_idx + 1 : pivot_idx]))
+                        lift_atr = (pivot_low - first_low) / atr_at_pivot
+                        rebound_atr = (neckline - pivot_low) / atr_at_pivot
+                        if (
+                            self.higher_low_min_lift_atr <= lift_atr <= self.higher_low_max_lift_atr
+                            and rebound_atr >= self.higher_low_min_rebound_atr
+                        ):
+                            active = {
+                                "pivot_idx": pivot_idx,
+                                "neckline": neckline,
+                                "second_low": pivot_low,
+                                "separation": separation,
+                                "lift_atr": lift_atr,
+                                "rebound_atr": rebound_atr,
+                            }
+                pivots.append((pivot_idx, pivot_low))
+
+            if active is None:
+                continue
+
+            second_idx = int(active["pivot_idx"])
+            second_low = float(active["second_low"])
+            neckline = float(active["neckline"])
+            if current_idx - second_idx > self.higher_low_max_age or lows[current_idx] < second_low:
+                active = None
+                continue
+
+            neckline_values[current_idx] = neckline
+            second_low_values[current_idx] = second_low
+            separation_values[current_idx] = float(active["separation"])
+            lift_atr_values[current_idx] = float(active["lift_atr"])
+            rebound_atr_values[current_idx] = float(active["rebound_atr"])
+            if np.isfinite(atr_values[current_idx]):
+                stop_values[current_idx] = second_low - (
+                    self.higher_low_stop_atr_buffer * atr_values[current_idx]
+                )
+
+            breakout_level = neckline * (1 + self.higher_low_breakout_buffer)
+            previous_close = closes[current_idx - 1]
+            if closes[current_idx] > breakout_level and previous_close <= breakout_level:
+                trigger[current_idx] = True
+                active = None
+
+        structure_columns = DataFrame(
+            {
+                "higher_low_reclaim_1h": trigger,
+                "higher_low_neckline_1h": neckline_values,
+                "higher_low_second_low_1h": second_low_values,
+                "higher_low_stop_1h": stop_values,
+                "higher_low_separation_1h": separation_values,
+                "higher_low_lift_atr_1h": lift_atr_values,
+                "higher_low_rebound_atr_1h": rebound_atr_values,
+            },
+            index=dataframe.index,
+        )
+        return pd.concat([dataframe, structure_columns], axis=1)
+
+    def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe = super().populate_indicators(dataframe, metadata).copy()
+        return self._populate_higher_low_structure(dataframe)
+
+    def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe = super().populate_entry_trend(dataframe, metadata).copy()
+        if self.higher_low_only:
+            dataframe["enter_long"] = 0
+            dataframe["enter_short"] = 0
+            dataframe["enter_tag"] = None
+            dataframe["enter_initial_stop"] = np.nan
+            dataframe["enter_risk_pct"] = np.nan
+
+        if metadata["pair"] not in self.trade_pair_allowlist:
+            return dataframe
+
+        no_existing_entry = (
+            dataframe.get("enter_long", pd.Series(0, index=dataframe.index)).fillna(0).eq(0)
+            & dataframe.get("enter_short", pd.Series(0, index=dataframe.index)).fillna(0).eq(0)
+        )
+        btc_filter = pd.Series(True, index=dataframe.index)
+        if self.use_btc_filter and metadata["pair"] != "BTC/USDT:USDT":
+            btc_filter = _filled_bool(
+                dataframe.get("btc_trend_up_4h", pd.Series(False, index=dataframe.index))
+            )
+
+        stop = dataframe["higher_low_stop_1h"]
+        risk_pct = (dataframe["close"] - stop) / dataframe["close"]
+        risk_ok = risk_pct.between(self.min_stop_distance, self.max_stop_distance)
+        candle_quality = (
+            (dataframe["body_pct_of_range"] >= self.candle_body_min)
+            & (dataframe["close_position"] >= self.higher_low_close_position_min)
+        )
+        entry = (
+            no_existing_entry
+            & dataframe["higher_low_reclaim_1h"].fillna(False)
+            & _filled_bool(dataframe.get("trend_up_4h", pd.Series(False, index=dataframe.index)))
+            & (dataframe["close"] > dataframe["ema20_1h"])
+            & (dataframe["ema20_1h"] > dataframe["ema20_1h_prev"])
+            & dataframe["vol_ok"].fillna(False)
+            & candle_quality.fillna(False)
+            & risk_ok.fillna(False)
+            & btc_filter
+            & (dataframe["volume"] > 0)
+        )
+        dataframe.loc[entry, ["enter_long", "enter_tag"]] = (1, "long_higher_low_reclaim_1h")
+        dataframe.loc[entry, "enter_initial_stop"] = stop.loc[entry].astype("float32")
+        dataframe.loc[entry, "enter_risk_pct"] = risk_pct.loc[entry].astype("float32")
+        return dataframe
+
+
+class DualTrendPyramidSecondAdd20HigherLowV1Strategy(
+    _DualTrendHigherLowReclaimMixin,
+    DualTrendPyramidSecondAdd20V1Strategy,
+):
+    """SecondAdd20 plus the isolated higher-low reclaim experiment."""
+
+
+class DualTrendHigherLowOnlyV1Strategy(
+    _DualTrendHigherLowReclaimMixin,
+    DualTrendPyramidSecondAdd20V1Strategy,
+):
+    """Diagnostic strategy that trades only the higher-low reclaim tag."""
+
+    higher_low_only = True
+
+
+class DualTrendPyramidSecondAdd20LongMicroHigherLowV1Strategy(
+    _DualTrendHigherLowReclaimMixin,
+    DualTrendPyramidSecondAdd20LongMicroV1Strategy,
+):
+    """Current LongMicro candidate plus the higher-low reclaim experiment."""
+
+
+class _DualTrendFailedBreakdownReclaimMixin:
+    """Add a confirmed false-breakdown reclaim long experiment."""
+
+    failed_breakdown_only = False
+    failed_breakdown_support_window = 24
+    failed_breakdown_min_sweep_atr = 0.05
+    failed_breakdown_max_sweep_atr = 0.80
+    failed_breakdown_confirm_buffer = 0.001
+    failed_breakdown_stop_atr_buffer = 0.20
+    failed_breakdown_close_position_min = 0.65
+
+    def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe = super().populate_indicators(dataframe, metadata).copy()
+        support = dataframe["low"].shift(1).rolling(self.failed_breakdown_support_window).min()
+        sweep_depth_atr = (support - dataframe["low"]) / dataframe["atr_ref"]
+        setup = (
+            (dataframe["low"] < support)
+            & (dataframe["close"] > support)
+            & (dataframe["close"] > dataframe["open"])
+            & (dataframe["body_pct_of_range"] >= self.candle_body_min)
+            & (dataframe["close_position"] >= self.failed_breakdown_close_position_min)
+            & sweep_depth_atr.between(
+                self.failed_breakdown_min_sweep_atr,
+                self.failed_breakdown_max_sweep_atr,
+            )
+        )
+        previous_low = dataframe["low"].shift(1)
+        previous_high = dataframe["high"].shift(1)
+        confirmation_level = previous_high * (1 + self.failed_breakdown_confirm_buffer)
+        confirmed = (
+            _filled_bool(setup.shift(1))
+            & (dataframe["close"] > confirmation_level)
+            & (dataframe["low"] >= previous_low)
+        )
+        stop = previous_low - (self.failed_breakdown_stop_atr_buffer * dataframe["atr_ref"])
+        dataframe = dataframe.assign(
+            failed_breakdown_support_1h=support,
+            failed_breakdown_sweep_atr_1h=sweep_depth_atr,
+            failed_breakdown_setup_1h=setup,
+            failed_breakdown_reclaim_1h=confirmed,
+            failed_breakdown_stop_1h=stop,
+        )
+        return dataframe
+
+    def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe = super().populate_entry_trend(dataframe, metadata).copy()
+        if self.failed_breakdown_only:
+            dataframe["enter_long"] = 0
+            dataframe["enter_short"] = 0
+            dataframe["enter_tag"] = None
+            dataframe["enter_initial_stop"] = np.nan
+            dataframe["enter_risk_pct"] = np.nan
+
+        if metadata["pair"] not in self.trade_pair_allowlist:
+            return dataframe
+
+        no_existing_entry = (
+            dataframe.get("enter_long", pd.Series(0, index=dataframe.index)).fillna(0).eq(0)
+            & dataframe.get("enter_short", pd.Series(0, index=dataframe.index)).fillna(0).eq(0)
+        )
+        btc_filter = pd.Series(True, index=dataframe.index)
+        if self.use_btc_filter and metadata["pair"] != "BTC/USDT:USDT":
+            btc_filter = _filled_bool(
+                dataframe.get("btc_trend_up_4h", pd.Series(False, index=dataframe.index))
+            )
+
+        stop = dataframe["failed_breakdown_stop_1h"]
+        risk_pct = (dataframe["close"] - stop) / dataframe["close"]
+        risk_ok = risk_pct.between(self.min_stop_distance, self.max_stop_distance)
+        entry = (
+            no_existing_entry
+            & dataframe["failed_breakdown_reclaim_1h"].fillna(False)
+            & _filled_bool(dataframe.get("trend_up_4h", pd.Series(False, index=dataframe.index)))
+            & (dataframe["close"] > dataframe["ema20_1h"])
+            & (dataframe["ema20_1h"] > dataframe["ema20_1h_prev"])
+            & dataframe["vol_ok"].fillna(False)
+            & risk_ok.fillna(False)
+            & btc_filter
+            & (dataframe["volume"] > 0)
+        )
+        dataframe.loc[entry, ["enter_long", "enter_tag"]] = (1, "long_failed_breakdown_reclaim_1h")
+        dataframe.loc[entry, "enter_initial_stop"] = stop.loc[entry].astype("float32")
+        dataframe.loc[entry, "enter_risk_pct"] = risk_pct.loc[entry].astype("float32")
+        return dataframe
+
+
+class DualTrendFailedBreakdownOnlyV1Strategy(
+    _DualTrendFailedBreakdownReclaimMixin,
+    DualTrendPyramidSecondAdd20V1Strategy,
+):
+    """Diagnostic strategy that trades only the false-breakdown reclaim tag."""
+
+    failed_breakdown_only = True
+
+
+class DualTrendPyramidSecondAdd20FailedBreakdownV1Strategy(
+    _DualTrendFailedBreakdownReclaimMixin,
+    DualTrendPyramidSecondAdd20V1Strategy,
+):
+    """SecondAdd20 plus the false-breakdown reclaim experiment."""
 
 
 class DualTrendCombinedShortPullbackShapeV1Strategy(DualTrendRawStrategy):

@@ -1,5 +1,7 @@
 # DualTrend 做多入场扩展验证
 
+> **修正状态（2026-07-20）：** LongMicro 仍是研究主候选，但 7 月 17 日的提升依据包含参数名碰撞，旧收益和 Micro 仓位缩放比较已经失效。参数隔离后的三年、五年结果为 `+209.59%`、`+277.37%`，且 2024-25 独立年度落后对照。当前结论见 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md) 和 `dualtrend_long_micro_parameter_collision_audit_2026-07-20.md`。
+
 > **证据口径说明（2026-07-17）：** 本文“五年 20 币”段落的主线数值 `477 / +2617.27 U` 与现存 Positive13/max3 五年原始归档完全一致，而本文所述 20 币原始 zip 已清理，无法再次核对配置快照。因此该段只保留多头扩展的方向性结论，不能作为 20 币/max6 五年基线；权威口径见仓库根目录的 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md)。
 
 > **后续状态（2026-07-17）：** 使用已核实的 Positive13/max3 口径重跑后，非深回踩强实体 Micro 版在三年、近一年、压力期和五年均通过对照，现已通过正式类 `DualTrendPyramidSecondAdd20LongMicroV1Strategy` 提升为研究主候选。本文原先“只保留观察”的结论已被新证据替代，详见 `dualtrend_nfi_peak_and_long_micro_upgrade_2026-07-17.md`。

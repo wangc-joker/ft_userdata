@@ -76,6 +76,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--trade-export", help="Fallback Freqtrade trade export (.csv or .json)")
     parser.add_argument("--config", default=str(DEFAULT_CONFIG), help="Freqtrade config path")
     parser.add_argument("--output-dir", default=str(REPORTS_DIR), help="Markdown report directory")
+    parser.add_argument("--analysis-dir", default=str(ANALYSIS_DIR), help="CSV artifact directory")
+    parser.add_argument(
+        "--recommendation-path",
+        default=str(REPORTS_DIR / "positive13_final_dryrun_recommendation.md"),
+        help="Final recommendation Markdown path",
+    )
     return parser.parse_args()
 
 
@@ -856,9 +862,12 @@ def main() -> int:
     args = parse_args()
     config_path = Path(args.config).resolve()
     output_dir = Path(args.output_dir).resolve()
+    analysis_dir = Path(args.analysis_dir).resolve()
+    recommendation_path = Path(args.recommendation_path).resolve()
     ctx = Context(json_config(config_path), config_path, output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    ANALYSIS_DIR.mkdir(parents=True, exist_ok=True)
+    analysis_dir.mkdir(parents=True, exist_ok=True)
+    recommendation_path.parent.mkdir(parents=True, exist_ok=True)
     now = pd.Timestamp.now(tz="UTC")
     report_day = date.fromisoformat(args.date) if args.date else now.date()
     end_day = date.fromisoformat(args.end_date) if args.end_date else report_day
@@ -878,8 +887,8 @@ def main() -> int:
     raw = read_trades(db_path, ctx)
     normalized = normalize_trades(raw)
     enriched = enrich_trades(normalized, ctx, now)
-    write_csv(enriched, ANALYSIS_DIR / "dryrun_trades_enriched.csv")
-    write_csv(monitoring_schema(), ANALYSIS_DIR / "dryrun_monitoring_schema.csv")
+    write_csv(enriched, analysis_dir / "dryrun_trades_enriched.csv")
+    write_csv(monitoring_schema(), analysis_dir / "dryrun_monitoring_schema.csv")
     (REPORTS_DIR / "dryrun_monitoring_template.md").write_text(template_text(), encoding="utf-8")
 
     daily_rows = []
@@ -893,7 +902,7 @@ def main() -> int:
             daily_rows.append(stats_row(daily_closed, cursor.date().isoformat(), cursor, cursor + pd.Timedelta(days=1)))
             cursor += pd.Timedelta(days=1)
     daily_summary = pd.DataFrame(daily_rows)
-    write_csv(daily_summary, ANALYSIS_DIR / "dryrun_daily_summary.csv")
+    write_csv(daily_summary, analysis_dir / "dryrun_daily_summary.csv")
 
     weekly_rows = []
     week_end = end.floor("D")
@@ -904,14 +913,14 @@ def main() -> int:
         weekly_rows.append(stats_row(weekly_closed, current_end.date().isoformat(), current_start, current_end))
         if enriched.empty or (enriched["open_date"].min() >= current_start):
             break
-    write_csv(pd.DataFrame(weekly_rows), ANALYSIS_DIR / "dryrun_weekly_summary.csv")
+    write_csv(pd.DataFrame(weekly_rows), analysis_dir / "dryrun_weekly_summary.csv")
 
     closed, open_now = period_slice(enriched, start, end)
     stats = stats_row(closed, args.mode, start, end)
     matrix = pair_tag_matrix(closed)
     events = risk_events(enriched)
-    write_csv(matrix, ANALYSIS_DIR / "dryrun_pair_tag_matrix.csv")
-    write_csv(events, ANALYSIS_DIR / "dryrun_risk_events.csv")
+    write_csv(matrix, analysis_dir / "dryrun_pair_tag_matrix.csv")
+    write_csv(events, analysis_dir / "dryrun_risk_events.csv")
     grade, action, reasons = risk_grade(closed, len(ctx.warnings))
 
     daily_target = report_day
@@ -931,7 +940,10 @@ def main() -> int:
     weekly_path = output_dir / f"dryrun_weekly_{end_day.strftime('%Y%m%d')}.md"
     weekly_path.write_text(weekly_report(ctx, weekly_closed, weekly_open, weekly_stats, weekly_matrix, weekly_grade, weekly_action, weekly_reasons, weekly_start, weekly_end, db_path), encoding="utf-8")
 
-    (REPORTS_DIR / "positive13_final_dryrun_recommendation.md").write_text(recommendation_text(ctx, grade, len(enriched[~enriched["is_open"]])), encoding="utf-8")
+    recommendation_path.write_text(
+        recommendation_text(ctx, grade, len(enriched[~enriched["is_open"]])),
+        encoding="utf-8",
+    )
     print(json.dumps({
         "database": str(db_path) if db_path else None, "trades": len(enriched),
         "closed_trades": int((~enriched["is_open"]).sum()) if not enriched.empty else 0,

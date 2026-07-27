@@ -1,5 +1,7 @@
 # DualTrend NFI 退出借鉴与 Long Micro 升级实验
 
+> **失效说明（2026-07-20）：** 本报告的 LongMicro、Micro 仓位缩放及 Top20 收益包含参数名碰撞：扩展 mixin 的 `long_breakout_buffer=0.001` 意外覆盖了父级日线多头的 `0.009`。因此 `+216.62%`、`+281.17%`、`+200.99%`、`+253.85%` 及相关缩放比较不可再作为候选证据。参数隔离后的权威结果见 [`CURRENT_DUALTREND.md`](../../CURRENT_DUALTREND.md) 和 `dualtrend_long_micro_parameter_collision_audit_2026-07-20.md`。NFI 方向性结论与历史实验记录继续保留。
+
 日期：2026-07-17
 
 ## 目标与口径

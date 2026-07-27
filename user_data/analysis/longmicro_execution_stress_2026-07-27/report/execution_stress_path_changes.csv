@@ -1,0 +1,5 @@
+scenario,strategy,baseline_trades,stressed_trades,matched_entries,baseline_only_entries,stressed_only_entries,exact_exit_and_order_paths,changed_exits,changed_order_counts
+fee1p5x,DualTrendPyramidSecondAdd20V1Strategy,477,473,473,4,0,446,23,7
+fee1p5x,DualTrendPyramidSecondAdd20LongMicroV1Strategy,481,477,477,4,0,448,25,7
+fee2x,DualTrendPyramidSecondAdd20V1Strategy,477,471,469,8,2,407,53,18
+fee2x,DualTrendPyramidSecondAdd20LongMicroV1Strategy,481,475,473,8,2,409,55,18

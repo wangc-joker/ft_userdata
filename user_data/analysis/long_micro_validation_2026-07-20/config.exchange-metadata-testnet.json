@@ -1,0 +1,28 @@
+{
+  "exchange": {
+    "ccxt_config": {
+      "urls": {
+        "api": {
+          "fapiPublic": "https://testnet.binancefuture.com/fapi/v1",
+          "fapiPublicV2": "https://testnet.binancefuture.com/fapi/v2",
+          "fapiPublicV3": "https://testnet.binancefuture.com/fapi/v3",
+          "fapiPrivate": "https://testnet.binancefuture.com/fapi/v1",
+          "fapiPrivateV2": "https://testnet.binancefuture.com/fapi/v2",
+          "fapiPrivateV3": "https://testnet.binancefuture.com/fapi/v3"
+        }
+      }
+    },
+    "ccxt_async_config": {
+      "urls": {
+        "api": {
+          "fapiPublic": "https://testnet.binancefuture.com/fapi/v1",
+          "fapiPublicV2": "https://testnet.binancefuture.com/fapi/v2",
+          "fapiPublicV3": "https://testnet.binancefuture.com/fapi/v3",
+          "fapiPrivate": "https://testnet.binancefuture.com/fapi/v1",
+          "fapiPrivateV2": "https://testnet.binancefuture.com/fapi/v2",
+          "fapiPrivateV3": "https://testnet.binancefuture.com/fapi/v3"
+        }
+      }
+    }
+  }
+}

@@ -11,6 +11,11 @@ from freqtrade.persistence import Trade
 from freqtrade.strategy import IStrategy, informative, stoploss_from_absolute
 
 
+def _filled_bool(series: pd.Series, default: bool = False) -> pd.Series:
+    """Normalize merged informative boolean columns without implicit downcasting."""
+    return series.astype("boolean").fillna(default).astype(bool)
+
+
 class DualTrendCompressionRestartShortV1Strategy(IStrategy):
     """
     Short-only V1 implementation of the dual-trend compression restart idea.
@@ -269,11 +274,11 @@ class DualTrendCompressionRestartShortV1Strategy(IStrategy):
             if btc_4h is not None and not btc_4h.empty:
                 btc_4h = self._add_4h_trend(btc_4h.copy())
                 dataframe = self._merge_btc_context(dataframe, btc_4h)
-                dataframe["btc_filter_short_ok"] = ~dataframe["btc_trend_up_4h"].fillna(False)
+                dataframe["btc_filter_short_ok"] = ~_filled_bool(dataframe["btc_trend_up_4h"])
 
         dataframe["short_reinforce_probe"] = (
-            dataframe.get("trend_down_4h", pd.Series(False, index=dataframe.index)).fillna(False)
-            & dataframe["center_down"].fillna(False)
+            _filled_bool(dataframe.get("trend_down_4h", pd.Series(False, index=dataframe.index)))
+            & _filled_bool(dataframe["center_down"])
             & (dataframe["close"] < dataframe["ema20_1h"])
             & (dataframe["ema20_1h"] < dataframe["ema20_1h_prev"])
             & (dataframe["close_position"] <= 0.55)
@@ -288,9 +293,14 @@ class DualTrendCompressionRestartShortV1Strategy(IStrategy):
         if metadata["pair"] not in self.trade_pair_allowlist:
             return dataframe
 
-        trend_down = dataframe.get("trend_down_4h", pd.Series(False, index=dataframe.index)).fillna(False)
+        trend_down = _filled_bool(
+            dataframe.get("trend_down_4h", pd.Series(False, index=dataframe.index))
+        )
         ema50_4h = dataframe.get("ema50_4h", pd.Series(np.nan, index=dataframe.index))
-        btc_filter = dataframe.get("btc_filter_short_ok", pd.Series(True, index=dataframe.index)).fillna(True)
+        btc_filter = _filled_bool(
+            dataframe.get("btc_filter_short_ok", pd.Series(True, index=dataframe.index)),
+            default=True,
+        )
         pullback_intact_short = dataframe["pullback_high_12"] <= ema50_4h * 1.01
         base_filter = (
             trend_down

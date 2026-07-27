@@ -20,6 +20,7 @@ user_data/freqaimodels/
 user_data/tradesv3.sqlite
 user_data/tradesv3.sqlite-shm
 user_data/tradesv3.sqlite-wal
+user_data/tradesv3-positive13-longmicro-observation.sqlite*
 user_data/tradesv3-top9-main-live.sqlite
 user_data/tradesv3-top9-main-live.sqlite-shm
 user_data/tradesv3-top9-main-live.sqlite-wal
@@ -28,6 +29,18 @@ user_data/tradesv3-top9-main-live.sqlite-wal
 user_data/config.json
 user_data/config.dryrun.json
 user_data/config.live.futures.top9.main.runtime.json
+
+# Generated LongMicro observation outputs
+user_data/analysis/longmicro_observation/
+user_data/reports/dryrun_monitoring_template.md
+user_data/reports/longmicro_observation/dryrun_*.md
+user_data/reports/longmicro_observation/longmicro_observation_recommendation.md
+user_data/analysis/signal_collision_shadow.sqlite*
+user_data/analysis/signal_collision_shadow.pid
+user_data/logs/signal_collision_shadow.*.log
+user_data/analysis/.last_result.json
+user_data/analysis/**/.last_result.json
+user_data/analysis/signal_collision_audit_2026-07-24/smoke_*
 
 # OS files
 .DS_Store

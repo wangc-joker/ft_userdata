@@ -1,0 +1,13 @@
+run,side,enter_tag,trades,wins,profit_abs,profit_factor
+max3_current,long,long_1d_center_compression,52,15,630.9780216099999,3.8970396468889614
+max3_current,long,long_pullback_restart_1h_body,7,3,76.2618599,3.3636714374041454
+max3_current,short,short_compression_breakdown,101,46,417.5694208000001,2.0117797908164867
+max3_current,short,short_pullback_restart,321,184,1648.87055042,2.2899283127041428
+max4_unrestricted,long,long_1d_center_compression,52,15,630.37182353,3.8859283105115803
+max4_unrestricted,long,long_pullback_restart_1h_body,7,3,77.03265822,3.398850520089717
+max4_unrestricted,short,short_compression_breakdown,110,50,338.70006633,1.713901039016377
+max4_unrestricted,short,short_pullback_restart,345,202,1688.6181824999999,2.2892820299472696
+max4_3short_1long,long,long_1d_center_compression,35,7,216.74842905999998,2.431023284268861
+max4_3short_1long,long,long_pullback_restart_1h_body,7,3,72.47220073,3.4896398624612996
+max4_3short_1long,short,short_compression_breakdown,103,46,329.0462852999999,1.833073791902943
+max4_3short_1long,short,short_pullback_restart,325,186,1447.1553193000002,2.219073135963407
